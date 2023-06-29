@@ -14,7 +14,10 @@
 <h2 class="mb-4" style="color: #171A1FFF;">Dashboard</h2>
 
 <div class="card d-flex shadow-sm p-3 mb-5 bg-body-tertiary rounded" style="border: none;">
-    <h4 class="ms-4 mt-2 text-overview">Overview</h4>
+    <div class="d-flex flex-row align-items-center">
+        <img src="~/images/dashboard-icon.png" alt="dashboard icon" style="width:24px; height:24px; fill: #6F7787FF;" />
+        <h4 class="ms-4 mt-2 text-overview">Overview</h4>
+    </div>
     <div class="card-body justify-content-around d-flex flex-row">
         <div class="card card-custom1 justify-content-center d-flex flex-row pt-2" style="border: none;">
             <h6 class="custom-text-report">Onboard</h6>
@@ -46,14 +49,14 @@
                 <tbody>
                     @foreach (var user in users)
                     {
-                        <tr>
-                            <td>@user.UserId</td>
-                            <td>@user.Name</td>
-                            <td>@user.Job</td>
-                            <td>@user.Position</td>
-                            <td>@user.Date</td>
-                            <td>@user.Status</td>
-                        </tr>
+                            <tr>
+                                <td>@user.UserId</td>
+                                <td>@user.Name</td>
+                                <td>@user.Job</td>
+                                <td>@user.Position</td>
+                                <td>@user.Date</td>
+                                <td>@user.Status</td>
+                            </tr>
                     }
                 </tbody>
             </table>

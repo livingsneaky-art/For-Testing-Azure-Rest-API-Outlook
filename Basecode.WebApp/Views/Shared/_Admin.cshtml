@@ -13,13 +13,16 @@
     <div class="d-flex h-100">
         <nav class="col-2 navbar-expand-sm navbar-light bg-white border-right shadow-sm p-3 bg-body-tertiary">
             <ul class="nav flex-column">
-                <li class="nav-item mb-3">
+                <li class="nav-item mb-5">
                     <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
                         <img src="~/images/alliance-logo.png" alt="Alliance logo" />
                     </a>
                 </li
                 <li class="nav-item mb-3">
-                    <a class="nav-link  @((ViewContext.RouteData.Values["Controller"].ToString() == "Dashboard" && ViewContext.RouteData.Values["Action"].ToString() == "Index") ? "active-cus1" : "text-dark")" asp-area="" asp-controller="Dashboard" asp-action="Index">Dashboard</a>
+                    <a class="nav-link  @((ViewContext.RouteData.Values["Controller"].ToString() == "Dashboard" && ViewContext.RouteData.Values["Action"].ToString() == "Index") ? "active-cus1" : "text-dark") d-flex flex-row align-items-center gap-2" asp-area="" asp-controller="Dashboard" asp-action="Index">
+                        <img src="~/images/dashboard-icon.png" alt="dashboard icon" style="width:24px; height:24px; fill: #6F7787FF;" />
+                        Dashboard
+                    </a>
                 </li>
                 <li class="nav-item mb-3">
                     <a class="nav-link  @((ViewContext.RouteData.Values["Controller"].ToString() == "User" && ViewContext.RouteData.Values["Action"].ToString() == "Index") ? "active-cus1" : "text-dark")" asp-area="" asp-controller="User" asp-action="Index">Users</a>
