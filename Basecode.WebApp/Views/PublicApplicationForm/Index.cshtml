@@ -1,0 +1,146 @@
+﻿@{
+    Layout = null; // This line is used to remove the default layout
+    ViewData["Title"] = "Public Application Form Page";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Public Application Form</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+</head>
+<body>
+    <div style="display: flex; justify-content: center; align-items: center;">
+        <div style="width: 850px; height: 850px; box-shadow: 0 0 10px 4px rgba(0, 0, 0, 0.2); margin-top: 50px; padding: 30px; border-radius: 10px;">
+            <h1 style="margin-bottom: 30px;">Public Application Form</h1>
+            <div class="row justify-content-start align-items-center" style="height: 60px;">
+                <div class="col-md-2 text-end">
+                    <p style="margin-bottom: 0;">Applicant ID</p>
+                </div>
+                <div class="col-md-auto">
+                    <div style="margin: 10px;">
+                        <input type="text" placeholder="ID" style="background-color: #F3F4F6; border: none; border-radius: 5px; height: 40px; width: 200px; padding: 5px;" />
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-start align-items-center" style="height: 60px;">
+                <div class="col-md-2 text-end">
+                    <p style="margin-bottom: 0;">Name</p>
+                </div>
+                <div class="col-md-auto" style="margin-left: 10px;">
+                    <div>
+                        <input type="text" placeholder="First name" style="background-color: #F3F4F6; border: none; border-radius: 5px; height: 40px; width: 200px; padding: 5px; margin-right: 10px;" />
+                        <input type="text" placeholder="Middle name" style="background-color: #F3F4F6; border: none; border-radius: 5px; height: 40px; width: 200px; padding: 5px; margin-right: 10px;" />
+                        <input type="text" placeholder="Last name" style="background-color: #F3F4F6; border: none; border-radius: 5px; height: 40px; width: 200px; padding: 5px;" />
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-start align-items-center" style="height: 60px;">
+                <div class="col-md-2 text-end">
+                    <p style="margin-bottom: 0;">BirthDate</p>
+                </div>
+                <div class="col-md-auto" style="margin-left: 10px;">
+                    <input type="date" placeholder="Date" style="background-color: #F3F4F6; border: none; border-radius: 5px; height: 40px; width: 200px; padding: 5px;" />
+                </div>
+                <div class="col-md-auto" style="margin-left: 10px;">
+                    Age
+                </div>
+                <div class="col-md-auto" style="margin-left: 10px;">
+                    <input type="text" placeholder="Age" style="background-color: #F3F4F6; border: none; border-radius: 5px; height: 40px; width: 50px; padding: 5px;" />
+                </div>
+                <div class="col-md-auto" style="margin-left: 10px;">
+                    Gender
+                </div>
+                <div class="col-md-auto" style="margin-left: 10px;">
+                    <select class="form-select" style="background-color: #F3F4F6; border: none; border-radius: 5px; height: 40px; width: 100px; padding: 5px;">
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row justify-content-start align-items-center" style="height: 60px;">
+                <div class="col-md-2 text-end">
+                    <p style="margin-bottom: 0;">Nationality</p>
+                </div>
+                <div class="col-md-auto">
+                    <div style="margin: 10px;">
+                        <input type="text" placeholder="Nationality" style="background-color: #F3F4F6; border: none; border-radius: 5px; height: 40px; width: 200px; padding: 5px;" />
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-start align-items-center" style="height: 60px;">
+                <div class="col-md-2 text-end">
+                    <p style="margin-bottom: 0;">Address</p>
+                </div>
+                <div class="col-md-auto">
+                    <div style="margin: 10px;">
+                        <input type="text" placeholder="Street" style="background-color: #F3F4F6; border: none; border-radius: 5px; height: 40px; width: 630px; padding: 5px;" />
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-start align-items-center" style="height: 60px; margin-left: 133px;">
+                <div class="col-md-auto">
+                    <div class="row g-2">
+                        <div class="col">
+                            <input type="text" placeholder="City" style="background-color: #F3F4F6; border: none; border-radius: 5px; height: 40px; width: 205px; padding: 5px;"/>
+                        </div>
+                        <div class="col">
+                            <select class="form-select" style="background-color: #F3F4F6; border: none; border-radius: 5px; height: 40px; width: 205px; padding: 5px;">
+                                <option value="state-one">State 1</option>
+                                <option value="state-two">State 2</option>
+                            </select>
+                        </div>
+                        <div class="col">
+                            <input type="text" placeholder="Zip" style="background-color: #F3F4F6; border: none; border-radius: 5px; height: 40px; width: 205px; padding: 5px;" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-start align-items-center" style="height: 60px;">
+                <div class="col-md-2 text-end">
+                    <p style="margin-bottom: 0;">Phone</p>
+                </div>
+                <div class="col-md-auto">
+                    <div style="margin: 10px;">
+                        <input type="text" placeholder="Phone" style="background-color: #F3F4F6; border: none; border-radius: 5px; height: 40px; width: 630px; padding: 5px;" />
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-start align-items-center" style="height: 60px;">
+                <div class="col-md-2 text-end">
+                    <p style="margin-bottom: 0;">Email</p>
+                </div>
+                <div class="col-md-auto">
+                    <div style="margin: 10px;">
+                        <input type="text" placeholder="Email" style="background-color: #F3F4F6; border: none; border-radius: 5px; height: 40px; width: 630px; padding: 5px;" />
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-start align-items-center" style="height: 60px;">
+                <div class="col-md-2 text-end">
+                    <p style="margin-bottom: 0;">CV</p>
+                </div>
+                <div class="col-md-auto">
+                    <div style="margin: 10px;">
+                        <input type="text" style="background-color: #F3F4F6; border: none; border-radius: 5px; height: 40px; width: 200px; padding: 5px;" />
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-start align-items-center" style="height: 60px;">
+                <div class="col-md-2 text-end">
+                    <p style="margin-bottom: 0;">Remarks</p>
+                </div>
+                <div class="col-md-auto">
+                    <div style="margin: 10px;">
+                        <textarea placeholder="Remarks" style="background-color: #F3F4F6; border: none; border-radius: 5px; height: 40px; width: 630px; padding: 5px;"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex justify-content-end">
+                <button style="background-color: #EC3123; color: white; border: none; height: 40px; width: 100px; border-radius: 10px; margin-right: 15px; margin-top: 70px;">Submit</button>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+</body>
+</html>
