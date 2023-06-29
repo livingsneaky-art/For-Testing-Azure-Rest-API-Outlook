@@ -8,5 +8,14 @@ namespace Basecode.WebApp.Controllers
         {
             return View();
         }
+        
+        /// <summary>
+        /// Redirect to dashboard when sign-up successfully
+        /// </summary>
+        /// <returns>Redirected page</returns>
+        public async Task<IActionResult> Login()
+        {
+            return RedirectToAction("Index", "Dashboard");
+        }
     }
 }
