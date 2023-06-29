@@ -14,37 +14,43 @@
 
 @*Custom styles for this page*@
 <style>
-    .btn, .btn:hover {
+    .btn, .btn:hover 
+    {
         color: white;
         background-color: #D02A19;
         border-radius: 0.4rem;
         border-color: #D02A19;
     }
 
-    .btn-edit, .btn-edit:hover {
+    .btn-edit, .btn-edit:hover 
+    {
         color: #425A73;
         background-color: rgba(0, 0, 0, 0);
         border-color: #425A73;
     }
 
-    .btn-delete, .btn-delete:hover {
+    .btn-delete, .btn-delete:hover 
+    {
         color: #D02A19;
         background-color: rgba(0, 0, 0, 0);
         border-color: #D02A19;
     }
 
-    .table {
+    .table 
+    {
         border-radius: 0.3rem;
         border-color: rgba(0, 0, 0, 0);
     }
 
-    .table th {
+    .table th 
+    {
         padding: 1.5rem;
         color: #D02A19;
         font-size: 1.2rem;
     }
     
-    .search-icon {
+    .search-icon 
+    {
         position: absolute;
         top: 50%;
         left: 10px;
@@ -57,8 +63,9 @@
     <h1>Users List</h1>
 </div>
 
-<div class="container mt-4">
+<div class="container mt-5">
     <div class="row">
+        @*Search filter*@
         <div class="col-2">
             <form>
                 <div class="form-group">
@@ -70,30 +77,36 @@
             </form>
 
         </div>
+
+        @*Button filters*@
         <div class="col">
             <a class="btn btn-primary" role="button">All</a>
             <a class="btn btn-primary" role="button">Human Resources</a>
             <a class="btn btn-primary" role="button">Deployment Team</a>
         </div>
 
+        @*Add new user button*@
         <div class="d-flex col-2 justify-content-md-end">
             <a class="btn btn-primary" role="button" data-bs-toggle="modal" data-bs-target="#registerModal"><i class="fa-solid fa-user-plus"></i> ADD USER</a>
         </div>
     </div>
 
+    @*Table*@
     <div class="row">
         <div class="col">
-                <table class="table table-striped text-center align-middle mt-2 overflow-hidden">
-                    <tr>
-                        <th>User ID</th>
-                        <th>Role</th>
-                        <th>Full Name</th>
-                        <th>Username</th>
-                        <th>Email Address</th>
-                        <th></th>
-                        <th></th>
-                    </tr>
+            <table class="table table-striped text-center align-middle mt-2 overflow-hidden">
+                @*Table header*@
+                <tr>
+                    <th>User ID</th>
+                    <th>Role</th>
+                    <th>Full Name</th>
+                    <th>Username</th>
+                    <th>Email Address</th>
+                    <th></th>
+                    <th></th>
+                </tr>
 
+                @*Add the table rows*@
                 @foreach (var user in users)
                 {
                     <tr>
@@ -106,7 +119,7 @@
                         <td><a class="btn btn-delete" role="button"><i class="fa-solid fa-trash-can icon-white"></i> DELETE</a></td>
                     </tr>
                 }
-                </table>
+            </table>
         </div>
     </div>
 </div>
