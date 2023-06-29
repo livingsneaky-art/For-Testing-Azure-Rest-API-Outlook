@@ -9,6 +9,9 @@
     };
 }
 
+@*Add font awesome for this page*@
+<script src="https://kit.fontawesome.com/d1f67a892f.js" crossorigin="anonymous"></script>
+
 @*Custom styles for this page*@
 <style>
     .btn, .btn:hover {
@@ -38,6 +41,15 @@
     .table th {
         padding: 1.5rem;
         color: #D02A19;
+        font-size: 1.2rem;
+    }
+    
+    .search-icon {
+        position: absolute;
+        top: 50%;
+        left: 10px;
+        transform: translateY(-50%);
+        color: #555;
     }
 </style>
 
@@ -49,8 +61,14 @@
     <div class="row">
         <div class="col-2">
             <form>
-                <input type="text" class="form-control" placeholder="Search users...">
+                <div class="form-group">
+                    <div class="position-relative">
+                        <input type="text" class="form-control pl-5" placeholder="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Search users...">
+                        <i class="fas fa-search search-icon"></i>
+                    </div>
+                </div>
             </form>
+
         </div>
         <div class="col">
             <a class="btn btn-primary" role="button">All</a>
