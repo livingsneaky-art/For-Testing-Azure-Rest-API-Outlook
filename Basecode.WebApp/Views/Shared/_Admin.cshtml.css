@@ -6,6 +6,9 @@ a.navbar-brand {
   text-align: center;
   word-break: break-all;
 }
+.container {
+    background-color: #FAFAFBFF;
+}
 
 a {
   color: #0077cc;

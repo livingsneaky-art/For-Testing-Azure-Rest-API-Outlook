@@ -8,46 +8,38 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Basecode.Main.styles.css" asp-append-version="true" />
 </head>
-<body>
-    <div class="container-fluid">
-        <div class="row">
-            <nav class="col-2 navbar-expand-sm navbar-light bg-white border-right shadow-sm p-3 mb-5 bg-body-tertiary ">
-                <ul class="nav flex-column">
-                    <li class="nav-item mb-3">
-                        <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
-                            <img src="~/images/alliance-logo.png" alt="Alliance logo" />
-                        </a>
-                    </li>
-                    <li class="nav-item mb-3">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Dashboard</a>
-                    </li>
-                    <li class="nav-item mb-3">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Users</a>
-                    </li>
-                </ul>
-            </nav>
-            <div class="col-10">
-                <header>
-                    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-                        <div class="container-fluid">
-                            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                                    aria-expanded="false" aria-label="Toggle navigation">
-                                <span class="navbar-toggler-icon"></span>
-                            </button>
-                        </div>
-                    </nav>
-                </header>
-                <div class="container">
-                    <main role="main" class="pb-3">
-                        @RenderBody()
-                    </main>
-                </div>
-
-                <footer class="border-top footer text-muted">
-                    <div class="container">
-                        &copy; 2023 - Basecode - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+<body >
+    <div class="d-flex h-100">
+        <nav class="col-2 navbar-expand-sm navbar-light bg-white border-right shadow-sm p-3 bg-body-tertiary">
+            <ul class="nav flex-column">
+                <li class="nav-item mb-3">
+                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                        <img src="~/images/alliance-logo.png" alt="Alliance logo" />
+                    </a>
+                </li>
+                <li class="nav-item mb-3">
+                    <a class="nav-link  @((ViewContext.RouteData.Values["Controller"].ToString() == "Dashboard" && ViewContext.RouteData.Values["Action"].ToString() == "Index") ? "active" : "text-dark")" asp-area="" asp-controller="Dashboard" asp-action="Index">Dashboard</a>
+                </li>
+                <li class="nav-item mb-3">
+                    <a class="nav-link  @((ViewContext.RouteData.Values["Controller"].ToString() == "Home" && ViewContext.RouteData.Values["Action"].ToString() == "Privacy") ? "active" : "text-dark")" asp-area="" asp-controller="Home" asp-action="Privacy">Users</a>
+                </li>
+            </ul>
+        </nav>
+        <div class="col-10">
+            <header>
+                <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+                    <div class="container-fluid">
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                                aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
                     </div>
-                </footer>
+                </nav>
+            </header>
+            <div class="container-fluid">
+                <main role="main" class="pb-3">
+                    @RenderBody()
+                </main>
             </div>
         </div>
     </div>
