@@ -1,5 +1,14 @@
 ﻿@{
     Layout = "/Views/Shared/_Admin.cshtml";
+
+    // Dummy data
+    var users = new List<dynamic>
+    {
+        new { UserId = 0, Name = "Henry Ca", Job = "Software Developer", Position = "Front-End", Date = "25/11/2023", Status = "HR-Interview" },
+        new { UserId = 1, Name = "Johaanne Si", Job = "Software Developer", Position = "Back-End", Date = "25/11/2023", Status = "HR-Interview" },
+        new { UserId = 2, Name = "Mark Anthon", Job = "Software Developer", Position = "Full-Stack", Date = "25/11/2023", Status = "HR-Interview" },
+        new { UserId = 3, Name = "Marizza Izza", Job = "Software Developer", Position = "Dev-Ops", Date = "25/11/2023", Status = "HR-Interview" }
+    };
 }
 
 <h2 class="mb-4" style="color: #171A1FFF;">Dashboard</h2>
@@ -21,4 +30,33 @@
 
 <div class="card d-flex shadow-sm p-3 mb-5 bg-body-tertiary rounded" style="border: none;">
     <h4 class="ms-4 mt-2 text-overview">Detailed Report</h4>
+    <div class="row">
+        <div class="col">
+            <table class="table table-striped text-center align-middle mt-2 overflow-hidden">
+                <thead>
+                    <tr>
+                        <th>User ID</th>
+                        <th>Name</th>
+                        <th>Job</th>
+                        <th>Position</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var user in users)
+                    {
+                        <tr>
+                            <td>@user.UserId</td>
+                            <td>@user.Name</td>
+                            <td>@user.Job</td>
+                            <td>@user.Position</td>
+                            <td>@user.Date</td>
+                            <td>@user.Status</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
