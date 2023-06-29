@@ -10,6 +10,10 @@
         new { UserId = 3, Name = "Marizza Izza", Job = "Software Developer", Position = "Dev-Ops", Date = "25/11/2023", Status = "HR-Interview" }
     };
 
+    var onboard = 26;
+    var deployed = 73;
+    var totalApplication = 229;
+
     // Helper method to determine the status color
     string GetStatusColor(string status)
     {
@@ -24,8 +28,8 @@
             default:
                 return "#000000"; // Black (fallback color)
         }
-    
     }
+
 }
 
 <h2 class="mb-4" style="color: #171A1FFF;">Dashboard</h2>
@@ -36,14 +40,17 @@
         <h4 class="ms-4 mt-2 text-overview">Overview</h4>
     </div>
     <div class="card-body justify-content-around d-flex flex-row">
-        <div class="card card-custom1 justify-content-center d-flex flex-row pt-2" style="border: none;">
+        <div class="card card-custom1 align-items-center justify-content-center d-flex flex-col pt-2" style="border: none;">
             <h6 class="custom-text-report">Onboard</h6>
+            <h1>@onboard</h1>
         </div>
-        <div class="card card-custom1 justify-content-center d-flex flex-row pt-2" style="border: none;">
+        <div class="card card-custom1 align-items-center justify-content-center d-flex flex-col pt-2" style="border: none;">
             <h6 class="custom-text-report">Deployed</h6>
+            <h1>@deployed</h1>
         </div>
-        <div class="card card-custom1 justify-content-center d-flex flex-row pt-2" style="border: none;">
+        <div class="card card-custom1 align-items-center justify-content-center d-flex flex-col pt-2" style="border: none;">
             <h6 class="custom-text-report">Total Applicants</h6>
+            <h1>@totalApplication</h1>
         </div>
     </div>
 </div>
