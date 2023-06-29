@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Basecode.Main.styles.css" asp-append-version="true" />
 </head>
-<body>
+<body >
     <div class="d-flex h-100">
         <nav class="col-2 navbar-expand-sm navbar-light bg-white border-right shadow-sm p-3 bg-body-tertiary">
             <ul class="nav flex-column">
@@ -18,10 +18,10 @@
                     </a>
                 </li>
                 <li class="nav-item mb-3">
-                    <a class="nav-link text-dark" asp-area="" asp-controller="Dashboard" asp-action="Index">Dashboard</a>
+                    <a class="nav-link  @((ViewContext.RouteData.Values["Controller"].ToString() == "Dashboard" && ViewContext.RouteData.Values["Action"].ToString() == "Index") ? "active" : "text-dark")" asp-area="" asp-controller="Dashboard" asp-action="Index">Dashboard</a>
                 </li>
                 <li class="nav-item mb-3">
-                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Users</a>
+                    <a class="nav-link  @((ViewContext.RouteData.Values["Controller"].ToString() == "Home" && ViewContext.RouteData.Values["Action"].ToString() == "Privacy") ? "active" : "text-dark")" asp-area="" asp-controller="Home" asp-action="Privacy">Users</a>
                 </li>
             </ul>
         </nav>
