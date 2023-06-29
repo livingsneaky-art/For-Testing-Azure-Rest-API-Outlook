@@ -1,7 +1,4 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@{
     // Define a dynamic list of users
     var users = new List<dynamic>
     {
@@ -12,7 +9,39 @@
     };
 }
 
-<div class="container-fluid d-flex justify-content-center">
+@*Custom styles for this page*@
+<style>
+    .btn, .btn:hover {
+        color: white;
+        background-color: #D02A19;
+        border-radius: 0.4rem;
+        border-color: #D02A19;
+    }
+
+    .btn-edit, .btn-edit:hover {
+        color: #425A73;
+        background-color: rgba(0, 0, 0, 0);
+        border-color: #425A73;
+    }
+
+    .btn-delete, .btn-delete:hover {
+        color: #D02A19;
+        background-color: rgba(0, 0, 0, 0);
+        border-color: #D02A19;
+    }
+
+    .table {
+        border-radius: 0.3rem;
+        border-color: rgba(0, 0, 0, 0);
+    }
+
+    .table th {
+        padding: 1.5rem;
+        color: #D02A19;
+    }
+</style>
+
+<div class="container-fluid d-flex justify-content-center mt-5">
     <h1>Users List</h1>
 </div>
 
@@ -36,7 +65,7 @@
 
     <div class="row">
         <div class="col">
-                <table class="table table-striped border text-center align-middle mt-2">
+                <table class="table table-striped text-center align-middle mt-2 overflow-hidden">
                     <tr>
                         <th>User ID</th>
                         <th>Role</th>
@@ -55,8 +84,8 @@
                         <td>@user.FullName</td>
                         <td>@user.Username</td>
                         <td>@user.Email</td>
-                        <td><a class="btn btn-primary" role="button"><i class="fa-regular fa-pen-to-square icon-white"></i> EDIT</a></td>
-                        <td><a class="btn btn-primary" role="button"><i class="fa-solid fa-trash-can icon-white"></i> DELETE</a></td>
+                        <td><a class="btn btn-edit" role="button"><i class="fa-regular fa-pen-to-square icon-white"></i> EDIT</a></td>
+                        <td><a class="btn btn-delete" role="button"><i class="fa-solid fa-trash-can icon-white"></i> DELETE</a></td>
                     </tr>
                 }
                 </table>
