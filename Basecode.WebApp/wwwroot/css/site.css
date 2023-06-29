@@ -17,6 +17,19 @@ html {
   min-height: 100%;
 }
 
+.active-cus1 {
+    font-weight: 700;
+    color: #fff;
+    background-color: #ff0000;
+    display: flex;
+    border-radius: 4px;
+    padding: 8px 16px;
+}
+
+.active-cus1:hover{
+    color:#fff;
+}
+
 body {
     height: 100vh;
 }
