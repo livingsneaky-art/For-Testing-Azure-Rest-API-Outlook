@@ -72,6 +72,9 @@
                   </button>
               </div>
           </div>
+          <div class="alert alert-danger" id="error-message" style="display: none;">
+              Please enter your Application ID.
+          </div>
           <div style="margin-top: 70px; margin-bottom: 70px;">
               <table class="table table-bordered">
                   <thead>
@@ -90,17 +93,24 @@
       </div>
       <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
       <script>
-          $(document).ready(function () {
-              $('#button-track').click(function () {
+          $(document).ready(function ()
+          {
+              $('#button-track').click(function ()
+              {
                   var inputValue = $('input.form-control').val();
                   var applicantName = 'John Doe'; // Temporary value for the applicant name column
                   var positionApplied = 'Software Engineer'; // Temporary value for the position applied column
                   var lastUpdated = '2023-06-29'; // Temporary value for the last updated column
                   var status = 'For Technical Interview'; // Temporary value for the status column
 
-                  if (inputValue === '') {
-                      alert('Please enter your Application ID.');
+                  if (inputValue === '')
+                  {
+                      $('#error-message').show(); // Show the error message
                       return; // Stop execution if input is empty
+                  }
+                  else
+                  {
+                      $('#error-message').hide(); // Hide the error message
                   }
 
                   var newRow = '<tr><td>' + inputValue + '</td><td>' + applicantName + '</td><td>' + positionApplied + '</td><td>' + lastUpdated + '</td><td><b>' + status + '<b></td></tr>';
