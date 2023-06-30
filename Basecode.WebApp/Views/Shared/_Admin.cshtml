@@ -17,7 +17,7 @@
                     <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
                         <img src="~/images/alliance-logo.png" alt="Alliance logo" />
                     </a>
-                </li
+                </li>
                 <l1 class="nav-item mb-3">
                     <p class=" fs-6 fw-semibold text-secondary">Working space</p>
                 </l1>
@@ -31,7 +31,7 @@
                     <a class="nav-link  @((ViewContext.RouteData.Values["Controller"].ToString() == "User" && ViewContext.RouteData.Values["Action"].ToString() == "Index") ? "active-cus1" : "text-dark")" asp-area="" asp-controller="User" asp-action="Index">Users</a>
                 </li>
             </ul>
-            <ul class="nav flex-column border-top pt-3">
+            <ul class="nav flex-column border-top pt-3 mb-5">
                 <l1 class="nav-item mb-3">
                     <p class=" fs-6 fw-semibold text-secondary">Personal</p>
                 </l1>
@@ -54,6 +54,7 @@
                     </a>
                 </li>
             </ul>
+            <img src="~/images/login/sign_in.png" alt = "alliance banner" style="max-width: 100%; height: auto;"/>
         </nav>
         <div class="col-10">
             <div class="container-fluid admin-body">
