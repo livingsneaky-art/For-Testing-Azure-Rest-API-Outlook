@@ -98,6 +98,11 @@
                   var lastUpdated = '2023-06-29'; // Temporary value for the last updated column
                   var status = 'For Technical Interview'; // Temporary value for the status column
 
+                  if (inputValue === '') {
+                      alert('Please enter your Application ID.');
+                      return; // Stop execution if input is empty
+                  }
+
                   var newRow = '<tr><td>' + inputValue + '</td><td>' + applicantName + '</td><td>' + positionApplied + '</td><td>' + lastUpdated + '</td><td><b>' + status + '<b></td></tr>';
 
                   $('#table-body').append(newRow);
