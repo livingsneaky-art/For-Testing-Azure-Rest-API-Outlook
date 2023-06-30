@@ -64,7 +64,7 @@
   <body>
       <div>
           <div style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
-              <h1 style="margin-bottom: 40px;">Track Application Status</h1>
+              <h1 style="margin-bottom: 40px; margin-top: 60px;">Track Application Status</h1>
               <div class="input-group mb-3" style="width: 600px">
                   <input type="text" class="form-control" placeholder="Application ID" aria-label="Application ID" aria-describedby="button-track">
                   <button class="button" type="button" id="button-track">
@@ -105,7 +105,12 @@
 
                   var newRow = '<tr><td>' + inputValue + '</td><td>' + applicantName + '</td><td>' + positionApplied + '</td><td>' + lastUpdated + '</td><td><b>' + status + '<b></td></tr>';
 
+                  // Clear the existing table rows
+                  $('#table-body').empty();
+
+                  // Append the new row to the table
                   $('#table-body').append(newRow);
+
                   $('input.form-control').val('');
               });
           });
