@@ -1,0 +1,55 @@
+﻿.form-check input[type="checkbox"]:checked {
+    background-color: red;
+}
+
+#remember {
+    color: red;
+    text-decoration: none;
+}
+
+#remember:hover {
+    color: #b92517;
+}
+
+.text-strong {
+    font-weight: 500;
+}
+
+.input-group-append {
+    float:right;
+}
+
+::-ms-reveal {
+    display: none;
+}
+
+#eye:hover,
+#eyeslash:hover {
+    cursor: pointer;
+}
+
+.text-smaller {
+    font-size: 0.8rem;
+}
+
+.button:hover {
+    background-color: #3e8e41
+}
+
+.btn-sign:active {
+    box-shadow: 0 5px #666;
+    transform: translateY(1px);
+}
+
+.btn-sign:hover {
+    background-color: #b92517;
+}
+
+.bg-color {
+    background-color: #D02A19;
+}
+
+.sign-font {
+    font-size: 3.5rem;
+    font-weight: 700;
+}

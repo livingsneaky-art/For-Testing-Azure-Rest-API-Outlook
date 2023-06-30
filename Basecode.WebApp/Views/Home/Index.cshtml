@@ -2,7 +2,124 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<!--Search Feature-->
+<div style="padding-top: 100px;" class="text-center">
+    <div class="display-5 fw-bold">
+        Ready to join the <span class="text-danger">Alliance</span> team?
+    </div> 
+    <div style="padding-top: 50px;">
+        <form actions="">
+            <div class="form-group row">
+                <div class="col-md-3">
+                </div>
+                <div class="col-md-5">
+                    <input type="text" class="form-control" id="search" name="search" placeholder="&#xF002; Search" style="font-family:Arial, FontAwesome" />
+                </div>                  
+                <div class="col-md-1">
+                    <button type="submit" class="btn btn-danger">Search</button>
+                </div>
+                <div class="col-md-3">
+                </div>
+            </div> 
+        </form>
+    </div>
 </div>
+
+<!--Multiple Carousel-->
+<div style="padding-top: 50px;" id="carouselExampleControls" class="carousel" data-ride="carousel">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+         <div class="card">
+            <div class="img-wrapper">
+                <img  src="images/home/FinanceImage.png" alt="Card image cap">
+            </div>
+        </div>
+    </div>
+    <div class="carousel-item">
+      <div class="card">
+            <div class="img-wrapper">
+                <img src="images/home/HumanResourceImage.png" alt="Card image cap">
+            </div>
+        </div>
+    </div>
+    <div class="carousel-item">
+      <div class="card">
+            <div class="img-wrapper">
+                <img src="images/home/MarketingImage.png" alt="Card image cap">
+            </div>
+        </div>
+    </div>
+    <div class="carousel-item">
+      <div class="card">
+            <div class="img-wrapper">
+                <img src="images/home/TechnicalImage.png" alt="Card image cap">
+            </div>
+        </div>
+    </div>
+    <div class="carousel-item">
+      <div class="card">
+            <div class="img-wrapper">
+                <img src="images/home/MarketingImage.png" alt="Card image cap">
+            </div>
+        </div>
+    </div>
+  </div>
+  <div>
+      <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+        <img src="images/home/CarouselRightIcon.png" alt="Carousel Right Icon"/>
+    </a>
+  </div>
+  <div>
+      <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+        <img src="images/home/CarouselLeftIcon.png" alt="Carousel Left Icon"/>
+      </a>
+  </div>
+</div>
+
+<!--Latest Job text-->
+<div style="padding-top: 100px;" class="container">
+    <div class="row">
+        <div class="col-12 display-5 text-danger text-center">
+            Latest Jobs
+        </div>
+        <p style="color: gray;" class="text-center">
+            Exercitation dolore reprehenderit fugi
+        </p>
+    </div>
+</div>
+
+ <!--Bootstrap Tables-->
+<div style="padding-top: 50px;" class="text-center row row-content">
+    <div class="col-12 ">
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <tbody>
+                    <tr>
+                        <img  class="latestJobImage" src="images/home/ui-ux-designer.png" alt="Card image cap"/>
+                    </tr>
+                    <tr>
+                        <img  class="latestJobImage" src="images/home/csharp.png" alt="Card image cap"/>
+                    </tr>
+                    <tr>
+                        <img class="latestJobImage" src="images/home/reactjs developer.png" alt="Card image cap"/>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="col-12 col-sm-3">
+
+    </div>
+</div>
+
+<!--See more & Top Up Feature-->
+<div style="padding-top: 20px;">
+    <div class="col-12 text-center">
+        <button class="btn btn-danger">See more</button>
+    </div>
+    <div style="text-align: right">
+        <img src="images/home/GoUp.png" width="50" />
+    </div>
+</div>
+
+ 
