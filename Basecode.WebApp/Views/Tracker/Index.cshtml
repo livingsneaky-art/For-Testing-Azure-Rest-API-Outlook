@@ -39,6 +39,26 @@
             color: #FFFFFFFF;
             background: #AB2314FF;
         }
+
+        .table {
+            border-radius: 0.3rem;
+        }
+        
+        .table th {
+            padding: 0.5rem;
+            color: #D02A19;
+            font-size: 18px;
+            text-align: center;
+            background: #F3F4F6;
+            width: 20%;
+        }
+
+        .table tbody {
+            padding: 0.5rem;
+            color: #171A1FFF;
+            font-size: 16px;
+            text-align: center;
+        }
     </style>
   </head>
   <body>
@@ -52,6 +72,38 @@
                   </button>
               </div>
           </div>
+          <div style="margin-top: 70px; margin-bottom: 70px;">
+              <table class="table table-bordered">
+                  <thead>
+                      <tr>
+                          <th scope="col">APPLICATION ID</th>
+                          <th scope="col">APPLICANT NAME</th>
+                          <th scope="col">POSITION APPLIED</th>
+                          <th scope="col">LAST UPDATED</th>
+                          <th scope="col">STATUS</th>
+                      </tr>
+                  </thead>
+                  <tbody id="table-body">
+                  </tbody>
+              </table>
+          </div>
       </div>
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+      <script>
+          $(document).ready(function () {
+              $('#button-track').click(function () {
+                  var inputValue = $('input.form-control').val();
+                  var applicantName = 'John Doe'; // Temporary value for the applicant name column
+                  var positionApplied = 'Software Engineer'; // Temporary value for the position applied column
+                  var lastUpdated = '2023-06-29'; // Temporary value for the last updated column
+                  var status = 'For Technical Interview'; // Temporary value for the status column
+
+                  var newRow = '<tr><td>' + inputValue + '</td><td>' + applicantName + '</td><td>' + positionApplied + '</td><td>' + lastUpdated + '</td><td><b>' + status + '<b></td></tr>';
+
+                  $('#table-body').append(newRow);
+                  $('input.form-control').val('');
+              });
+          });
+      </script>
   </body>
 </html>
