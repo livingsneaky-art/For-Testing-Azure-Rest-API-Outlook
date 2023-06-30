@@ -1,0 +1,125 @@
+﻿
+@{
+    ViewData["Title"] = "Tracker Page";
+}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Tracker</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        .button {
+            width: 145px;
+            height: 45px;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: Manrope;
+            font-size: 18px;
+            line-height: 28px;
+            color: #FFFFFFFF;
+            background: #D02A19FF;
+            opacity: 1;
+            border: none;
+            border-radius: 0px 4px 4px 0px;
+            gap: 8px;
+        }
+
+        .button .icon {
+            width: 24px;
+            height: 24px;
+            fill: #FFFFFFFF;
+        }
+
+        .button:hover {
+            color: #FFFFFFFF;
+            background: #AB2314FF;
+        }
+        
+        .table th {
+            padding: 0.5rem;
+            color: #D02A19;
+            font-size: 18px;
+            text-align: center;
+            background: #F3F4F6;
+            width: 20%;
+        }
+
+        .table tbody {
+            padding: 0.5rem;
+            color: #171A1FFF;
+            font-size: 16px;
+            text-align: center;
+        }
+    </style>
+  </head>
+  <body>
+      <div>
+          <div class="d-flex flex-column justify-content-center align-items-center">
+              <h1 class="mb-5 mt-5">Track Application Status</h1>
+              <div class="input-group mb-5 w-50">
+                  <input type="text" class="form-control" placeholder="Application ID" aria-label="Application ID" aria-describedby="button-track">
+                  <button class="button" type="button" id="button-track">
+                      <i class="bi bi-search"></i> Track
+                  </button>
+              </div>
+          </div>
+          <div class="alert alert-danger" id="error-message">
+              Please enter your Application ID.
+          </div>
+          <div class="mt-5 mb-5">
+            <table class="table table-bordered">
+                  <thead>
+                      <tr>
+                          <th scope="col">APPLICATION ID</th>
+                          <th scope="col">APPLICANT NAME</th>
+                          <th scope="col">POSITION APPLIED</th>
+                          <th scope="col">LAST UPDATED</th>
+                          <th scope="col">STATUS</th>
+                      </tr>
+                  </thead>
+                  <tbody id="table-body">
+                  </tbody>
+              </table>
+          </div>
+      </div>
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+      <script>
+          $(document).ready(function ()
+          {
+              $('#button-track').click(function ()
+              {
+                  var inputValue = $('input.form-control').val();
+                  var applicantName = 'John Doe'; // Temporary value for the applicant name column
+                  var positionApplied = 'Software Engineer'; // Temporary value for the position applied column
+                  var lastUpdated = '2023-06-29'; // Temporary value for the last updated column
+                  var status = 'For Technical Interview'; // Temporary value for the status column
+
+                  if (inputValue === '')
+                  {
+                      $('#error-message').show(); // Show the error message
+                      return; // Stop execution if input is empty
+                  }
+                  else
+                  {
+                      $('#error-message').hide(); // Hide the error message
+                  }
+
+                  var newRow = '<tr><td>' + inputValue + '</td><td>' + applicantName + '</td><td>' + positionApplied + '</td><td>' + lastUpdated + '</td><td><b>' + status + '<b></td></tr>';
+
+                  // Clear the existing table rows
+                  $('#table-body').empty();
+
+                  // Append the new row to the table
+                  $('#table-body').append(newRow);
+
+                  $('input.form-control').val('');
+              });
+          });
+      </script>
+  </body>
+</html>
