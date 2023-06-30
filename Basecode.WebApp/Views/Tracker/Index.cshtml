@@ -39,10 +39,6 @@
             color: #FFFFFFFF;
             background: #AB2314FF;
         }
-
-        .table {
-            border-radius: 0.3rem;
-        }
         
         .table th {
             padding: 0.5rem;
@@ -63,20 +59,20 @@
   </head>
   <body>
       <div>
-          <div style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
-              <h1 style="margin-bottom: 40px; margin-top: 60px;">Track Application Status</h1>
-              <div class="input-group mb-3" style="width: 600px">
+          <div class="d-flex flex-column justify-content-center align-items-center">
+              <h1 class="mb-5 mt-5">Track Application Status</h1>
+              <div class="input-group mb-5 w-50">
                   <input type="text" class="form-control" placeholder="Application ID" aria-label="Application ID" aria-describedby="button-track">
                   <button class="button" type="button" id="button-track">
                       <i class="bi bi-search"></i> Track
                   </button>
               </div>
           </div>
-          <div class="alert alert-danger" id="error-message" style="display: none;">
+          <div class="alert alert-danger" id="error-message">
               Please enter your Application ID.
           </div>
-          <div style="margin-top: 70px; margin-bottom: 70px;">
-              <table class="table table-bordered">
+          <div class="mt-5 mb-5">
+            <table class="table table-bordered">
                   <thead>
                       <tr>
                           <th scope="col">APPLICATION ID</th>
