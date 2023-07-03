@@ -74,17 +74,17 @@ namespace Basecode.WebApp.Authentication
             var now = DateTime.UtcNow;
             var claims = new List<Claim>();
 
-            var userRoles = db.UserRoles.Where(i => i.UserId == user.Id);
-            foreach (var u in userRoles)
-            {
-                var role = db.Roles.Single(i => i.Id == u.RoleId);
-                claims.Add(new Claim(ClaimTypes.Role, role.Name));
-            }
+            //var userRoles = db.UserRoles.Where(i => i.UserId == user.Id);
+            //foreach (var u in userRoles)
+            //{
+            //    var role = db.Roles.Single(i => i.Id == u.RoleId);
+            //    claims.Add(new Claim(ClaimTypes.Role, role.Name));
+            //}
 
-            claims.Add(new Claim(Constants.ClaimTypes.UserName, user.Username));            
+            claims.Add(new Claim(Constants.ClaimTypes.UserName, user.Username));
             claims.Add(new Claim(Constants.ClaimTypes.ID, user.Id.ToString()));
             claims.Add(new Claim(Constants.ClaimTypes.UserId, user.Id.ToString()));
-            claims.Add(new Claim(ClaimTypes.Name, user.Username));            
+            claims.Add(new Claim(ClaimTypes.Name, user.Username));
 
             return new ClaimsIdentity(claims);
         }
