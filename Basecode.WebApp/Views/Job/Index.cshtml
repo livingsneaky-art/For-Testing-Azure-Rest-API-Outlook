@@ -26,6 +26,16 @@
         flex-direction: column;
         gap: 20px;
     }
+    .view-button {
+        background-color: red;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        font-size: 18px;
+        cursor: pointer;
+        border-radius: 5px;
+        float: right;
+    }
 
     .searchFilter {
         display: flex;
@@ -80,8 +90,11 @@
 </style>
 
 <div class="jobContainer">
-    <h1>Search <span style="color: red;">Jobs</span></h1>
-
+    <h1>Search <span style="color: red;">Jobs</span>
+        <a asp-action="CreateView">
+        <button class="view-button">View</button>
+        </a>
+    </h1>
     <div class="searchFilter">
         <div id="searchJob">
             <input type="text" placeholder="Enter keywords">
