@@ -53,3 +53,9 @@
     font-size: 3.5rem;
     font-weight: 700;
 }
+
+@media (max-width: 767px){
+    .img-show {
+        display:none;
+    }
+}
