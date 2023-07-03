@@ -99,5 +99,10 @@ namespace Basecode.Services.Services
         {
             _repository.Update(user);
         }
+
+        public void Delete(int id)
+        {
+            _repository.Delete(id);
+        }
     }
 }
