@@ -7,8 +7,7 @@
     {
         new { Title = "Job Title 1", Location = "Location 1", JobType = "Type 1", WorkSetup = GetRandomWorkSetup() },
         new { Title = "Job Title 2", Location = "Location 2", JobType = "Type 2", WorkSetup = GetRandomWorkSetup() },
-        new { Title = "Job Title 3", Location = "Location 3", JobType = "Type 3", WorkSetup = GetRandomWorkSetup() },
-        new { Title = "Job Title 4", Location = "Location 4", JobType = "Type 4", WorkSetup = GetRandomWorkSetup() }
+        new { Title = "Job Title 3", Location = "Location 3", JobType = "Type 3", WorkSetup = GetRandomWorkSetup() }
     };
 
     // Method to get a random work setup value
@@ -24,6 +23,41 @@
 <style>
     .card {
         border: 1px solid lightgray;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .jobContainer{
+        margin-top: 3rem;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+        .card .card-body {
+            flex-grow: 1;
+        }
+
+    #searchJob{
+        width: fit-content;
+        padding-right: 20px;
+        border-right: solid 2px #F3F4F6FF;
+    }
+
+    .searchFilter {
+        display: flex;
+        gap: 10px;
+    }
+
+    .searchFilter input[type="text"],
+    .searchFilter select {
+        border-radius: 5px;
+        border: none;
+        height: 40px;
+        background-color: #F3F4F6FF;
+        padding: 5px 10px;
     }
 </style>
 
@@ -31,7 +65,10 @@
     <h1>Search <span style="color: red;">Jobs</span></h1>
 
     <div class="searchFilter">
-        <input type="text" placeholder="Enter keywords">
+        <div id="searchJob">
+
+        <input type="text" placeholder="Enter keywords" >
+        </div>
         <select name="location">
             <option value="">All Locations</option>
             <option value="location1">Location 1</option>
