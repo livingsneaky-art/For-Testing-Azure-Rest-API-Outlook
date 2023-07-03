@@ -1,13 +1,16 @@
-﻿@*
+﻿@using Basecode.Data.Models;
+@model IEnumerable<JobOpening>
+
+@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
     // Dummy data for dynamic cards
     var dummyCards = new[]
     {
-        new { Title = "Job Title 1", Location = "Location 1", JobType = "Type 1", WorkSetup = GetRandomWorkSetup() },
-        new { Title = "Job Title 2", Location = "Location 2", JobType = "Type 2", WorkSetup = GetRandomWorkSetup() },
-        new { Title = "Job Title 3", Location = "Location 3", JobType = "Type 3", WorkSetup = GetRandomWorkSetup() }
+        new { Title = "Job Title 1", Location = "Location 1", EmploymenType = "Type 1", WorkSetup = GetRandomWorkSetup() },
+        new { Title = "Job Title 2", Location = "Location 2", EmploymenType = "Type 2", WorkSetup = GetRandomWorkSetup() },
+        new { Title = "Job Title 3", Location = "Location 3", EmploymenType = "Type 3", WorkSetup = GetRandomWorkSetup() }
     };
 
     // Method to get a random work setup value
@@ -30,9 +33,6 @@
     }
 
         .card:hover {
-            background-color: #FFEBEB;
-            transform: scale(1.02);
-            border: none;
             cursor: pointer;
         }
 
@@ -109,26 +109,26 @@
     </div>
 
     <div class="row mt-4">
-        @foreach (var card in dummyCards)
+        @foreach (var jobOpening in Model)
         {
             <div class="col-sm-4">
                 <div class="card mb-4">
                     <div class="card-body">
                         <div class="card-header">
                             <img src="~/images/job-icon-dummy.png" alt="Card Image" class="card-image">
-                            <h5 class="card-title">@card.Title</h5>
+                            <h5 class="card-title">@jobOpening.Title</h5>
                         </div>
                         <div class="card-header">
                             <img src="~/images/home-icon.png" alt="Card Image" class="card-image-small">
-                            <p class="card-text">Location: @card.Location</p>
+                            <p class="card-text">Location: @jobOpening.Location</p>
                         </div>
                         <div class="card-header">
                             <img src="~/images/location-icon.png" alt="Card Image" class="card-image-small">
-                            <p class="card-text">Job Type: @card.JobType</p>
+                            <p class="card-text">Job Type: @jobOpening.EmploymentType</p>
                         </div>
                         <div class="card-header">
                             <img src="~/images/bookmark-icon.png" alt="Card Image" class="card-image-small">
-                            <p class="card-text">Work Setup: @card.WorkSetup</p>
+                            <p class="card-text">Work Setup: @jobOpening.WorkSetup</p>
                         </div>
                     </div>
                 </div>
