@@ -1,0 +1,37 @@
+﻿.btn-cancel, .btn-cancel:hover {
+    color: #425A73;
+    background-color: rgba(0, 0, 0, 0);
+    border-color: #425A73;
+}
+
+.btn-submit, .btn-submit:hover {
+    color: white;
+    background-color: #425A73;
+    border-color: #425A73;
+}
+
+.form-control {
+    border-radius: 7px;
+}
+
+input[name="role"] {
+    accent-color: #425A73 !important;
+}
+
+.modal-form-label {
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.form-control {
+    border-color: #425A73;
+}
+
+    .form-control:focus {
+        box-shadow: 0 0 0 0.2rem rgba(66, 90, 115, 0.25);
+        border-color: #425A73;
+    }
+
+.modal-title {
+    color: #425A73;
+}
