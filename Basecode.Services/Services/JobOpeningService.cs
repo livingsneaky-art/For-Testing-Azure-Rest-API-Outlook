@@ -1,5 +1,6 @@
 ﻿using Basecode.Data.Interfaces;
 using Basecode.Data.Models;
+using Basecode.Data.ViewModels;
 using Basecode.Services.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -16,9 +17,19 @@ namespace Basecode.Services.Services
             _repository = repository;
         }
 
-        public List<JobOpening> GetJobs()
+        public List<JobOpeningViewModel> GetJobs()
         {
-            return _repository.GetAll().ToList();
+            var data = _repository.GetAll().Select(m => new JobOpeningViewModel
+            {
+                Id = m.Id,
+                Title = m.Title,
+                EmploymentType = m.EmploymentType,
+                WorkSetup = m.WorkSetup,
+                Location = m.Location,
+                Category = m.Category
+            }).ToList();
+
+            return data;
         }
 
         public void Create(JobOpening jobOpening, string createdBy)
