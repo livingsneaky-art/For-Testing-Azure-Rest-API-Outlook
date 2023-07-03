@@ -30,8 +30,15 @@
         background-color: red;
         color: #fff;
         border: none;
-        border-radius: 10px;
+        border-radius: 7px;
+        text-decoration:none;
+        padding: 0.6rem 0.4rem;
+        height: fit-content;
     }
+
+        .apply-now-button:hover{
+            color: #fff;
+        }
 
     .location{
         display: flex;
@@ -47,7 +54,7 @@
 
     .employment-work-container{
         display: flex;
-        gap: 4px
+        gap: 1rem;
     }
 
     .employment-work-container *{
@@ -63,7 +70,7 @@
 <div class="job-details-container">
     <div class="header-cont">
         <h3>@Model.Title</h3>
-        <button class="apply-now-button">Apply Now</button>
+        <a class="apply-now-button" asp-controller="PublicApplicationForm" asp-action="Index">Apply Now</a>
     </div>
 
 
@@ -79,16 +86,16 @@
     </div>
 
     <div class="job-description">
-        <h4>Job Description</h4>
+        <h5>Job Description</h5>
     </div>
 
     <div class="job-qualifications">
-        <h4>Job Qualification</h4>
+        <h5>Job Qualification</h5>
 
     </div>
 
     <div class="job-responsiblities">
-        <h4>Job Responsibility</h4>
+        <h5>Job Responsibility</h5>
 
     </div>
 </div>
