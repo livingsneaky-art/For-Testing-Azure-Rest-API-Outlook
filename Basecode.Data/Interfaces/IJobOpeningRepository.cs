@@ -12,5 +12,9 @@ namespace Basecode.Data.Interfaces
     {
         IQueryable<JobOpening> GetAll();
         void AddJobOpening(JobOpening jobOpening);
+
+        JobOpening GetJobOpeningById(int id);
+
+        void UpdateJobOpening(JobOpening jobOpening);
     }
 }
