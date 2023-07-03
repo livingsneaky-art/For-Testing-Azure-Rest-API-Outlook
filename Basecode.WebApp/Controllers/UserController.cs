@@ -1,4 +1,5 @@
-﻿using Basecode.Services.Interfaces;
+﻿using Basecode.Data.Models;
+using Basecode.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Basecode.WebApp.Controllers
@@ -14,6 +15,20 @@ namespace Basecode.WebApp.Controllers
         {
             var data = _service.RetrieveAll();
             return View(data);
+        }
+
+        [HttpGet]
+        public ActionResult AddView()
+        {
+            var userModel = new User();
+            return PartialView("~/Views/User/_AddView.cshtml", userModel);
+        }
+
+        [HttpPost]
+        public IActionResult Add(User user)
+        {
+            _service.Add(user);
+            return RedirectToAction("Index");
         }
     }
 }
