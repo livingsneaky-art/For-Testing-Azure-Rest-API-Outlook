@@ -15,5 +15,7 @@ namespace Basecode.Services.Interfaces
         JobOpening GetById(int id);
 
         void Update(JobOpening jobOpening, string updatedBy);
+
+        void Delete(JobOpening jobOpening);
     }
 }

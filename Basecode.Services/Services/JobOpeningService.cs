@@ -43,5 +43,10 @@ namespace Basecode.Services.Services
 
             _repository.UpdateJobOpening(jobOpening);
         }
+
+        public void Delete(JobOpening jobOpening)
+        {
+            _repository.DeleteJobOpening(jobOpening);
+        }
     }
 }
