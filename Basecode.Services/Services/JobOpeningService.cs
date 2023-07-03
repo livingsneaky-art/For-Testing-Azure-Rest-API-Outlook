@@ -71,7 +71,6 @@ namespace Basecode.Services.Services
             _repository.UpdateJobOpening(jobExisting);
         }
 
-
         public void Delete(JobOpeningViewModel jobOpening)
         {
             var job = new JobOpening
