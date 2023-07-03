@@ -2,8 +2,30 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
+    // Dummy data for dynamic cards
+    var dummyCards = new[]
+    {
+        new { Title = "Job Title 1", Location = "Location 1", JobType = "Type 1", WorkSetup = GetRandomWorkSetup() },
+        new { Title = "Job Title 2", Location = "Location 2", JobType = "Type 2", WorkSetup = GetRandomWorkSetup() },
+        new { Title = "Job Title 3", Location = "Location 3", JobType = "Type 3", WorkSetup = GetRandomWorkSetup() },
+        new { Title = "Job Title 4", Location = "Location 4", JobType = "Type 4", WorkSetup = GetRandomWorkSetup() }
+    };
+
+    // Method to get a random work setup value
+    string GetRandomWorkSetup()
+    {
+        var workSetups = new[] { "remote", "onsite", "hybrid" };
+        var random = new Random();
+        var index = random.Next(workSetups.Length);
+        return workSetups[index];
+    }
 }
 
+<style>
+    .card {
+        border: 1px solid lightgray;
+    }
+</style>
 
 <div class="jobContainer">
     <h1>Search <span style="color: red;">Jobs</span></h1>
@@ -22,5 +44,21 @@
             <option value="type2">Type 2</option>
             <option value="type3">Type 3</option>
         </select>
+    </div>
+
+    <div class="row mt-4">
+        @foreach (var card in dummyCards)
+        {
+            <div class="col-sm-4">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">@card.Title</h5>
+                        <p class="card-text">Location: @card.Location</p>
+                        <p class="card-text">Job Type: @card.JobType</p>
+                        <p class="card-text">Work Setup: @card.WorkSetup</p>
+                    </div>
+                </div>
+            </div>
+        }
     </div>
 </div>
