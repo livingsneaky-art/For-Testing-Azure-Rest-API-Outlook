@@ -9,8 +9,15 @@
     .job-details-container {
         border: 1px solid lightgray;
         padding: 20px;
+        margin: 0 auto;
         margin-top: 3rem;
         border-radius: 9px;
+        width: 80%;
+    }
+
+    p{
+        margin-top: none;
+        margin-bottom: none;
     }
 
     .header-cont {
@@ -29,10 +36,29 @@
     .location{
         display: flex;
         gap: 2px;
+        align-items:center;
+        padding: 0;
+        margin: 0;
+    }
+
+    .locContainer{
+        margin-bottom: 2rem;
+    }
+
+    .employment-work-container{
+        display: flex;
+        gap: 4px
+    }
+
+    .employment-work-container *{
+            background-color: #F3F4F6FF;
+            color: #323743FF;
+            padding: 5px 3px;
+            border-radius: 5px;
     }
 </style>
 
-<a asp-action="Index">Go Back</a>
+<a asp-action="Index">Back</a>
 
 <div class="job-details-container">
     <div class="header-cont">
@@ -42,7 +68,7 @@
 
 
     <div class="tags-container">
-        <div class="location">
+        <div class="location locContainer">
             <img src="~/images/location-icon.png" alt="Location Icon" class="location-icon">
             <p class="location">@Model.Location</p>
         </div>
@@ -50,6 +76,20 @@
             <p class="employment-type">@Model.EmploymentType</p>
             <p class="work-setup">@Model.WorkSetup</p>
         </div>
+    </div>
+
+    <div class="job-description">
+        <h4>Job Description</h4>
+    </div>
+
+    <div class="job-qualifications">
+        <h4>Job Qualification</h4>
+
+    </div>
+
+    <div class="job-responsiblities">
+        <h4>Job Responsibility</h4>
+
     </div>
 </div>
 
