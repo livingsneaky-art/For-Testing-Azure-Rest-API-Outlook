@@ -10,5 +10,6 @@ namespace Basecode.Services.Interfaces
     public interface IJobOpeningService
     {
         List<JobOpening> GetJobs();
+        void Create(JobOpening jobOpening, string createdBy);
     }
 }
