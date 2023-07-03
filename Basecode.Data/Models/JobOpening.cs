@@ -1,0 +1,25 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Basecode.Data.Models
+{
+    public class JobOpening
+    {
+        public int Id { get; set; }
+        public string Title { get; set; }
+        public string EmploymentType { get; set; }
+        public string WorkSetup { get; set; }
+        public string Location { get; set; }
+        public string Category { get; set; }
+        public string CreatedBy { get; set; }
+
+        public DateTime CreatedDate { get; set; }
+
+        public string UpdatedBy { get; set; }
+
+        public DateTime UpdatedTime { get; set; }
+    }
+}
