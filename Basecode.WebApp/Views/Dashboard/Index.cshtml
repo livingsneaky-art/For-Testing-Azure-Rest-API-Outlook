@@ -64,12 +64,12 @@
         <img src="~/images/file-con.png" alt="file icon" style="width:24px; height:24px; fill: #6F7787FF;" />
         <h4 class="ms-4 mt-2 text-overview">Detailed Report</h4>
     </div>
-    @*Table*@
+    <!-- Table -->
     <div class="row">
         <div class="col">
             <table class="table table-striped text-center align-middle mt-2 overflow-hidden">
                 <thead>
-                    @*Table header*@
+                    <!-- Table header -->
                     <tr>
                         <th>User ID</th>
                         <th>Name</th>
@@ -80,7 +80,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @*Add the table rows*@
+                    <!-- Add the table rows -->
                     @foreach (var user in users)
                     {
                         <tr>
@@ -97,3 +97,4 @@
         </div>
     </div>
 </div>
+
