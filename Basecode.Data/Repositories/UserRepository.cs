@@ -10,7 +10,7 @@ namespace Basecode.Data.Repositories
         private UserManager<IdentityUser> _userManager;
         private RoleManager<IdentityRole> _roleManager;
 
-        public UserRepository(IUnitOfWork unitOfWork, UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager) 
+        public UserRepository(IUnitOfWork unitOfWork, UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
             : base(unitOfWork)
         {
             _userManager = userManager;
@@ -93,16 +93,16 @@ namespace Basecode.Data.Repositories
 
                 if (!result1.Succeeded) return result1;
             }
-         
+
             var userId = user.Id;
 
             // Insert user details
             var userEntity = new User
             {
-                Id = userId,
-                Username = username,
-                FirstName = firstName,
-                LastName = lastName,
+                //Id = userId,
+                //Username = username,
+                //FirstName = firstName,
+                //LastName = lastName,
             };
 
             Create(userEntity);
@@ -121,7 +121,7 @@ namespace Basecode.Data.Repositories
             }
 
             return null;
-        }        
+        }
 
         public async Task<IdentityUser> FindUser(string userName, string password)
         {
