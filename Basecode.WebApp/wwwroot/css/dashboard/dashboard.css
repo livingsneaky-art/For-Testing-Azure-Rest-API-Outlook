@@ -1,0 +1,190 @@
+﻿/* Common styles */
+.active-cus1 {
+    font-weight: 700;
+    color: #fff;
+    background-color: #ff0000;
+    display: flex;
+    border-radius: 4px;
+    padding: 8px 16px;
+}
+
+#sidebarCollapse {
+    flex-direction: column !important;
+}
+
+.custom-text-report {
+    color: #F16558FF;
+}
+
+.text-overview {
+    color: #323743FF;
+}
+
+.admin-body {
+    background-color: #FAFAFBFF;
+    flex-direction: row !important;
+}
+
+.card-custom1 {
+    display: flex;
+    height: 150px;
+    width: 25%;
+    background-color: #FEF2F1FF;
+}
+
+.active-cus1:hover {
+    color: #fff;
+}
+
+/* Responsive styles */
+
+/* Tablets (768px) and larger */
+@media (min-width: 768px) {
+
+    .col-2 {
+        flex: 0 0 16.66667%;
+        max-width: 16.66667%;
+    }
+
+    .col-10 {
+        flex: 0 0 83.33333%;
+        max-width: 83.33333%;
+    }
+
+    .admin-body {
+        padding-left: 30px;
+    }
+
+    .card-body {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .card-custom1 {
+        width: 30%;
+    }
+}
+
+/* Large desktops (1280px) and larger */
+@media (min-width: 1280px) {
+    .card-custom1 {
+        width: 20%;
+    }
+}
+
+/* Extra-large desktops (1536px) and larger */
+@media (min-width: 1536px) {
+    .card-custom1 {
+        width: 15%;
+    }
+}
+
+/* Sidebar collapsible styles for smaller screens */
+@media (max-width: 1023px) {
+    .col-2 {
+        display: none;
+    }
+
+    .col-10 {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+
+    .admin-body {
+        padding-left: 10px;
+    }
+}
+
+/* Sidebar collapsible styles for mobile devices */
+@media (max-width: 767px) {
+    .col-2 {
+        display: none;
+    }
+
+    .col-10 {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+
+    .admin-body {
+        padding-left: 10px;
+    }
+
+    .navbar-expand-sm .navbar-nav .nav-link {
+        padding-left: 0;
+    }
+
+        .navbar-expand-sm .navbar-nav .nav-link img {
+            margin-right: 5px;
+        }
+
+    .navbar-nav .nav-item.mb-3 {
+        margin-bottom: 10px;
+    }
+}
+
+/* Adjust padding and margins for smaller screens */
+@media (max-width: 475px) {
+    .card-custom1 {
+        width: 90%;
+    }
+
+    .card-body {
+        flex-direction: column;
+    }
+
+        .card-body .card-custom1 {
+            margin-bottom: 10px;
+        }
+}
+
+/* Adjust padding and margins for 640px and 768px screens */
+@media (min-width: 640px) and (max-width: 767px) {
+    .card-custom1 {
+        width: 45%;
+    }
+}
+
+/* Adjust padding and margins for .
+/* Adjust padding and margins for 640px and 768px screens */
+@media (min-width: 640px) and (max-width: 767px) {
+    .card-custom1 {
+        width: 45%;
+    }
+}
+
+/* Adjust padding and margins for 360px and 414px screens */
+@media (max-width: 414px) {
+    .card-custom1 {
+        width: 100%;
+    }
+
+    .card-body .card-custom1 {
+        margin-bottom: 20px;
+    }
+
+    .admin-body {
+        padding-left: 5px;
+    }
+
+    .text-overview,
+    .custom-text-report {
+        font-size: 14px;
+    }
+}
+
+/* Adjust padding and margins for 320px screens */
+@media (max-width: 320px) {
+    .card-body .card-custom1 {
+        margin-bottom: 15px;
+    }
+
+    .admin-body {
+        padding-left: 0;
+    }
+
+    .text-overview,
+    .custom-text-report {
+        font-size: 12px;
+    }
+}
