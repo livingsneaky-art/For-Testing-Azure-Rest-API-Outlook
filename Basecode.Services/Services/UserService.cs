@@ -1,6 +1,7 @@
 ﻿using Basecode.Data.Interfaces;
 using Basecode.Data.Models;
 using Basecode.Data.Repositories;
+using Basecode.Data.ViewModels;
 using Basecode.Services.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -18,9 +19,18 @@ namespace Basecode.Services.Services
             _repository = repository;
         }
 
-        public List<User> RetrieveAll()
+        public List<UserViewModel> RetrieveAll()
         {
-            return _repository.RetrieveAll().ToList();
+            var data = _repository.RetrieveAll().Select(s => new UserViewModel
+            {
+                Id = s.Id,
+                Fullname = s.Fullname,
+                Username = s.Username,
+                Email = s.Email,
+                Role = s.Role,
+            }).ToList();
+
+            return data;
         }
 
         public void Add(User user)
