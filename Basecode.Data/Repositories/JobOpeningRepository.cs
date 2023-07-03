@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Basecode.Data.Repositories
 {
-    public class JobOpeningRepository: BaseRepository, IJobOpeningRepository
+    public class JobOpeningRepository : BaseRepository, IJobOpeningRepository
     {
         private readonly BasecodeContext _context;
 
@@ -36,6 +36,12 @@ namespace Basecode.Data.Repositories
         public void UpdateJobOpening(JobOpening jobOpening)
         {
             _context.JobOpening.Update(jobOpening);
+            _context.SaveChanges();
+        }
+
+        public void DeleteJobOpening(JobOpening jobOpening)
+        {
+            _context.JobOpening.Remove(jobOpening);
             _context.SaveChanges();
         }
     }
