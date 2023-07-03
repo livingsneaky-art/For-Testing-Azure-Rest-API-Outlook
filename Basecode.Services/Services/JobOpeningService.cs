@@ -4,8 +4,6 @@ using Basecode.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Basecode.Services.Services
 {
@@ -21,6 +19,16 @@ namespace Basecode.Services.Services
         public List<JobOpening> GetJobs()
         {
             return _repository.GetAll().ToList();
+        }
+
+        public void Create(JobOpening jobOpening, string createdBy)
+        {
+            jobOpening.CreatedBy = createdBy;
+            jobOpening.CreatedTime = DateTime.Now;
+            jobOpening.UpdatedBy = createdBy;
+            jobOpening.UpdatedTime = DateTime.Now;
+
+            _repository.AddJobOpening(jobOpening);
         }
     }
 }
