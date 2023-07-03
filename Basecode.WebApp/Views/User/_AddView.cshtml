@@ -1,26 +1,56 @@
 ﻿@{
 }
+@*Add stylesheet for this partial view*@
+<link rel="stylesheet" href="~/css/user/UserModal.css" />
 
 <!-- Modal -->
 <div class="modal fade" id="addUserModal" tabindex="-1" aria-labelledby="addUserModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Add User</h1>
+            <div class="modal-header mx-4 border-bottom border-2">
+                <h1 class="modal-title fs-3" id="addUserModalLabel">Add User</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-                @*<form asp-action="Add">
-                    <label class="form-label">Username</label>
-                    <input type="text" class="form-control" placeholder="Enter a username" asp-for="Username" id="username" minlength="1" maxlength="50" required />
-
-
-
-                </form>*@
+            <div class="modal-body px-5 py-4">    
+                <form>
+                    <div class="row">
+                        <div class="col">
+                            <label class="modal-form-label">Username</label>
+                            <input type="text" class="form-control" placeholder="Enter a username" id="username" minlength="1" maxlength="50" required />
+                        </div>
+                        <div class="col">
+                            <label class="modal-form-label">Email Address</label>
+                            <input type="email" class="form-control" placeholder="example@gmail.com" id="email" required />
+                        </div>
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col">
+                            <label class="modal-form-label">Full Name</label>
+                            <input type="text" class="form-control" placeholder="Enter your name" id="fullname" minlength="1" maxlength="50" required />
+                        </div>
+                        <div class="col">
+                            <label class="modal-form-label">Password</label>
+                            <input type="password" class="form-control" placeholder="Enter at least 8 characters" id="password" required />
+                        </div>
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col">
+                            <div class="modal-form-label">Role</div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="role" id="humanResourcesRole" required />
+                                <label class="form-check-label">Human Resources</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="role" id="deploymentTeamRole" required />
+                                <label class="form-check-label">Deployment Team</label>
+                            </div>
+                        </div>
+                    </div>
+                </form>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">CANCEL</button>
-                <button type="button" class="btn btn-primary">ADD USER</button>
+            <div class="modal-footer justify-content-between border-0 mx-3 mb-3">
+                <button type="button" class="btn btn-cancel" style="font-weight:500;" data-bs-dismiss="modal"><i class="fa-regular fa-circle-xmark"></i> CANCEL</button>
+                <button type="button" class="btn btn-submit" style="font-weight:500;"><i class="fa-solid fa-user-plus"></i> ADD USER</button>
             </div>
         </div>
     </div>
