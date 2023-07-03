@@ -9,6 +9,6 @@ namespace Basecode.Services.Interfaces
 {
     public interface IJobOpeningService
     {
-        List<JobOpening> GetApplicants();
+        List<JobOpening> GetJobs();
     }
 }

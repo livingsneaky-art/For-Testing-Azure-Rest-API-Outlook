@@ -18,7 +18,7 @@ namespace Basecode.Services.Services
             _repository = repository;
         }
 
-        public List<JobOpening> GetApplicants()
+        public List<JobOpening> GetJobs()
         {
             return _repository.GetAll().ToList();
         }
