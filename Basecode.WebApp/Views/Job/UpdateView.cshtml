@@ -3,6 +3,7 @@
 <h2>Update Job Opening</h2>
 
 <form asp-controller="Job" asp-action="Update" method="post">
+    <input type="hidden" asp-for="Id"/>
     <div class="form-group">
         <label asp-for="Title">Title</label>
         <input type="text" asp-for="Title" class="form-control" />
