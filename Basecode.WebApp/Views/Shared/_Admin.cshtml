@@ -6,59 +6,64 @@
     <title>@ViewData["Title"] - Basecode</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/dashboard.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/dashboard/dashboard.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Basecode.Main.styles.css" asp-append-version="true" />
 </head>
-<body >
+<body>
     <div class="d-flex h-100">
-        <nav class="col-2 navbar-expand-sm navbar-light bg-white border-right shadow-sm p-3 bg-body-tertiary">
-            <ul class="nav flex-column mb-5 pb-5">
-                <li class="nav-item mb-4">
-                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
-                        <img src="~/images/alliance-logo.png" alt="Alliance logo" />
-                    </a>
-                </li>
-                <l1 class="nav-item mb-3">
-                    <p class=" fs-6 fw-semibold text-secondary">Working space</p>
-                </l1>
-                <li class="nav-item mb-3">
-                    <a class="nav-link  @((ViewContext.RouteData.Values["Controller"].ToString() == "Dashboard" && ViewContext.RouteData.Values["Action"].ToString() == "Index") ? "active-cus1" : "text-dark") d-flex flex-row align-items-center gap-2" asp-area="" asp-controller="Dashboard" asp-action="Index">
-                        <img src="~/images/dashboard-icon.png" alt="dashboard icon" style="width:24px; height:24px; fill: #6F7787FF;" />
-                        Dashboard
-                    </a>
-                </li>
-                <li class="nav-item mb-3">
-                    <a class="nav-link  @((ViewContext.RouteData.Values["Controller"].ToString() == "User" && ViewContext.RouteData.Values["Action"].ToString() == "Index") ? "active-cus1" : "text-dark")" asp-area="" asp-controller="User" asp-action="Index">Users</a>
-                </li>
-            </ul>
-            <ul class="nav flex-column border-top pt-3 mb-5">
-                <l1 class="nav-item mb-3">
-                    <p class=" fs-6 fw-semibold text-secondary">Personal</p>
-                </l1>
-                <li class="nav-item mb-3">
-                    <a class="nav-link  @((ViewContext.RouteData.Values["Controller"].ToString() == "Messages" && ViewContext.RouteData.Values["Action"].ToString() == "Index") ? "active-cus1" : "text-dark") d-flex flex-row align-items-center gap-2" asp-area="" asp-controller="Dashboard" asp-action="Index">
-                        <img src="~/images/message-icon.png" alt="messages icon" style="width:24px; height:24px; fill: #6F7787FF;" />
-                        Messages
-                    </a>
-                </li>
-                <li class="nav-item mb-3">
-                    <a class="nav-link  @((ViewContext.RouteData.Values["Controller"].ToString() == "Notification" && ViewContext.RouteData.Values["Action"].ToString() == "Index") ? "active-cus1" : "text-dark")" asp-area="" asp-controller="User" asp-action="Index">
-                        <img src="~/images/notification-bell-icon.png" alt="notification bell icon" style="width:24px; height:24px; fill: #6F7787FF;" />
-                        Notifications
-                    </a>
-                </li>
-                <li class="nav-item mb-3">
-                    <a class="nav-link  @((ViewContext.RouteData.Values["Controller"].ToString() == "Setting" && ViewContext.RouteData.Values["Action"].ToString() == "Index") ? "active-cus1" : "text-dark")" asp-area="" asp-controller="User" asp-action="Index">
-                        <img src="~/images/setting-icon.png" alt="setting icon" style="width:24px; height:24px; fill: #6F7787FF;" />
-                        Setting
-                    </a>
-                </li>
-            </ul>
-            <img src="~/images/login/sign_in.png" alt = "alliance banner" style="max-width: 100%; height: auto;"/>
-        </nav>
-        <div class="col-10">
+        <div class="col-2 navbar-expand-sm navbar-light bg-white border-right shadow-sm p-3 bg-body-tertiary">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarCollapse" aria-controls="sidebarCollapse" aria-expanded="false" aria-label="Toggle sidebar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="sidebarCollapse">
+                <ul class="nav flex-column mb-5 pb-5">
+                    <li class="nav-item mb-4">
+                        <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                            <img src="~/images/alliance-logo.png" alt="Alliance logo" />
+                        </a>
+                    </li>
+                    <li class="nav-item mb-3">
+                        <p class="fs-6 fw-semibold text-secondary">Working space</p>
+                    </li>
+                    <li class="nav-item mb-3">
+                        <a class="nav-link @((ViewContext.RouteData.Values["Controller"].ToString() == "Dashboard" && ViewContext.RouteData.Values["Action"].ToString() == "Index") ? "active-cus1" : "text-dark") d-flex flex-row align-items-center gap-2" asp-area="" asp-controller="Dashboard" asp-action="Index">
+                            <img src="~/images/dashboard-icon.png" alt="dashboard icon" style="width:24px; height:24px; fill: #6F7787FF;" />
+                            Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item mb-3">
+                        <a class="nav-link @((ViewContext.RouteData.Values["Controller"].ToString() == "User" && ViewContext.RouteData.Values["Action"].ToString() == "Index") ? "active-cus1" : "text-dark")" asp-area="" asp-controller="User" asp-action="Index">Users</a>
+                    </li>
+                </ul>
+                <ul class="nav flex-column border-top pt-3 mb-5">
+                    <li class="nav-item mb-3">
+                        <p class="fs-6 fw-semibold text-secondary">Personal</p>
+                    </li>
+                    <li class="nav-item mb-3">
+                        <a class="nav-link @((ViewContext.RouteData.Values["Controller"].ToString() == "Messages" && ViewContext.RouteData.Values["Action"].ToString() == "Index") ? "active-cus1" : "text-dark") d-flex flex-row align-items-center gap-2" asp-area="" asp-controller="Dashboard" asp-action="Index">
+                            <img src="~/images/message-icon.png" alt="messages icon" style="width:24px; height:24px; fill: #6F7787FF;" />
+                            Messages
+                        </a>
+                    </li>
+                    <li class="nav-item mb-3">
+                        <a class="nav-link @((ViewContext.RouteData.Values["Controller"].ToString() == "Notification" && ViewContext.RouteData.Values["Action"].ToString() == "Index") ? "active-cus1" : "text-dark")" asp-area="" asp-controller="User" asp-action="Index">
+                            <img src="~/images/notification-bell-icon.png" alt="notification bell icon" style="width:24px; height:24px; fill: #6F7787FF;" />
+                            Notifications
+                        </a>
+                    </li>
+                    <li class="nav-item mb-3">
+                        <a class="nav-link @((ViewContext.RouteData.Values["Controller"].ToString() == "Setting" && ViewContext.RouteData.Values["Action"].ToString() == "Index") ? "active-cus1" : "text-dark")" asp-area="" asp-controller="User" asp-action="Index">
+                            <img src="~/images/setting-icon.png" alt="setting icon" style="width:24px; height:24px; fill: #6F7787FF;" />
+                            Setting
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <img src="~/images/login/sign_in.png" alt="alliance banner" style="max-width: 100%; height: auto;" />
+        </div>
+        <div class="col-10 col-12">
             <div class="container-fluid admin-body">
-                <main role="main" class="pb-3  pt-4">
+                <main role="main" class="pb-3 pt-4">
                     @RenderBody()
                 </main>
             </div>
@@ -69,5 +74,15 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
+
+    <script>
+        $(document).ready(function () {
+            // Toggle sidebar collapse
+            $('[data-bs-toggle="collapse"]').on('click', function () {
+                const target = $(this).data('bs-target');
+                $(target).toggleClass('show');
+            });
+        });
+    </script>
 </body>
 </html>
