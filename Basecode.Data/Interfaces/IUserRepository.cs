@@ -11,5 +11,7 @@ namespace Basecode.Data.Interfaces
     {
         IQueryable<User> RetrieveAll();
         void Add(User user);
+        User GetById(int id);
+        void Update(User user);
     }
 }
