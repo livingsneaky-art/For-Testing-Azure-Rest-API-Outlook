@@ -33,7 +33,9 @@ namespace Basecode.WebApp.Authentication
         {
             ClaimsIdentity claimsIdentity = null;
 
-            var user = await _userService.FindUserAsync(username, password);
+            //var user = await _userService.FindUserAsync(username, password);  // NULL FOR NOW
+            var user = (User?)null; // THE NULLED
+
             if (user == null)
             {
                 return await Task.FromResult<ClaimsIdentity>(null);
@@ -53,7 +55,9 @@ namespace Basecode.WebApp.Authentication
         {
             ClaimsIdentity claimsIdentity = null;
 
-            var user = _userService.FindUser(username);
+            //var user = _userService.FindUser(username);   // NULL FOR NOW
+            var user = (User?)null; // THE NULLED
+
             if (user == null)
             {
                 return await Task.FromResult<ClaimsIdentity>(null);
@@ -81,10 +85,10 @@ namespace Basecode.WebApp.Authentication
             //    claims.Add(new Claim(ClaimTypes.Role, role.Name));
             //}
 
-            claims.Add(new Claim(Constants.ClaimTypes.UserName, user.Username));
-            claims.Add(new Claim(Constants.ClaimTypes.ID, user.Id.ToString()));
-            claims.Add(new Claim(Constants.ClaimTypes.UserId, user.Id.ToString()));
-            claims.Add(new Claim(ClaimTypes.Name, user.Username));
+            //claims.Add(new Claim(Constants.ClaimTypes.UserName, user.Username));            
+            //claims.Add(new Claim(Constants.ClaimTypes.ID, user.Id.ToString()));
+            //claims.Add(new Claim(Constants.ClaimTypes.UserId, user.Id.ToString()));
+            //claims.Add(new Claim(ClaimTypes.Name, user.Username));            
 
             return new ClaimsIdentity(claims);
         }
