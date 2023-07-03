@@ -29,26 +29,22 @@
         justify-content: space-between;
     }
 
-    .jobContainer{
+    .jobContainer {
         margin-top: 3rem;
         display: flex;
         flex-direction: column;
         gap: 20px;
     }
 
-        .card .card-body {
-            flex-grow: 1;
-        }
-
-    #searchJob{
-        width: fit-content;
-        padding-right: 20px;
-        border-right: solid 2px #F3F4F6FF;
-    }
-
     .searchFilter {
         display: flex;
         gap: 10px;
+    }
+
+    #searchJob {
+        width: fit-content;
+        padding-right: 20px;
+        border-right: solid 2px #F3F4F6FF;
     }
 
     .searchFilter input[type="text"],
@@ -59,6 +55,31 @@
         background-color: #F3F4F6FF;
         padding: 5px 10px;
     }
+
+    .card-header {
+        display: flex;
+        align-items: center;
+        background-color: inherit;
+        border-bottom: none;
+    }
+
+    .card-image {
+        width: 40px;
+        height: 40px;
+        object-fit: cover;
+        border-radius: 50%;
+        margin-right: 10px;
+    }
+
+    .card-image-small {
+        width: 20px;
+        height: 20px;
+        object-fit: cover;
+        border-radius: 50%;
+        margin-right: 10px;
+    }
+
+
 </style>
 
 <div class="jobContainer">
@@ -66,8 +87,7 @@
 
     <div class="searchFilter">
         <div id="searchJob">
-
-        <input type="text" placeholder="Enter keywords" >
+            <input type="text" placeholder="Enter keywords">
         </div>
         <select name="location">
             <option value="">All Locations</option>
@@ -89,13 +109,27 @@
             <div class="col-sm-4">
                 <div class="card mb-4">
                     <div class="card-body">
-                        <h5 class="card-title">@card.Title</h5>
-                        <p class="card-text">Location: @card.Location</p>
-                        <p class="card-text">Job Type: @card.JobType</p>
-                        <p class="card-text">Work Setup: @card.WorkSetup</p>
+                        <div class="card-header">
+                            <img src="~/images/job-icon-dummy.png" alt="Card Image" class="card-image">
+                            <h5 class="card-title">@card.Title</h5>
+                        </div>
+                        <div class="card-header">
+                            <img src="~/images/home-icon.png" alt="Card Image" class="card-image-small">
+                            <p class="card-text">Location: @card.Location</p>
+                        </div>
+                        <div class="card-header">
+                            <img src="~/images/location-icon.png" alt="Card Image" class="card-image-small">
+                            <p class="card-text">Job Type: @card.JobType</p>
+                        </div>
+                        <div class="card-header">
+                            <img src="~/images/bookmark-icon.png" alt="Card Image" class="card-image-small">
+                            <p class="card-text">Work Setup: @card.WorkSetup</p>
+                        </div>
                     </div>
                 </div>
             </div>
         }
+
+
     </div>
 </div>
