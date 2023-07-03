@@ -2,6 +2,7 @@
 using Basecode.Data.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using Basecode.Data.ViewModels;
 
 namespace Basecode.WebApp.Controllers
 {
@@ -57,7 +58,7 @@ namespace Basecode.WebApp.Controllers
         }
 
         [HttpPost]
-        public IActionResult Update(JobOpening jobOpening)
+        public IActionResult Update(JobOpeningViewModel jobOpening)
         {
             if (ModelState.IsValid)
             {

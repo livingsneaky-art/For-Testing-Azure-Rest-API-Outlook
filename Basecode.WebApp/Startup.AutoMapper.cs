@@ -12,6 +12,7 @@ namespace Basecode.WebApp
             var Config = new MapperConfiguration(cfg =>
             {
                 cfg.CreateMap<JobOpening, JobOpeningViewModel>();
+                cfg.CreateMap<JobOpeningViewModel, JobOpening>();
             });
 
             services.AddSingleton(Config.CreateMapper());
