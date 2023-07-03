@@ -1,0 +1,37 @@
+﻿.btn, .btn:hover {
+    color: white;
+    background-color: #D02A19;
+    border-radius: 0.4rem;
+    border-color: #D02A19;
+}
+
+.btn-edit, .btn-edit:hover {
+    color: #425A73;
+    background-color: rgba(0, 0, 0, 0);
+    border-color: #425A73;
+}
+
+.btn-delete, .btn-delete:hover {
+    color: #D02A19;
+    background-color: rgba(0, 0, 0, 0);
+    border-color: #D02A19;
+}
+
+.table {
+    border-radius: 0.3rem;
+    border-color: rgba(0, 0, 0, 0);
+}
+
+    .table th {
+        padding: 1.5rem;
+        color: #D02A19;
+        font-size: 1.2rem;
+    }
+
+.search-icon {
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+    color: #555;
+}
