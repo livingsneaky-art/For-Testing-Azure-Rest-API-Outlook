@@ -16,5 +16,7 @@ namespace Basecode.Data.Interfaces
         JobOpening GetJobOpeningById(int id);
 
         void UpdateJobOpening(JobOpening jobOpening);
+
+        void DeleteJobOpening(JobOpening jobOpening);
     }
 }

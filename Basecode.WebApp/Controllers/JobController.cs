@@ -61,5 +61,18 @@ namespace Basecode.WebApp.Controllers
 
             return View(jobOpening);
         }
+
+        [HttpPost]
+        public IActionResult Delete(int id)
+        {
+            var jobOpening = _jobOpeningService.GetById(id);
+            if (jobOpening == null)
+            {
+                return NotFound();
+            }
+
+            _jobOpeningService.Delete(jobOpening);
+            return RedirectToAction("Index");
+        }
     }
 }
