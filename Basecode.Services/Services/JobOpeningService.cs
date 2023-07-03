@@ -63,13 +63,13 @@ namespace Basecode.Services.Services
 
         public void Update(JobOpeningViewModel jobOpening, string updatedBy)
         {
-            var job = _mapper.Map<JobOpening>(jobOpening);
-            job.UpdatedBy = updatedBy;
-            job.UpdatedTime = DateTime.Now;
+            var jobExisting = _repository.GetJobOpeningById(jobOpening.Id);
+            _mapper.Map(jobOpening, jobExisting);
+            jobExisting.UpdatedBy = updatedBy;
+            jobExisting.UpdatedTime = DateTime.Now;
 
-            _repository.UpdateJobOpening(job);
+            _repository.UpdateJobOpening(jobExisting);
         }
-
 
         public void Delete(JobOpeningViewModel jobOpening)
         {
