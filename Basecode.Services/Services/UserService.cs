@@ -97,7 +97,13 @@ namespace Basecode.Services.Services
 
         public void Update(User user)
         {
-            _repository.Update(user);
+            var userToBeUpdated = _repository.GetById(user.Id);
+            userToBeUpdated.Fullname = user.Fullname;
+            userToBeUpdated.Username = user.Username;
+            userToBeUpdated.Email = user.Email;
+            userToBeUpdated.Password = user.Password;
+            userToBeUpdated.Role = user.Role;
+            _repository.Update(userToBeUpdated);
         }
 
         public void Delete(int id)
