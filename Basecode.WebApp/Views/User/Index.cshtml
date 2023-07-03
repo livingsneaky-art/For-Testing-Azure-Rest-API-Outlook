@@ -42,9 +42,7 @@
 
         @*Add new user button*@
         <div class="d-flex col-2 justify-content-md-end">
-            @*<a class="btn btn-primary" role="button" data-bs-toggle="modal" data-bs-target="#addUserModal" id="addUserButton"><i class="fa-solid fa-user-plus"></i> ADD USER</a>*@
             <a class="btn btn-primary" role="button" id="addUserButton"><i class="fa-solid fa-user-plus"></i> ADD USER</a>
-            @*<partial name="_AddView.cshtml" />*@
         </div>
     </div>
 
@@ -72,7 +70,7 @@
                         <td>@user.Fullname</td>
                         <td>@user.Username</td>
                         <td>@user.Email</td>
-                        <td><a class="btn btn-edit" role="button"><i class="fa-regular fa-pen-to-square icon-white"></i> EDIT</a></td>
+                        <td><a class="btn btn-edit" role="button" id="editUserButton" onclick="showEditModal(@user.Id)"><i class="fa-regular fa-pen-to-square icon-white"></i> EDIT</a></td>
                         <td><a class="btn btn-delete" role="button"><i class="fa-solid fa-trash-can icon-white"></i> DELETE</a></td>
                     </tr>
                 }
@@ -80,18 +78,32 @@
         </div>
     </div>
 </div>
-<div id="modalContainer"></div>
+<div id="addModalContainer"></div>
+<div id="editModalContainer"></div>
 
 
-@section Scripts {
+@section Scripts 
+{
     <script>
-        $(function () {
-            $("#addUserButton").click(function () {
-                $.get("/User/AddView", function (data) {
-                    $("#modalContainer").html(data);
+        $(function () 
+        {
+            $("#addUserButton").click(function () 
+            {
+                $.get("/User/AddView", function (data) 
+                {
+                    $("#addModalContainer").html(data);
                     $("#addUserModal").modal("show");
                 });
             });
         });
+
+        function showEditModal(id)
+        {
+            console.log(id);
+            $.get("/User/UpdateView/" + id, function (data) {
+                $("#editModalContainer").html(data);
+                $("#editUserModal").modal("show");
+            });
+        }
     </script>
 }
