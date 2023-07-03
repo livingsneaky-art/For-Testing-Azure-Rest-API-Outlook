@@ -42,10 +42,21 @@ namespace Basecode.Services.Services
             _repository.AddJobOpening(jobOpening);
         }
 
-        public JobOpening GetById(int id)
+        public JobOpeningViewModel GetById(int id)
         {
-            return _repository.GetJobOpeningById(id);
+            var data = _repository.GetAll().Where(m => m.Id == id).Select(m => new JobOpeningViewModel
+            {
+                Id = m.Id,
+                Title = m.Title,
+                EmploymentType = m.EmploymentType,
+                WorkSetup = m.WorkSetup,
+                Location = m.Location,
+                Category = m.Category
+            }).FirstOrDefault();
+
+            return data;
         }
+
 
         public void Update(JobOpening jobOpening, string updatedBy)
         {
@@ -55,9 +66,20 @@ namespace Basecode.Services.Services
             _repository.UpdateJobOpening(jobOpening);
         }
 
-        public void Delete(JobOpening jobOpening)
+        public void Delete(JobOpeningViewModel jobOpening)
         {
-            _repository.DeleteJobOpening(jobOpening);
+            var job = new JobOpening
+            {
+                Id = jobOpening.Id,
+                Title = jobOpening.Title,
+                EmploymentType = jobOpening.EmploymentType,
+                WorkSetup = jobOpening.WorkSetup,
+                Location = jobOpening.Location,
+                Category = jobOpening.Category
+            };
+
+            _repository.DeleteJobOpening(job);
         }
+
     }
 }
