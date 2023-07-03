@@ -25,6 +25,17 @@ namespace Basecode.WebApp.Controllers
             return View();
         }
 
+        public IActionResult JobView(int id)
+        {
+            var jobOpening = _jobOpeningService.GetById(id);
+            if (jobOpening == null)
+            {
+                return NotFound();
+            }
+
+            return View(jobOpening);
+        }
+
         [HttpPost]
         public IActionResult Create(JobOpening jobOpening)
         {

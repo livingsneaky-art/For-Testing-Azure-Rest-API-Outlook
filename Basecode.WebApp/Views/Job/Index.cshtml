@@ -69,6 +69,14 @@
         border-radius: 50%;
         margin-right: 10px;
     }
+
+    .card-title{
+        color: #000;
+    }
+
+    .card-text{
+        color: #6F7787FF;
+    }
 </style>
 
 <div class="jobContainer">
@@ -96,28 +104,33 @@
         @foreach (var jobOpening in Model)
         {
             <div class="col-sm-4">
-                <div class="card mb-4">
-                    <div class="card-body">
-                        <div class="card-header">
-                            <img src="~/images/job-icon-dummy.png" alt="Card Image" class="card-image">
-                            <h5 class="card-title">@jobOpening.Title</h5>
-                        </div>
-                        <div class="card-header">
-                            <img src="~/images/home-icon.png" alt="Card Image" class="card-image-small">
-                            <p class="card-text">Location: @jobOpening.Location</p>
-                        </div>
-                        <div class="card-header">
-                            <img src="~/images/location-icon.png" alt="Card Image" class="card-image-small">
-                            <p class="card-text">Job Type: @jobOpening.EmploymentType</p>
-                        </div>
-                        <div class="card-header">
-                            <img src="~/images/bookmark-icon.png" alt="Card Image" class="card-image-small">
-                            <p class="card-text">Work Setup: @jobOpening.WorkSetup</p>
+                <a href="@Url.Action("JobView", "Job", new { id = jobOpening.Id })" style="text-decoration:none;">
+
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <div class="card-header">
+                                <img src="~/images/job-icon-dummy.png" alt="Card Image" class="card-image">
+                                <h5 class="card-title">@jobOpening.Title</h5>
+                            </div>
+                            <div class="card-header">
+                                <img src="~/images/home-icon.png" alt="Card Image" class="card-image-small">
+                                <p class="card-text">Location: @jobOpening.Location</p>
+                            </div>
+                            <div class="card-header">
+                                <img src="~/images/location-icon.png" alt="Card Image" class="card-image-small">
+                                <p class="card-text">Job Type: @jobOpening.EmploymentType</p>
+                            </div>
+                            <div class="card-header">
+                                <img src="~/images/bookmark-icon.png" alt="Card Image" class="card-image-small">
+                                <p class="card-text">Work Setup: @jobOpening.WorkSetup</p>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </a>
+
             </div>
         }
+
     </div>
 </div>
 
