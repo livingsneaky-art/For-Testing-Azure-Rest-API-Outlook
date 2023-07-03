@@ -11,8 +11,8 @@
 <link rel="stylesheet" href="~/css/user/UserList.css" />
 @*Add stylesheet for the modals (partial views)*@
 <link rel="stylesheet" href="~/css/user/UserModal.css" />
-
-<script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+@*Add external JavaScript file*@
+<script src="~/js/user/index.js"></script>
 
 <div class="container-fluid d-flex justify-content-center mt-5">
     <h1>Users List</h1>
@@ -42,7 +42,7 @@
 
         @*Add new user button*@
         <div class="d-flex col-2 justify-content-md-end">
-            <a class="btn btn-primary" role="button" id="addUserButton"><i class="fa-solid fa-user-plus"></i> ADD USER</a>
+            <a class="btn btn-primary" role="button" onclick="showAddModal()"><i class="fa-solid fa-user-plus"></i> ADD USER</a>
         </div>
     </div>
 
@@ -81,37 +81,3 @@
 <div id="addModalContainer"></div>
 <div id="editModalContainer"></div>
 <div id="deleteModalContainer"></div>
-
-
-@section Scripts 
-{
-    <script>
-        $(function () 
-        {
-            $("#addUserButton").click(function () 
-            {
-                $.get("/User/AddView", function (data) 
-                {
-                    $("#addModalContainer").html(data);
-                    $("#addUserModal").modal("show");
-                });
-            });
-        });
-
-        function showEditModal(id)
-        {
-            $.get("/User/UpdateView/" + id, function (data) {
-                $("#editModalContainer").html(data);
-                $("#editUserModal").modal("show");
-            });
-        }
-        
-        function showDeleteModal(id)
-        {
-            $.get("/User/DeleteView/" + id, function (data) {
-                $("#deleteModalContainer").html(data);
-                $("#deleteUserModal").modal("show");
-            });
-        }
-    </script>
-}
