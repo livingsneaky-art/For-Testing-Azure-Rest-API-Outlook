@@ -20,5 +20,11 @@ namespace Basecode.Data.Repositories
         {
             return this.GetDbSet<User>();
         }
+
+        public void Add(User user)
+        {
+            _context.User.Add(user);
+            _context.SaveChanges();
+        }
     }
 }

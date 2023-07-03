@@ -10,5 +10,6 @@ namespace Basecode.Services.Interfaces
     public interface IUserService
     {
         List<User> RetrieveAll();
+        void Add(User user);
     }
 }

@@ -10,5 +10,6 @@ namespace Basecode.Data.Interfaces
     public interface IUserRepository
     {
         IQueryable<User> RetrieveAll();
+        void Add(User user);
     }
 }
