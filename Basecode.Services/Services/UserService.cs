@@ -110,5 +110,10 @@ namespace Basecode.Services.Services
         {
             _repository.Delete(id);
         }
+
+        public void Delete(int id)
+        {
+            _repository.Delete(id);
+        }
     }
 }
