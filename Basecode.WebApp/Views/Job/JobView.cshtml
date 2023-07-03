@@ -4,7 +4,6 @@
     ViewData["Title"] = "Job Details";
 }
 
-
 <style>
     .job-details-container {
         border: 1px solid lightgray;
@@ -26,15 +25,25 @@
         width: 100%;
     }
 
-    .header-title{
+    .header-title {
         display: flex;
-        gap: 1rem;
         align-items: center;
-        margin-bottom: 1rem;
     }
 
-    .apply-now-button {
-        background-color: red;
+        .header-title img {
+            width: 40px;
+            height: 40px;
+            object-fit: cover;
+            margin-right: 10px;
+        }
+
+        .header-title h2 {
+            margin: 0;
+        }
+
+    .update-button,
+    .apply-now-button,
+    .delete-button {
         color: #fff;
         border: none;
         border-radius: 7px;
@@ -43,7 +52,21 @@
         height: fit-content;
     }
 
-        .apply-now-button:hover {
+    .update-button {
+        background-color: dodgerblue;
+    }
+
+    .delete-button {
+        background-color: lightgrey;
+    }
+
+    .apply-now-button {
+        background-color: red
+    }
+
+        .apply-now-button:hover,
+        .update-button:hover,
+        .delete-button:hover {
             color: #fff;
         }
 
@@ -57,6 +80,13 @@
 
     .locContainer {
         margin-bottom: 1rem;
+    }
+
+    .actions-btn {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        gap: 0.5rem;
     }
 
     .employment-work-container {
@@ -78,11 +108,15 @@
     <div class="header-cont">
         <div class="header-title">
             <img src="~/images/job-icon-dummy.png" />
-            <h3>@Model.Title</h3>
+            <h2>@Model.Title</h2>
         </div>
-        <a class="apply-now-button" asp-controller="PublicApplicationForm" asp-action="Index">Apply Now</a>
+        <div class="actions-btn">
+            <a class="apply-now-button" asp-controller="PublicApplicationForm" asp-action="Index">Apply Now</a>
+            @*Admin view*@
+            <a class="update-button" asp-controller="Job" asp-action="UpdateView" asp-route-id="@Model.Id">Update</a>
+            <a class="delete-button" asp-controller="PublicApplicationForm" asp-action="Index">Delete</a>
+        </div>
     </div>
-
 
     <div class="tags-container">
         <div class="location locContainer">
@@ -97,12 +131,9 @@
 
     <div class="job-qualifications">
         <h5>Job Qualification</h5>
-
     </div>
 
-    <div class="job-responsiblities">
+    <div class="job-responsibilities">
         <h5>Job Responsibility</h5>
-
     </div>
 </div>
-

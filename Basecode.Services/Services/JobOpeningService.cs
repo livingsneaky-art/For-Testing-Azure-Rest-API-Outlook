@@ -1,4 +1,5 @@
-﻿using Basecode.Data.Interfaces;
+﻿using AutoMapper;
+using Basecode.Data.Interfaces;
 using Basecode.Data.Models;
 using Basecode.Data.ViewModels;
 using Basecode.Services.Interfaces;
@@ -11,10 +12,12 @@ namespace Basecode.Services.Services
     public class JobOpeningService : IJobOpeningService
     {
         private readonly IJobOpeningRepository _repository;
+        private readonly IMapper _mapper;
 
-        public JobOpeningService(IJobOpeningRepository repository)
+        public JobOpeningService(IJobOpeningRepository repository, IMapper mapper)
         {
             _repository = repository;
+            _mapper = mapper;
         }
 
         public List<JobOpeningViewModel> GetJobs()
@@ -58,13 +61,15 @@ namespace Basecode.Services.Services
         }
 
 
-        public void Update(JobOpening jobOpening, string updatedBy)
+        public void Update(JobOpeningViewModel jobOpening, string updatedBy)
         {
-            jobOpening.UpdatedBy = updatedBy;
-            jobOpening.UpdatedTime = DateTime.Now;
+            var job = _mapper.Map<JobOpening>(jobOpening);
+            job.UpdatedBy = updatedBy;
+            job.UpdatedTime = DateTime.Now;
 
-            _repository.UpdateJobOpening(jobOpening);
+            _repository.UpdateJobOpening(job);
         }
+
 
         public void Delete(JobOpeningViewModel jobOpening)
         {
