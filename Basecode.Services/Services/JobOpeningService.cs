@@ -30,5 +30,18 @@ namespace Basecode.Services.Services
 
             _repository.AddJobOpening(jobOpening);
         }
+
+        public JobOpening GetById(int id)
+        {
+            return _repository.GetJobOpeningById(id);
+        }
+
+        public void Update(JobOpening jobOpening, string updatedBy)
+        {
+            jobOpening.UpdatedBy = updatedBy;
+            jobOpening.UpdatedTime = DateTime.Now;
+
+            _repository.UpdateJobOpening(jobOpening);
+        }
     }
 }

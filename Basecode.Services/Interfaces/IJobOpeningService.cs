@@ -11,5 +11,9 @@ namespace Basecode.Services.Interfaces
     {
         List<JobOpening> GetJobs();
         void Create(JobOpening jobOpening, string createdBy);
+
+        JobOpening GetById(int id);
+
+        void Update(JobOpening jobOpening, string updatedBy);
     }
 }
