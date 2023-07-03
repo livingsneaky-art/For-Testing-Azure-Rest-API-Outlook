@@ -28,14 +28,10 @@ namespace Basecode.WebApp.Controllers
         [HttpPost]
         public IActionResult Create(JobOpening jobOpening)
         {
-            if (ModelState.IsValid)
-            {
-                string createdBy = "dummy1";
-                _jobOpeningService.Create(jobOpening, createdBy);
-                return RedirectToAction("Index");
-            }
+            string createdBy = "dummy1";
+            _jobOpeningService.Create(jobOpening, createdBy);
+            return RedirectToAction("Index");
 
-            return View(jobOpening);
         }
 
         public IActionResult UpdateView(int id)
