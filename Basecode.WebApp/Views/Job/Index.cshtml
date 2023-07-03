@@ -1,26 +1,10 @@
-﻿@using Basecode.Data.Models;
-@model IEnumerable<JobOpening>
+﻿@using Basecode.Data.ViewModels;
+@model List<JobOpeningViewModel>
 
 @*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
-    // Dummy data for dynamic cards
-    var dummyCards = new[]
-    {
-        new { Title = "Job Title 1", Location = "Location 1", EmploymenType = "Type 1", WorkSetup = GetRandomWorkSetup() },
-        new { Title = "Job Title 2", Location = "Location 2", EmploymenType = "Type 2", WorkSetup = GetRandomWorkSetup() },
-        new { Title = "Job Title 3", Location = "Location 3", EmploymenType = "Type 3", WorkSetup = GetRandomWorkSetup() }
-    };
-
-    // Method to get a random work setup value
-    string GetRandomWorkSetup()
-    {
-        var workSetups = new[] { "remote", "onsite", "hybrid" };
-        var random = new Random();
-        var index = random.Next(workSetups.Length);
-        return workSetups[index];
-    }
 }
 <style>
     .card {
