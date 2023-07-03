@@ -16,7 +16,7 @@ namespace Basecode.Data.Models
         public string Category { get; set; }
         public string CreatedBy { get; set; }
 
-        public DateTime CreatedDate { get; set; }
+        public DateTime CreatedTime { get; set; }
 
         public string UpdatedBy { get; set; }
 
