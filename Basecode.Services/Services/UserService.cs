@@ -22,5 +22,10 @@ namespace Basecode.Services.Services
         {
             return _repository.RetrieveAll().ToList();
         }
+
+        public void Add(User user)
+        {
+            _repository.Add(user);
+        }
     }
 }

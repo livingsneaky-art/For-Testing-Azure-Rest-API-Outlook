@@ -3,15 +3,6 @@
 
 @{
     Layout = "/Views/Shared/_Admin.cshtml";
-
-    // Define a dynamic list of users
-    var users = new List<dynamic>
-    {
-        new { Id = 0, Role = "HR", Fullname = "Rick Deckard", Username = "replicant01", Email = "philipkdick@android.com" },
-        new { Id = 1, Role = "DT", Fullname = "Niander Wallace", Username = "nexus6", Email = "wallace@nexus.com" },
-        new { Id = 2, Role = "HR", Fullname = "Eldon Tyrell", Username = "tyrellcorp", Email = "tyrell@offworld.com" },
-        new { Id = 3, Role = "DT", Fullname = "Miguel O'Hara", Username = "canonlover", Email = "dorito@spider.com" }
-    };
 }
 
 @*Add font awesome for this page*@
@@ -20,6 +11,8 @@
 <link rel="stylesheet" href="~/css/user/UserList.css" />
 @*Add stylesheet for the modals (partial views)*@
 <link rel="stylesheet" href="~/css/user/UserModal.css" />
+
+<script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
 
 <div class="container-fluid d-flex justify-content-center mt-5">
     <h1>Users List</h1>
@@ -49,8 +42,9 @@
 
         @*Add new user button*@
         <div class="d-flex col-2 justify-content-md-end">
-            <a class="btn btn-primary" role="button" data-bs-toggle="modal" data-bs-target="#addUserModal"><i class="fa-solid fa-user-plus"></i> ADD USER</a>
-            <partial name="_AddView.cshtml" />
+            @*<a class="btn btn-primary" role="button" data-bs-toggle="modal" data-bs-target="#addUserModal" id="addUserButton"><i class="fa-solid fa-user-plus"></i> ADD USER</a>*@
+            <a class="btn btn-primary" role="button" id="addUserButton"><i class="fa-solid fa-user-plus"></i> ADD USER</a>
+            @*<partial name="_AddView.cshtml" />*@
         </div>
     </div>
 
@@ -86,3 +80,18 @@
         </div>
     </div>
 </div>
+<div id="modalContainer"></div>
+
+
+@section Scripts {
+    <script>
+        $(function () {
+            $("#addUserButton").click(function () {
+                $.get("/User/AddView", function (data) {
+                    $("#modalContainer").html(data);
+                    $("#addUserModal").modal("show");
+                });
+            });
+        });
+    </script>
+}
