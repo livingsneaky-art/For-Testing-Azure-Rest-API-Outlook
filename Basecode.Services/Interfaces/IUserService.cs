@@ -13,5 +13,6 @@ namespace Basecode.Services.Interfaces
         void Add(User user);
         User GetById(int id);
         void Update(User user);
+        void Delete(int id);
     }
 }

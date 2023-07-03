@@ -44,5 +44,19 @@ namespace Basecode.WebApp.Controllers
             _service.Update(user);
             return RedirectToAction("Index");
         }
+
+        [HttpGet]
+        public ActionResult DeleteView(int id)
+        {
+            var data = _service.GetById(id);
+            return PartialView("~/Views/User/_DeleteView.cshtml", data);
+        }
+
+        [HttpPost]
+        public IActionResult Delete(int id)
+        {
+            _service.Delete(id);
+            return RedirectToAction("Index");
+        }
     }
 }

@@ -37,5 +37,15 @@ namespace Basecode.Data.Repositories
             _context.User.Update(user);
             _context.SaveChanges();
         }
+
+        public void Delete(int id)
+        {
+            var data = _context.User.Find(id);
+            if (data != null)
+            {
+                _context.User.Remove(data);
+                _context.SaveChanges();
+            }
+        }
     }
 }
