@@ -1,144 +1,51 @@
 ﻿using Basecode.Data.Interfaces;
 using Basecode.Data.Models;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Basecode.Data.Repositories
 {
     public class UserRepository : BaseRepository, IUserRepository
     {
-        private UserManager<IdentityUser> _userManager;
-        private RoleManager<IdentityRole> _roleManager;
-
-        public UserRepository(IUnitOfWork unitOfWork, UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager) 
-            : base(unitOfWork)
+        private readonly BasecodeContext _context;
+        public UserRepository(IUnitOfWork unitOfWork, BasecodeContext context) : base(unitOfWork)
         {
-            _userManager = userManager;
-            _roleManager = roleManager;
+            _context = context;
         }
 
-        public IEnumerable<User> FindAll()
+        public IQueryable<User> RetrieveAll()
         {
-            return GetDbSet<User>();
+            return this.GetDbSet<User>();
         }
 
-        public User FindByUsername(string username)
+        public void Add(User user)
         {
-            return GetDbSet<User>().Where(x => x.Username.ToLower().Equals(username.ToLower())).AsNoTracking().FirstOrDefault();
+            _context.User.Add(user);
+            _context.SaveChanges();
         }
 
-        public User FindById(string id)
+        public User GetById(int id)
         {
-            return GetDbSet<User>().FirstOrDefault(x => x.Id.Equals(id));
+            return _context.User.Find(id);
         }
 
-        public User FindUser(string userName)
+        public void Update(User user)
         {
-            var userDB = GetDbSet<User>().Where(x => x.Username.ToLower().Equals(userName.ToLower())).AsNoTracking().FirstOrDefault();
-            return userDB;
+            _context.User.Update(user);
+            _context.SaveChanges();
         }
 
-        public bool Create(User user)
+        public void Delete(int id)
         {
-            try
+            var data = _context.User.Find(id);
+            if (data != null)
             {
-                GetDbSet<User>().Add(user);
-                UnitOfWork.SaveChanges();
+                _context.User.Remove(data);
+                _context.SaveChanges();
             }
-            catch (Exception)
-            {
-                return false;
-            }
-
-            return true;
-        }
-
-        public bool Update(User user)
-        {
-            try
-            {
-                SetEntityState(user, EntityState.Modified);
-                UnitOfWork.SaveChanges();
-            }
-            catch
-            {
-                return false;
-            }
-
-            return true;
-        }
-
-        public void Delete(User user)
-        {
-            GetDbSet<User>().Remove(user);
-            UnitOfWork.SaveChanges();
-        }
-
-        public async Task<IdentityResult> RegisterUser(string username, string password, string firstName, string lastName, string email, string role)
-        {
-            var user = new IdentityUser
-            {
-                UserName = username,
-                Email = email
-            };
-
-            var result = await _userManager.CreateAsync(user, password);
-
-            if (!result.Succeeded) return result;
-
-            bool checkIfRoleExists = await _roleManager.RoleExistsAsync(role);
-            if (checkIfRoleExists)
-            {
-                var result1 = await _userManager.AddToRoleAsync(user, role);
-
-                if (!result1.Succeeded) return result1;
-            }
-         
-            var userId = user.Id;
-
-            // Insert user details
-            var userEntity = new User
-            {
-                Id = userId,
-                Username = username,
-                FirstName = firstName,
-                LastName = lastName,
-            };
-
-            Create(userEntity);
-
-            return result;
-        }
-        public async Task<IdentityResult> CreateRole(string roleName)
-        {
-            bool checkIfRoleExists = await _roleManager.RoleExistsAsync(roleName);
-            if (!checkIfRoleExists)
-            {
-                var role = new IdentityRole();
-                role.Name = roleName;
-                var result = await _roleManager.CreateAsync(role);
-                return result;
-            }
-
-            return null;
-        }        
-
-        public async Task<IdentityUser> FindUser(string userName, string password)
-        {
-            var user = await _userManager.FindByNameAsync(userName);
-            return user;
-        }
-
-        public async Task<User> FindUserAsync(string userName, string password)
-        {
-            var userDB = GetDbSet<User>().Where(x => x.Username.ToLower().Equals(userName.ToLower())).AsNoTracking().FirstOrDefault();
-            var user = await _userManager.FindByNameAsync(userName);
-            var isPasswordOK = await _userManager.CheckPasswordAsync(user, password);
-            if ((user == null) || (isPasswordOK == false))
-            {
-                userDB = null;
-            }
-            return userDB;
         }
     }
 }
