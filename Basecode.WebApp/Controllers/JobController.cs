@@ -20,7 +20,7 @@ namespace Basecode.WebApp.Controllers
             return View(jobOpenings);
         }
 
-        public IActionResult Create()
+        public IActionResult CreateView()
         {
             return View();
         }
@@ -32,6 +32,30 @@ namespace Basecode.WebApp.Controllers
             {
                 string createdBy = "dummy1";
                 _jobOpeningService.Create(jobOpening, createdBy);
+                return RedirectToAction("Index");
+            }
+
+            return View(jobOpening);
+        }
+
+        public IActionResult UpdateView(int id)
+        {
+            var jobOpening = _jobOpeningService.GetById(id);
+            if (jobOpening == null)
+            {
+                return NotFound();
+            }
+
+            return View(jobOpening);
+        }
+
+        [HttpPost]
+        public IActionResult Update(JobOpening jobOpening)
+        {
+            if (ModelState.IsValid)
+            {
+                string updatedBy = "dummy1";
+                _jobOpeningService.Update(jobOpening, updatedBy);
                 return RedirectToAction("Index");
             }
 
