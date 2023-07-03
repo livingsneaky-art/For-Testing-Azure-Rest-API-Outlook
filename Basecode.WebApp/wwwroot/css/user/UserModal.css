@@ -35,3 +35,7 @@ input[name="role"] {
 .modal-title {
     color: #425A73;
 }
+
+.modal-content {
+    border-radius: 10px;
+}
