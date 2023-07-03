@@ -70,8 +70,8 @@
                         <td>@user.Fullname</td>
                         <td>@user.Username</td>
                         <td>@user.Email</td>
-                        <td><a class="btn btn-edit" role="button" id="editUserButton" onclick="showEditModal(@user.Id)"><i class="fa-regular fa-pen-to-square icon-white"></i> EDIT</a></td>
-                        <td><a class="btn btn-delete" role="button"><i class="fa-solid fa-trash-can icon-white"></i> DELETE</a></td>
+                        <td><a class="btn btn-edit" role="button" onclick="showEditModal(@user.Id)"><i class="fa-regular fa-pen-to-square icon-white"></i> EDIT</a></td>
+                        <td><a class="btn btn-delete" role="button" onclick="showDeleteModal(@user.Id)"><i class="fa-solid fa-trash-can icon-white"></i> DELETE</a></td>
                     </tr>
                 }
             </table>
@@ -80,6 +80,7 @@
 </div>
 <div id="addModalContainer"></div>
 <div id="editModalContainer"></div>
+<div id="deleteModalContainer"></div>
 
 
 @section Scripts 
@@ -99,10 +100,17 @@
 
         function showEditModal(id)
         {
-            console.log(id);
             $.get("/User/UpdateView/" + id, function (data) {
                 $("#editModalContainer").html(data);
                 $("#editUserModal").modal("show");
+            });
+        }
+        
+        function showDeleteModal(id)
+        {
+            $.get("/User/DeleteView/" + id, function (data) {
+                $("#deleteModalContainer").html(data);
+                $("#deleteUserModal").modal("show");
             });
         }
     </script>
