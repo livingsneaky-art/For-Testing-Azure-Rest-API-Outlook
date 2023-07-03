@@ -30,5 +30,19 @@ namespace Basecode.WebApp.Controllers
             _service.Add(user);
             return RedirectToAction("Index");
         }
+
+        [HttpGet]
+        public ActionResult UpdateView(int id)
+        {
+            var data = _service.GetById(id);
+            return PartialView("~/Views/User/_UpdateView.cshtml", data);
+        }
+
+        [HttpPost]
+        public IActionResult Update(User user)
+        {
+            _service.Update(user);
+            return RedirectToAction("Index");
+        }
     }
 }
