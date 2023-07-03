@@ -1,13 +1,16 @@
-﻿@{
+﻿@using Basecode.Data.Models
+@model List<User>
+
+@{
     Layout = "/Views/Shared/_Admin.cshtml";
 
     // Define a dynamic list of users
     var users = new List<dynamic>
     {
-        new { UserId = 0, Role = "HR", FullName = "Rick Deckard", Username = "replicant01", Email = "philipkdick@android.com" },
-        new { UserId = 1, Role = "DT", FullName = "Niander Wallace", Username = "nexus6", Email = "wallace@nexus.com" },
-        new { UserId = 2, Role = "HR", FullName = "Eldon Tyrell", Username = "tyrellcorp", Email = "tyrell@offworld.com" },
-        new { UserId = 3, Role = "DT", FullName = "Miguel O'Hara", Username = "canonlover", Email = "dorito@spider.com" }
+        new { Id = 0, Role = "HR", Fullname = "Rick Deckard", Username = "replicant01", Email = "philipkdick@android.com" },
+        new { Id = 1, Role = "DT", Fullname = "Niander Wallace", Username = "nexus6", Email = "wallace@nexus.com" },
+        new { Id = 2, Role = "HR", Fullname = "Eldon Tyrell", Username = "tyrellcorp", Email = "tyrell@offworld.com" },
+        new { Id = 3, Role = "DT", Fullname = "Miguel O'Hara", Username = "canonlover", Email = "dorito@spider.com" }
     };
 }
 
@@ -67,12 +70,12 @@
                 </tr>
 
                 @*Add the table rows*@
-                @foreach (var user in users)
+                @foreach (var user in Model)
                 {
                     <tr>
-                        <td>@user.UserId</td>
+                        <td>@user.Id</td>
                         <td>@user.Role</td>
-                        <td>@user.FullName</td>
+                        <td>@user.Fullname</td>
                         <td>@user.Username</td>
                         <td>@user.Email</td>
                         <td><a class="btn btn-edit" role="button"><i class="fa-regular fa-pen-to-square icon-white"></i> EDIT</a></td>
