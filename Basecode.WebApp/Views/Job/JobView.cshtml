@@ -4,6 +4,7 @@
     ViewData["Title"] = "Job Details";
 }
 
+
 <style>
     .job-details-container {
         border: 1px solid lightgray;
@@ -100,7 +101,7 @@
             color: #323743FF;
             padding: 5px 3px;
             border-radius: 5px;
-        }
+    }
 </style>
 
 <a asp-action="Index">Back</a>
@@ -110,7 +111,7 @@
         <div class="header-title">
             <img src="~/images/job-icon-dummy.png" />
             <h2>@Model.Title</h2>
-        </div>
+    </div>
         <div class="actions-btn">
              @*Admin view*@
            <form asp-controller="Job" asp-action="Delete" method="post">
@@ -120,7 +121,7 @@
              <a class="update-button" asp-controller="Job" asp-action="UpdateView" asp-route-id="@Model.Id">Update</a>
              @*Applicant view*@
             <a class="apply-now-button" asp-controller="PublicApplicationForm" asp-action="Index">Apply Now</a>
-           
+
         </div>
     </div>
 
@@ -137,7 +138,7 @@
 
     <div class="job-qualifications">
         <h5>Job Qualification</h5>
-    </div>
+</div>
 
     <div class="job-responsibilities">
         <h5>Job Responsibility</h5>
