@@ -84,5 +84,10 @@ namespace Basecode.Services.Services
         {
             _repository.Delete(id);
         }
+
+        public void Add(User user)
+        {
+            _repository.Add(user);
+        }
     }
 }
