@@ -80,7 +80,7 @@
 }
 
 /* Sidebar collapsible styles for smaller screens */
-@media (max-width: 1023px) {
+@media (max-width: 767px) {
     .col-2 {
         display: none;
     }
@@ -98,7 +98,7 @@
 /* Sidebar collapsible styles for mobile devices */
 @media (max-width: 767px) {
     .col-2 {
-        display: none;
+        display: none
     }
 
     .col-10 {
@@ -145,14 +145,6 @@
     }
 }
 
-/* Adjust padding and margins for .
-/* Adjust padding and margins for 640px and 768px screens */
-@media (min-width: 640px) and (max-width: 767px) {
-    .card-custom1 {
-        width: 45%;
-    }
-}
-
 /* Adjust padding and margins for 360px and 414px screens */
 @media (max-width: 414px) {
     .card-custom1 {
@@ -188,3 +180,4 @@
         font-size: 12px;
     }
 }
+
