@@ -89,5 +89,15 @@ namespace Basecode.Services.Services
         {
             _repository.Add(user);
         }
+
+        public User GetById(int id)
+        {
+            return _repository.GetById(id);
+        }
+
+        public void Update(User user)
+        {
+            _repository.Update(user);
+        }
     }
 }
