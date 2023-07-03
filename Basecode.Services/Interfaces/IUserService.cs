@@ -11,5 +11,7 @@ namespace Basecode.Services.Interfaces
     {
         List<User> RetrieveAll();
         void Add(User user);
+        User GetById(int id);
+        void Update(User user);
     }
 }

@@ -26,5 +26,16 @@ namespace Basecode.Data.Repositories
             _context.User.Add(user);
             _context.SaveChanges();
         }
+
+        public User GetById(int id)
+        {
+            return _context.User.Find(id);
+        }
+
+        public void Update(User user)
+        {
+            _context.User.Update(user);
+            _context.SaveChanges();
+        }
     }
 }
