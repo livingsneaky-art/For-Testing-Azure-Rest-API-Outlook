@@ -58,6 +58,7 @@
 
     .delete-button {
         background-color: lightgrey;
+        width:100%;
     }
 
     .apply-now-button {
@@ -114,7 +115,10 @@
             <a class="apply-now-button" asp-controller="PublicApplicationForm" asp-action="Index">Apply Now</a>
             @*Admin view*@
             <a class="update-button" asp-controller="Job" asp-action="UpdateView" asp-route-id="@Model.Id">Update</a>
-            <a class="delete-button" asp-controller="PublicApplicationForm" asp-action="Index">Delete</a>
+           <form asp-controller="Job" asp-action="Delete" method="post">
+                <input type="hidden" name="id" value="@Model.Id" />
+                <input type="submit" value="Delete" class="delete-button" />
+            </form>
         </div>
     </div>
 
