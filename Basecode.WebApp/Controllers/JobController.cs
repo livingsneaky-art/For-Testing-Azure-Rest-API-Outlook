@@ -28,7 +28,7 @@ namespace Basecode.WebApp.Controllers
         [HttpPost]
         public IActionResult Create(JobOpening jobOpening)
         {
-            string createdBy = "dummy1";
+            string createdBy = "dummy_person";
             _jobOpeningService.Create(jobOpening, createdBy);
             return RedirectToAction("Index");
 
