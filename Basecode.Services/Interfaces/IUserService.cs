@@ -1,4 +1,5 @@
 ﻿using Basecode.Data.Models;
+using Basecode.Data.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace Basecode.Services.Interfaces
 {
     public interface IUserService
     {
-        List<User> RetrieveAll();
+        List<UserViewModel> RetrieveAll();
         void Add(User user);
         User GetById(int id);
         void Update(User user);
