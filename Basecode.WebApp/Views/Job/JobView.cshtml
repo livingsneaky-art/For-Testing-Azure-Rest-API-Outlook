@@ -1,0 +1,55 @@
+﻿@model Basecode.Data.ViewModels.JobOpeningViewModel
+
+@{
+    ViewData["Title"] = "Job Details";
+}
+
+
+<style>
+    .job-details-container {
+        border: 1px solid lightgray;
+        padding: 20px;
+        margin-top: 3rem;
+        border-radius: 9px;
+    }
+
+    .header-cont {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    .apply-now-button {
+        background-color: red;
+        color: #fff;
+        border: none;
+        border-radius: 10px;
+    }
+
+    .location{
+        display: flex;
+        gap: 2px;
+    }
+</style>
+
+<a asp-action="Index">Go Back</a>
+
+<div class="job-details-container">
+    <div class="header-cont">
+        <h3>@Model.Title</h3>
+        <button class="apply-now-button">Apply Now</button>
+    </div>
+
+
+    <div class="tags-container">
+        <div class="location">
+            <img src="~/images/location-icon.png" alt="Location Icon" class="location-icon">
+            <p class="location">@Model.Location</p>
+        </div>
+        <div class="employment-work-container">
+            <p class="employment-type">@Model.EmploymentType</p>
+            <p class="work-setup">@Model.WorkSetup</p>
+        </div>
+    </div>
+</div>
+
