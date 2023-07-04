@@ -46,8 +46,6 @@
     }
 }
 
-
-
 .carousel-inner {
     padding: 1em;
 }
@@ -100,7 +98,6 @@
     margin-right: 10px;
 }
 
-
 .carousel-control-prev, .carousel-control-next {
     width: 6vh;
     height: 6vh;
@@ -108,7 +105,6 @@
     top: 50%;
     transform: translateY(-50%);
 }
-
 
 .carousel-control-prev:hover,
 .carousel-control-next:hover {
