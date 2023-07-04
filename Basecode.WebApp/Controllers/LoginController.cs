@@ -4,6 +4,10 @@ namespace Basecode.WebApp.Controllers
 {
     public class LoginController : Controller
     {
+        /// <summary>
+        /// Displays the login view
+        /// </summary>
+        /// <returns>The login view</returns>
         public IActionResult Index()
         {
             return View();
