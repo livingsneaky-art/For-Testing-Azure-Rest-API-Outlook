@@ -1,4 +1,5 @@
 ﻿using Basecode.Data.Models;
+using Basecode.Data.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,13 +10,13 @@ namespace Basecode.Services.Interfaces
 {
     public interface IJobOpeningService
     {
-        List<JobOpening> GetJobs();
+        List<JobOpeningViewModel> GetJobs();
         void Create(JobOpening jobOpening, string createdBy);
 
-        JobOpening GetById(int id);
+        JobOpeningViewModel GetById(int id);
 
-        void Update(JobOpening jobOpening, string updatedBy);
+        void Update(JobOpeningViewModel jobOpening, string updatedBy);
 
-        void Delete(JobOpening jobOpening);
+        void Delete(JobOpeningViewModel jobOpening);
     }
 }

@@ -3,17 +3,17 @@
 }
 
 <!--Search Feature-->
-<div style="padding-top: 100px;" class="text-center">
-    <div class="display-5 fw-bold">
+<div style="margin-top: 3rem;" class="text-center">
+    <div style="font-weight: 600"  class="display-5">
         Ready to join the <span class="text-danger">Alliance</span> team?
     </div> 
-    <div style="padding-top: 50px;">
+    <div style="margin-top: 2rem;">
         <form actions="">
             <div class="form-group row">
-                <div class="col-md-3">
+                <div class="col-md-2">
                 </div>
-                <div class="col-md-5">
-                    <input type="text" class="form-control" id="search" name="search" placeholder="&#xF002; Search" style="font-family:Arial, FontAwesome" />
+                <div class="col-md-7">
+                    <input type="text" class="form-control" id="search" name="search" placeholder="&#xF002; Search for jobs..." style="font-family:Arial, FontAwesome; color: gray;"/>
                 </div>                  
                 <div class="col-md-1">
                     <button type="submit" class="btn btn-danger">Search</button>
@@ -26,100 +26,155 @@
 </div>
 
 <!--Multiple Carousel-->
-<div style="padding-top: 50px;" id="carouselExampleControls" class="carousel" data-ride="carousel">
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-         <div class="card">
-            <div class="img-wrapper">
-                <img  src="images/home/FinanceImage.png" alt="Card image cap">
+<div id="carouselExampleControls" class="carousel" data-ride="carousel">
+    <div class="carousel-inner">
+        <div class="carousel-item ">
+                <div class="card">
+                <div class="img-wrapper">
+                        <img style="width: 200px; height: 200px;"  src="images/home/FinanceImage.png" alt="Card image cap">
+                </div>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <div class="card">
+                <div class="img-wrapper">
+                    <img style="width: 200px; height: 200px;" src="images/home/HumanResourceImage.png" alt="Card image cap">
+                </div>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <div class="card">
+                <div class="img-wrapper">
+                    <img style="width: 200px; height: 200px;" src="images/home/MarketingImage.png" alt="Card image cap">
+                </div>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <div class="card">
+                <div class="img-wrapper">
+                    <img style="width: 200px; height: 200px;" src="images/home/TechnicalImage.png" alt="Card image cap">
+                </div>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <div class="card">
+                <div class="img-wrapper">
+                    <img style="width: 200px; height: 200px;" src="images/home/MarketingImage.png" alt="Card image cap">
+                </div>
             </div>
         </div>
     </div>
-    <div class="carousel-item">
-      <div class="card">
-            <div class="img-wrapper">
-                <img src="images/home/HumanResourceImage.png" alt="Card image cap">
-            </div>
-        </div>
+    <div>
+        <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+            <img style="padding-right: 100px;" src="images/home/CarouselRightIcon.png" alt="Carousel Right Icon" />
+        </a>
     </div>
-    <div class="carousel-item">
-      <div class="card">
-            <div class="img-wrapper">
-                <img src="images/home/MarketingImage.png" alt="Card image cap">
-            </div>
-        </div>
+    <div>
+        <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+        <img style="padding-left: 100px;" src="images/home/CarouselLeftIcon.png" alt="Carousel Left Icon"/>
+        </a>
     </div>
-    <div class="carousel-item">
-      <div class="card">
-            <div class="img-wrapper">
-                <img src="images/home/TechnicalImage.png" alt="Card image cap">
-            </div>
-        </div>
-    </div>
-    <div class="carousel-item">
-      <div class="card">
-            <div class="img-wrapper">
-                <img src="images/home/MarketingImage.png" alt="Card image cap">
-            </div>
-        </div>
-    </div>
-  </div>
-  <div>
-      <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-        <img src="images/home/CarouselRightIcon.png" alt="Carousel Right Icon"/>
-    </a>
-  </div>
-  <div>
-      <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-        <img src="images/home/CarouselLeftIcon.png" alt="Carousel Left Icon"/>
-      </a>
-  </div>
 </div>
 
 <!--Latest Job text-->
 <div style="padding-top: 100px;" class="container">
-    <div class="row">
-        <div class="col-12 display-5 text-danger text-center">
-            Latest Jobs
-        </div>
-        <p style="color: gray;" class="text-center">
-            Exercitation dolore reprehenderit fugi
-        </p>
+<div class="row">
+    <div style="font-weight: 600" class="col-12 display-5 text-danger text-center">
+        Latest Jobs
     </div>
+    <p style="color: gray;" class="text-center">
+        Exercitation dolore reprehenderit fugi
+    </p>
+</div>
 </div>
 
- <!--Bootstrap Tables-->
-<div style="padding-top: 50px;" class="text-center row row-content">
-    <div class="col-12 ">
-        <div class="table-responsive">
-            <table class="table table-striped">
-                <tbody>
-                    <tr>
-                        <img  class="latestJobImage" src="images/home/ui-ux-designer.png" alt="Card image cap"/>
-                    </tr>
-                    <tr>
-                        <img  class="latestJobImage" src="images/home/csharp.png" alt="Card image cap"/>
-                    </tr>
-                    <tr>
-                        <img class="latestJobImage" src="images/home/reactjs developer.png" alt="Card image cap"/>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-    <div class="col-12 col-sm-3">
-
+<!--Latest Job cards-->
+<div class="jobContainer">
+    <div class="row col-12 mt-4">
+        @*@foreach (var jobOpening in Model)
+        {*@
+            <div class="col-lg-4 col-md-4 col-sm-4 col">
+            <div class="card mb-4 cardForJobs">
+                <div class="card-body">
+                    <div class="card-header">
+                            <img src="~/images/job-icon-dummy.png" alt="Card Image" class="card-image">
+                        <h5 class="card-title">UI/UX Designer <br><span class="fw-light">₱30K - ₱60K</span></h5>
+                        </div>
+                        <div class="card-header">
+                            <img src="~/images/home-icon.png" alt="Card Image" class="card-image-small">
+                            <p class="card-text">Pariator</p>
+                        </div>
+                        <div class="card-header">
+                            <img src="~/images/location-icon.png" alt="Card Image" class="card-image-small">
+                            <p class="card-text">Cebu City, Cebu</p>
+                        </div>
+                        <div class="card-header">
+                            <img src="~/images/bookmark-icon.png" alt="Card Image" class="card-image-small">
+                            <p class="card-text">Hybrid</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col">
+            <div class="card mb-4 cardForJobs">
+                    <div class="card-body">
+                        <div class="card-header">
+                            <img src="~/images/job-icon-dummy01.png" alt="Card Image" class="card-image">
+                        <h5 class="card-title">C# Developer <br><span class="fw-light">₱50K - ₱120K</span></h5>
+                        </div>
+                        <div class="card-header">
+                            <img src="~/images/home-icon.png" alt="Card Image" class="card-image-small">
+                            <p class="card-text">Pariator</p>
+                        </div>
+                        <div class="card-header">
+                            <img src="~/images/location-icon.png" alt="Card Image" class="card-image-small">
+                            <p class="card-text">Chiyoda, Tokyo</p>
+                        </div>
+                        <div class="card-header">
+                            <img src="~/images/bookmark-icon.png" alt="Card Image" class="card-image-small">
+                            <p class="card-text">Hybrid</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col">
+            <div class="card mb-4 cardForJobs">
+                    <div class="card-body">
+                        <div class="card-header">
+                            <img src="~/images/job-icon-dummy02.png" alt="Card Image" class="card-image">
+                        <h5 class="card-title">ReactJS Developer <br><span class="fw-light">₱30k - ₱79K</span></h5>
+                        </div>
+                        <div class="card-header">
+                            <img src="~/images/home-icon.png" alt="Card Image" class="card-image-small">
+                            <p class="card-text">Aliq</p>
+                        </div>
+                        <div class="card-header">
+                            <img src="~/images/location-icon.png" alt="Card Image" class="card-image-small">
+                            <p class="card-text">San Juan City, Metro Manila</p>
+                        </div>
+                        <div class="card-header">
+                            <img src="~/images/bookmark-icon.png" alt="Card Image" class="card-image-small">
+                            <p class="card-text">Remote</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @*}*@
     </div>
 </div>
 
 <!--See more & Top Up Feature-->
-<div style="padding-top: 20px;">
-    <div class="col-12 text-center">
+<div style="margin-top: 2rem; margin-bottom: 2rem;" class="row col-12">
+    <div class="col-lg-12 col-md-12 col-sm-12 col text-center">
         <button class="btn btn-danger">See more</button>
-    </div>
-    <div style="text-align: right">
-        <img src="images/home/GoUp.png" width="50" />
     </div>
 </div>
 
- 
+ <!--Return Top feature-->
+<div style="margin-bottom: 2rem;" class="row col-12">
+    <div class="col-lg-11 col-md-11 col-sm-11">
+    </div>
+    <div style="text-align: right;" class="col-lg-1 col-md-1 col-sm-1 col">
+        <img src="images/home/GoUp.png" width="40"/>
+    </div>
+</div>

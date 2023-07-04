@@ -10,7 +10,7 @@ namespace Basecode.WebApp
     public partial class Startup
     {
         private void ConfigureDependencies(IServiceCollection services)
-        {            
+        {
             // Common
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<ClaimsProvider, ClaimsProvider>();

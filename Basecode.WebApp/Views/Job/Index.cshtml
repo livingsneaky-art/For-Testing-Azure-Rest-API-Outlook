@@ -1,26 +1,10 @@
-﻿@using Basecode.Data.Models;
-@model IEnumerable<JobOpening>
+﻿@using Basecode.Data.ViewModels;
+@model List<JobOpeningViewModel>
 
 @*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
-    // Dummy data for dynamic cards
-    var dummyCards = new[]
-    {
-        new { Title = "Job Title 1", Location = "Location 1", EmploymenType = "Type 1", WorkSetup = GetRandomWorkSetup() },
-        new { Title = "Job Title 2", Location = "Location 2", EmploymenType = "Type 2", WorkSetup = GetRandomWorkSetup() },
-        new { Title = "Job Title 3", Location = "Location 3", EmploymenType = "Type 3", WorkSetup = GetRandomWorkSetup() }
-    };
-
-    // Method to get a random work setup value
-    string GetRandomWorkSetup()
-    {
-        var workSetups = new[] { "remote", "onsite", "hybrid" };
-        var random = new Random();
-        var index = random.Next(workSetups.Length);
-        return workSetups[index];
-    }
 }
 <style>
     .card {
@@ -41,6 +25,16 @@
         display: flex;
         flex-direction: column;
         gap: 20px;
+    }
+    .view-button {
+        background-color: red;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        font-size: 18px;
+        cursor: pointer;
+        border-radius: 5px;
+        float: right;
     }
 
     .searchFilter {
@@ -85,11 +79,73 @@
         border-radius: 50%;
         margin-right: 10px;
     }
+
+    .card-title{
+        color: #000;
+    }
+
+    .card-text{
+        color: #6F7787FF;
+    }
+
+        .card .card-body {
+            flex-grow: 1;
+        }
+
+    #searchJob {
+        width: fit-content;
+        padding-right: 20px;
+        border-right: solid 2px #F3F4F6FF;
+    }
+
+    .searchFilter input[type="text"],
+    .searchFilter select {
+        border-radius: 5px;
+        border: none;
+        height: 40px;
+        background-color: #F3F4F6FF;
+        padding: 5px 10px;
+    }
+
+    .card-header {
+        display: flex;
+        align-items: center;
+        background-color: inherit;
+        border-bottom: none;
+    }
+
+    .card-image {
+        width: 40px;
+        height: 40px;
+        object-fit: cover;
+        border-radius: 50%;
+        margin-right: 10px;
+    }
+
+    .card-image-small {
+        width: 20px;
+        height: 20px;
+        object-fit: cover;
+        border-radius: 50%;
+        margin-right: 10px;
+    }
+
+    .card-title{
+        color: #000;
+    }
+
+    .card-text{
+        color: #6F7787FF;
+    }
 </style>
 
 <div class="jobContainer">
-    <h1>Search <span style="color: red;">Jobs</span></h1>
-
+    <h1>Search <span style="color: red;">Jobs</span>
+        @*Admin View*@
+        <a asp-action="CreateView">
+        <button class="view-button">Add Job</button>
+        </a>
+    </h1>
     <div class="searchFilter">
         <div id="searchJob">
             <input type="text" placeholder="Enter keywords">
@@ -108,32 +164,44 @@
         </select>
     </div>
 
+     @if (Model.Count > 0)
+    {
     <div class="row mt-4">
         @foreach (var jobOpening in Model)
         {
             <div class="col-sm-4">
-                <div class="card mb-4">
-                    <div class="card-body">
-                        <div class="card-header">
-                            <img src="~/images/job-icon-dummy.png" alt="Card Image" class="card-image">
-                            <h5 class="card-title">@jobOpening.Title</h5>
-                        </div>
-                        <div class="card-header">
-                            <img src="~/images/home-icon.png" alt="Card Image" class="card-image-small">
-                            <p class="card-text">Location: @jobOpening.Location</p>
-                        </div>
-                        <div class="card-header">
-                            <img src="~/images/location-icon.png" alt="Card Image" class="card-image-small">
-                            <p class="card-text">Job Type: @jobOpening.EmploymentType</p>
-                        </div>
-                        <div class="card-header">
-                            <img src="~/images/bookmark-icon.png" alt="Card Image" class="card-image-small">
-                            <p class="card-text">Work Setup: @jobOpening.WorkSetup</p>
+                <a href="@Url.Action("JobView", "Job", new { id = jobOpening.Id })" style="text-decoration:none;">
+
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <div class="card-header">
+                                <img src="~/images/job-icon-dummy.png" alt="Card Image" class="card-image">
+                                <h5 class="card-title">@jobOpening.Title</h5>
+                            </div>
+                            <div class="card-header">
+                                <img src="~/images/home-icon.png" alt="Card Image" class="card-image-small">
+                                <p class="card-text">Location: @jobOpening.Location</p>
+                            </div>
+                            <div class="card-header">
+                                <img src="~/images/location-icon.png" alt="Card Image" class="card-image-small">
+                                <p class="card-text">Job Type: @jobOpening.EmploymentType</p>
+                            </div>
+                            <div class="card-header">
+                                <img src="~/images/bookmark-icon.png" alt="Card Image" class="card-image-small">
+                                <p class="card-text">Work Setup: @jobOpening.WorkSetup</p>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </a>
+
             </div>
         }
+
     </div>
+    }
+    else
+    {
+        <p>No job openings available.</p>
+    }
 </div>
 
