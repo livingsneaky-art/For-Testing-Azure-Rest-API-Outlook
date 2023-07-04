@@ -1,4 +1,5 @@
-﻿
+﻿@model Basecode.Data.ViewModels.ApplicationViewModel;
+
 @{
     ViewData["Title"] = "Tracker Page";
 }
@@ -61,18 +62,18 @@
       <div>
           <div class="d-flex flex-column justify-content-center align-items-center">
               <h1 class="mb-5 mt-5">Track Application Status</h1>
-              <div class="input-group mb-5 w-50">
-                  <input type="text" class="form-control" placeholder="Application ID" aria-label="Application ID" aria-describedby="button-track">
-                  <button class="button" type="button" id="button-track">
+            <form id="track-form" asp-controller="Tracker" asp-action="GetApplicationById" method="get" class="input-group mb-5 w-50">
+                  <input type="text" name="id" class="form-control" placeholder="Application ID" aria-label="Application ID" aria-describedby="button-track">
+                  <button class="button" type="submit" id="button-track">
                       <i class="bi bi-search"></i> Track
                   </button>
-              </div>
+              </form>
           </div>
           <div class="alert alert-danger" id="error-message" style="display: none;">
               Please enter your Application ID.
           </div>
-          <div class="mt-5 mb-5">
-            <table class="table table-bordered">
+          <div id="table-container" class="mt-5 mb-5" style="display: none;">
+              <table class="table table-bordered">
                   <thead>
                       <tr>
                           <th scope="col">APPLICATION ID</th>
@@ -91,33 +92,62 @@
       <script>
           $(document).ready(function ()
           {
-              $('#button-track').click(function ()
+              $('#track-form').submit(function (e)
               {
-                  var inputValue = $('input.form-control').val();
-                  var applicantName = 'John Doe'; // Temporary value for the applicant name column
-                  var positionApplied = 'Software Engineer'; // Temporary value for the position applied column
-                  var lastUpdated = '2023-06-29'; // Temporary value for the last updated column
-                  var status = 'For Technical Interview'; // Temporary value for the status column
-
-                  if (inputValue === '')
+                  e.preventDefault();
+                  var form = $(this);
+                  var url = form.attr('action');
+                  var formData = form.serialize();
+                  
+                  // Check if the application ID is empty
+                  var applicationId = form.find('input[name="id"]').val();
+                  if (applicationId.trim() === '')
                   {
-                      $('#error-message').show(); // Show the error message
-                      return; // Stop execution if input is empty
+                      // Show the error message
+                      $('#table-container').hide();
+                      $('#error-message').show();
+                      return;
                   }
-                  else
-                  {
-                      $('#error-message').hide(); // Hide the error message
-                  }
-
-                  var newRow = '<tr><td>' + inputValue + '</td><td>' + applicantName + '</td><td>' + positionApplied + '</td><td>' + lastUpdated + '</td><td><b>' + status + '<b></td></tr>';
-
-                  // Clear the existing table rows
-                  $('#table-body').empty();
-
-                  // Append the new row to the table
-                  $('#table-body').append(newRow);
-
-                  $('input.form-control').val('');
+                  
+                  $.ajax({
+                      type: 'GET',
+                      url: url,
+                      data: formData,
+                      success: function (response)
+                      {
+                          console.log(response);
+                          if (response.success)
+                          {
+                              // Display the table and populate it with data
+                              $('#table-container').show();
+                              var application = response.data;
+                              var tableRow = `
+                                  <tr>
+                                      <td>${application.id}</td>
+                                      <td>${application.applicantId}</td>
+                                      <td>${application.jobOpeningId}</td>
+                                      <td>${new Date(application.updateTime).toLocaleString()}</td>
+                                      <td>${application.status}</td>
+                                  </tr>`;
+                              $('#table-body').html(tableRow);
+                              $('#error-message').hide(); // Hide the error message if previously shown
+                          }
+                          else
+                          {
+                              // Hide the table and show the error message
+                              $('#table-container').hide();
+                              $('#error-message').text(response.message); // Update the error message text
+                              $('#error-message').show();
+                          }
+                      },
+                      error: function ()
+                      {
+                          // Hide the table and show the error message
+                          $('#table-container').hide();
+                          $('#error-message').text('An error occurred. Please try again later.'); // Update the error
+                          $('#error-message').show();
+                      }
+                  });
               });
           });
       </script>
