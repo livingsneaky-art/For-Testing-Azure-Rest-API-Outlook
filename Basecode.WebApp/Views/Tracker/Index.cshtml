@@ -1,5 +1,4 @@
-﻿@using Basecode.Data.ViewModels
-@model ApplicationViewModel
+﻿@model Basecode.Data.ViewModels.ApplicationViewModel;
 
 @{
     ViewData["Title"] = "Tracker Page";
@@ -63,17 +62,17 @@
       <div>
           <div class="d-flex flex-column justify-content-center align-items-center">
               <h1 class="mb-5 mt-5">Track Application Status</h1>
-              <div class="input-group mb-5 w-50">
-                  <input type="text" class="form-control" placeholder="Application ID" aria-label="Application ID" aria-describedby="button-track">
-                  <button class="button" type="button" id="button-track">
+            <form id="track-form" asp-controller="Tracker" asp-action="GetApplicationById" method="get" class="input-group mb-5 w-50">
+                  <input type="text" name="id" class="form-control" placeholder="Application ID" aria-label="Application ID" aria-describedby="button-track">
+                  <button class="button" type="submit" id="button-track">
                       <i class="bi bi-search"></i> Track
                   </button>
-              </div>
+              </form>
           </div>
           <div class="alert alert-danger" id="error-message" style="display: none;">
               Please enter your Application ID.
           </div>
-        <div id="table-container" class="mt-5 mb-5" style="display: none;">
+          <div id="table-container" class="mt-5 mb-5" style="display: none;">
               <table class="table table-bordered">
                   <thead>
                       <tr>
@@ -93,53 +92,62 @@
       <script>
           $(document).ready(function ()
           {
-              $('#button-track').click(function ()
+              $('#track-form').submit(function (e)
               {
-                  var applicationId = $('input[type="text"]').val();
-
-                  if (applicationId !== '')
+                  e.preventDefault();
+                  var form = $(this);
+                  var url = form.attr('action');
+                  var formData = form.serialize();
+                  
+                  // Check if the application ID is empty
+                  var applicationId = form.find('input[name="id"]').val();
+                  if (applicationId.trim() === '')
                   {
-                      $.ajax({
-                          url: '/Tracker/GetApplicationById',
-                          data: { Id: applicationId },
-                          success: function (response)
-                          {
-                              console.log(response);
-                              if (response)
-                              {
-                                  var tableRow = '<tr>' +
-                                      '<td>' + response.Id + '</td>' +
-                                      '<td>' + response.ApplicantId + '</td>' +
-                                      '<td>' + response.JobOpeningId + '</td>' +
-                                      '<td>' + response.UpdateTime + '</td>' +
-                                      '<td>' + response.Status + '</td>' +
-                                      '</tr>';
-
-                                  $('#table-body').html(tableRow);
-                                  $('#error-message').hide();
-                                  $('#table-container').show();
-                              }
-                              else
-                              {
-                                  $('#error-message').text('No data found for the provided Application ID.');
-                                  $('#error-message').show();
-                                  $('#table-container').hide();
-                              }
-                          },
-                          error: function ()
-                          {
-                              $('#error-message').text('Error occurred while retrieving data.');
-                              $('#error-message').show();
-                              $('#table-container').hide();
-                          }
-                      });
-                  }
-                  else
-                  {
-                      $('#error-message').text('Please enter your Application ID.');
-                      $('#error-message').show();
+                      // Show the error message
                       $('#table-container').hide();
+                      $('#error-message').show();
+                      return;
                   }
+                  
+                  $.ajax({
+                      type: 'GET',
+                      url: url,
+                      data: formData,
+                      success: function (response)
+                      {
+                          console.log(response);
+                          if (response.success)
+                          {
+                              // Display the table and populate it with data
+                              $('#table-container').show();
+                              var application = response.data;
+                              var tableRow = `
+                                  <tr>
+                                      <td>${application.id}</td>
+                                      <td>${application.applicantId}</td>
+                                      <td>${application.jobOpeningId}</td>
+                                      <td>${new Date(application.updateTime).toLocaleString()}</td>
+                                      <td>${application.status}</td>
+                                  </tr>`;
+                              $('#table-body').html(tableRow);
+                              $('#error-message').hide(); // Hide the error message if previously shown
+                          }
+                          else
+                          {
+                              // Hide the table and show the error message
+                              $('#table-container').hide();
+                              $('#error-message').text(response.message); // Update the error message text
+                              $('#error-message').show();
+                          }
+                      },
+                      error: function ()
+                      {
+                          // Hide the table and show the error message
+                          $('#table-container').hide();
+                          $('#error-message').text('An error occurred. Please try again later.'); // Update the error
+                          $('#error-message').show();
+                      }
+                  });
               });
           });
       </script>
