@@ -89,50 +89,59 @@
               </table>
           </div>
       </div>
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <script>
-            $(document).ready(function () {
-                $('#button-track').click(function () {
-                    var applicationId = $('input[type="text"]').val();
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+      <script>
+          $(document).ready(function ()
+          {
+              $('#button-track').click(function ()
+              {
+                  var applicationId = $('input[type="text"]').val();
 
-                    if (applicationId !== '') {
-                        $.ajax({
-                            url: '/Tracker/GetApplicationById', // Replace with the appropriate controller and action names
-                            type: 'GET',
-                            data: { Id: applicationId },
-                            success: function (response) {
-                                console.log(response);
-                                if (response) {
-                                    var tableRow = '<tr>' +
-                                        '<td>' + response.Id + '</td>' +
-                                        '<td>' + response.ApplicantId + '</td>' +
-                                        '<td>' + response.JobOpeningId + '</td>' +
-                                        '<td>' + response.UpdateTime + '</td>' +
-                                        '<td>' + response.Status + '</td>' +
-                                        '</tr>';
+                  if (applicationId !== '')
+                  {
+                      $.ajax({
+                          url: '/Tracker/GetApplicationById',
+                          data: { Id: applicationId },
+                          success: function (response)
+                          {
+                              console.log(response);
+                              if (response)
+                              {
+                                  var tableRow = '<tr>' +
+                                      '<td>' + response.Id + '</td>' +
+                                      '<td>' + response.ApplicantId + '</td>' +
+                                      '<td>' + response.JobOpeningId + '</td>' +
+                                      '<td>' + response.UpdateTime + '</td>' +
+                                      '<td>' + response.Status + '</td>' +
+                                      '</tr>';
 
-                                    $('#table-body').html(tableRow);
-                                    $('#error-message').hide();
-                                    $('#table-container').show();
-                                } else {
-                                    $('#error-message').text('No data found for the provided Application ID.');
-                                    $('#error-message').show();
-                                    $('#table-container').hide();
-                                }
-                            },
-                            error: function () {
-                                $('#error-message').text('Error occurred while retrieving data.');
-                                $('#error-message').show();
-                                $('#table-container').hide();
-                            }
-                        });
-                    } else {
-                        $('#error-message').text('Please enter your Application ID.');
-                        $('#error-message').show();
-                        $('#table-container').hide();
-                    }
-                });
-            });
-        </script>
+                                  $('#table-body').html(tableRow);
+                                  $('#error-message').hide();
+                                  $('#table-container').show();
+                              }
+                              else
+                              {
+                                  $('#error-message').text('No data found for the provided Application ID.');
+                                  $('#error-message').show();
+                                  $('#table-container').hide();
+                              }
+                          },
+                          error: function ()
+                          {
+                              $('#error-message').text('Error occurred while retrieving data.');
+                              $('#error-message').show();
+                              $('#table-container').hide();
+                          }
+                      });
+                  }
+                  else
+                  {
+                      $('#error-message').text('Please enter your Application ID.');
+                      $('#error-message').show();
+                      $('#table-container').hide();
+                  }
+              });
+          });
+      </script>
   </body>
 </html>
