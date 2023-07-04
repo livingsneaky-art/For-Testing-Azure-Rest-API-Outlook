@@ -12,7 +12,10 @@ namespace Basecode.WebApp.Controllers
                                    string nationalityFinal,
                                    string address,
                                    string phone,
-                                   string email)
+                                   string email,
+                                   string tempReferenceName,
+                                   string tempReferenceAddress,
+                                   string tempReferenceEmail)
         {
             TempData["Name"] = name;
             TempData["Birthdate"] = birthdate;
@@ -22,6 +25,9 @@ namespace Basecode.WebApp.Controllers
             TempData["Address"] = address;
             TempData["Phone"] = phone;
             TempData["Email"] = email;
+            TempData["Reference Name"] = tempReferenceName;
+            TempData["Reference Address"] = tempReferenceAddress;
+            TempData["Reference Email"] = tempReferenceEmail;
             return View();
         }
     }
