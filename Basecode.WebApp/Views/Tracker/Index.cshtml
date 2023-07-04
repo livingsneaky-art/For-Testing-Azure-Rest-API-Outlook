@@ -132,7 +132,7 @@
                                       <td>${application.applicantId}</td>
                                       <td>${application.jobOpeningId}</td>
                                       <td>${new Date(application.updateTime).toLocaleString()}</td>
-                                      <td>${application.status}</td>
+                                      <td><b>${application.status}<b></td>
                                   </tr>`;
                               $('#table-body').html(tableRow);
                               $('#error-message').hide(); // Hide the error message if previously shown
