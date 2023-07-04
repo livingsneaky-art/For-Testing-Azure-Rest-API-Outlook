@@ -3,7 +3,7 @@
 }
 
 <!--Search Feature-->
-<div style="margin-top: 2rem;" class="text-center">
+<div style="margin-top: 3rem;" class="text-center">
     <div style="font-weight: 600"  class="display-5">
         Ready to join the <span class="text-danger">Alliance</span> team?
     </div> 
@@ -90,10 +90,10 @@
 
 <!--Latest Job cards-->
 <div class="jobContainer">
-    <div class="row mt-4">
+    <div class="row col-12 mt-4">
         @*@foreach (var jobOpening in Model)
         {*@
-            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+            <div class="col-lg-4 col-md-4 col-sm-4 col">
             <div class="card mb-4 cardForJobs">
                 <div class="card-body">
                     <div class="card-header">
@@ -115,7 +115,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+        <div class="col-lg-4 col-md-4 col-sm-4 col">
             <div class="card mb-4 cardForJobs">
                     <div class="card-body">
                         <div class="card-header">
@@ -137,7 +137,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+        <div class="col-lg-4 col-md-4 col-sm-4 col">
             <div class="card mb-4 cardForJobs">
                     <div class="card-body">
                         <div class="card-header">
@@ -165,12 +165,16 @@
 
 <!--See more & Top Up Feature-->
 <div style="margin-top: 2rem; margin-bottom: 2rem;" class="row col-12">
-    <div class="col-sm-12 col-md-11 text-center">
+    <div class="col-lg-12 col-md-12 col-sm-12 col text-center">
         <button class="btn btn-danger">See more</button>
-    </div>
-    <div style="text-align: right;" class="col-sm-12 col-md-1">
-        <img src="images/home/GoUp.png" width="40" />
     </div>
 </div>
 
- <!--Testing-->
+ <!--Return Top feature-->
+<div style="margin-bottom: 2rem;" class="row col-12">
+    <div class="col-lg-11 col-md-11 col-sm-11">
+    </div>
+    <div style="text-align: right;" class="col-lg-1 col-md-1 col-sm-1 col">
+        <img src="images/home/GoUp.png" width="40"/>
+    </div>
+</div>
