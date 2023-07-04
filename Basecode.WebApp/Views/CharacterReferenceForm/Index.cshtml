@@ -100,26 +100,33 @@
                 <a href="#" onclick="history.back();">
                     <button type="button" class="btn" style="background-color: #EC3123; color:white; width: 100px;">Back</button>
                 </a>
-                <a asp-area="" asp-controller="ConfirmationForm" asp-action="Index">
                     <button type="submit" class="btn" style="background-color: #EC3123; color:white; width: 100px;">Next ></button>
-                </a>
             </div>
         </div>
         </form>
     </div>
     <script>
+        // Function to duplicate a section in an HTML document
         function duplicateSection() {
+            // Get the section to be duplicated by its ID
             var section = document.getElementById("duplicateSection");
+
+            // Create a deep clone of the section
             var clone = section.cloneNode(true);
 
+            // Create a horizontal rule element
             var hr = document.createElement("hr");
             hr.className = "container opacity-100";
             hr.style.height = "1px";
             hr.style.color = "#424856";
 
+            // Adjust the margin of the cloned section
             clone.style.marginTop = "1.5rem";
 
+            // Insert the cloned section after the original section
             section.parentNode.insertBefore(clone, section.nextSibling);
+
+            // Insert the horizontal rule after the cloned section
             section.parentNode.insertBefore(hr, clone);
         }
     </script>
