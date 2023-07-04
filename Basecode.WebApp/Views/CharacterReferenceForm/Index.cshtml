@@ -43,6 +43,15 @@
                 <p class="mb-0">Confirmation</p>
             </div>
         </div>
+        <form method="post" asp-controller="ConfirmationForm" asp-action="Index">
+            <input type="hidden" name="name" value="@TempData["Name"]" />
+            <input type="hidden" name="birthdate" value="@TempData["Birthdate"]" />
+            <input type="hidden" name="age" value="@TempData["Age"]" />
+            <input type="hidden" name="genderFinal" value="@TempData["Gender"]" />
+            <input type="hidden" name="nationalityFinal" value="@TempData["Nationality"]" />
+            <input type="hidden" name="address" value="@TempData["Address"]" />
+            <input type="hidden" name="phone" value="@TempData["Phone"]" />
+            <input type="hidden" name="email" value="@TempData["Email"]" />
         <div class="container d-flex flex-column align-items-center justify-content-center" style="width: 700px;">
             <div class="container d-flex align-items-center justify-content-start mb-4">
                 <h2>Character References</h2>
@@ -92,10 +101,11 @@
                     <button type="button" class="btn" style="background-color: #EC3123; color:white; width: 100px;">Back</button>
                 </a>
                 <a asp-area="" asp-controller="ConfirmationForm" asp-action="Index">
-                    <button type="button" class="btn" style="background-color: #EC3123; color:white; width: 100px;">Next ></button>
+                    <button type="submit" class="btn" style="background-color: #EC3123; color:white; width: 100px;">Next ></button>
                 </a>
             </div>
         </div>
+        </form>
     </div>
     <script>
         function duplicateSection() {
