@@ -1,29 +1,112 @@
 ﻿@model Basecode.Data.Models.JobOpening
 
-<h2>Create Job Opening</h2>
+<style>
+    body {
+        padding: 20px;
+    }
 
-<form asp-controller = "Job" asp-action="Create" method="post">
-    <div class="form-group">
-        <label asp-for="Title">Title</label>
-        <input type="text" asp-for="Title" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label asp-for="Category">Category</label>
-        <input type="text" asp-for="Category" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label asp-for="Location">Location</label>
-        <input type="text" asp-for="Location" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label asp-for="WorkSetup">Work Setup</label>
-        <input type="text" asp-for="WorkSetup" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label asp-for="EmploymentType">Employment Type</label>
-        <input type="text"  asp-for="EmploymentType" class="form-control" />
-    </div>
-    <button type="submit" class="btn btn-primary">Create</button>
-</form>
+    .form-container {
+        max-width: 500px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #f4f4f4;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+    }
 
-<a asp-action="Index">Back to List</a>
+    .form-title {
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    .form-label {
+        font-weight: bold;
+    }
+
+    .form-control {
+        margin-bottom: 15px;
+    }
+
+    .form-group.big-padding textarea {
+        padding: 20px;
+    }
+
+    .form-actions {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px;
+    }
+
+    .preview-btn {
+        background-color: #4CAF50;
+        color: white;
+    }
+
+    .cancel-btn {
+        background-color: #f44336;
+        color: white;
+    }
+
+    .publish-btn {
+        background-color: #f44336;
+        color: white;
+    }
+</style>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h1 class="form-title">Add New Job Opening</h1>
+            <div class="form-container">
+                <form>
+                    <div class="form-group">
+                        <label class="form-label">Job Information</label>
+                        <div class="form-row">
+                            <div class="col">
+                                <label for="jobTitle">Job Title</label>
+                                <input type="text" class="form-control" id="jobTitle" name="jobTitle" required asp-for="Title">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col">
+                                <label for="employmentType">Employment Type</label>
+                                <select class="form-control" id="employmentType" name="employmentType" required asp-for="EmploymentType">
+                                    <option value="full-time">Full-Time</option>
+                                    <option value="part-time">Part-Time</option>
+                                    <option value="contract">Contract</option>
+                                </select>
+                            </div>
+                            <div class="col">
+                                <label for="jobLocation">Job Location</label>
+                                <input type="text" class="form-control" id="jobLocation" name="jobLocation" required asp-for="Location">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="workSetup">Work Setup</label>
+                            <select class="form-control" id="workSetup" name="workSetup" required asp-for="WorkSetup">
+                                <option value="office">Office</option>
+                                <option value="remote">Remote</option>
+                            </select>
+                        </div>
+                        <div class="form-group big-padding">
+                            <label class="form-label">Job Qualifications</label>
+                            <textarea class="form-control" id="jobQualifications" name="jobQualifications" required></textarea>
+                        </div>
+                        <div class="form-group big-padding">
+                            <label class="form-label">Job Specification</label>
+                            <textarea class="form-control" id="jobSpecification" name="jobSpecification" required></textarea>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-primary preview-btn">Preview</button>
+                        <div>
+                            <button type="button" class="btn btn-secondary cancel-btn">Cancel</button>
+                            <button type="submit" class="btn btn-danger publish-btn">Publish</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
