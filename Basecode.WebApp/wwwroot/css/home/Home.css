@@ -13,6 +13,22 @@
     max-height: 100%;
 }
 
+@media screen and (min-width:100px) {
+    .carousel-inner {
+        display: flex;
+    }
+
+    .carousel-item {
+        display: block;
+        margin-right: 1.5%;
+    }
+
+    .img-wrapper {
+        max-width: 100%;
+        max-height: 100%;
+    }
+}
+
 @media screen and (min-width:576px) {
     .carousel-inner {
         display: flex;
@@ -29,6 +45,8 @@
         max-height: 100%;
     }
 }
+
+
 
 .carousel-inner {
     padding: 1em;
