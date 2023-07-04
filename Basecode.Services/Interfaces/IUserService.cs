@@ -11,11 +11,10 @@ namespace Basecode.Services.Interfaces
     public interface IUserService
     {
         /// <summary>
-        /// Retrieves all users as a list of UserViewModel objects.
-        /// Calls the corresponding method in the repository to fetch the users and then transforms
-        /// them into a view model format before returning the list.
+        /// Retrieves all users by calling the corresponding method in the repository.
+        /// Transforms them into a view model format and creates a list out of them.
         /// </summary>
-        /// <returns>A collection of UserViewModel representing all users available.</returns>
+        /// <returns>A list of UserViewModel objects representing all users available.</returns>
         List<UserViewModel> RetrieveAll();
 
         /// <summary>
