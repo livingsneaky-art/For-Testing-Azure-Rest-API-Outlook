@@ -1,90 +1,73 @@
-﻿using AutoMapper;
-using Basecode.Data.Interfaces;
+﻿using Basecode.Data.Interfaces;
 using Basecode.Data.Models;
-using Basecode.Data.ViewModels;
-using Basecode.Services.Interfaces;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 
-namespace Basecode.Services.Services
+namespace Basecode.Data.Repositories
 {
-    public class JobOpeningService : IJobOpeningService
+    /// <summary>
+    /// A repository for managing job openings.
+    /// </summary>
+    public class JobOpeningRepository : BaseRepository, IJobOpeningRepository
     {
-        private readonly IJobOpeningRepository _repository;
-        private readonly IMapper _mapper;
+        private readonly BasecodeContext _context;
 
-        public JobOpeningService(IJobOpeningRepository repository, IMapper mapper)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="JobOpeningRepository"/> class.
+        /// </summary>
+        /// <param name="unitOfWork">The unit of work.</param>
+        /// <param name="context">The database context.</param>
+        public JobOpeningRepository(IUnitOfWork unitOfWork, BasecodeContext context) : base(unitOfWork)
         {
-            _repository = repository;
-            _mapper = mapper;
+            _context = context;
         }
 
-        public List<JobOpeningViewModel> GetJobs()
+        /// <summary>
+        /// Gets all job openings.
+        /// </summary>
+        /// <returns>A queryable collection of job openings.</returns>
+        public IQueryable<JobOpening> GetAll()
         {
-            var data = _repository.GetAll().Select(m => new JobOpeningViewModel
-            {
-                Id = m.Id,
-                Title = m.Title,
-                EmploymentType = m.EmploymentType,
-                WorkSetup = m.WorkSetup,
-                Location = m.Location,
-                Category = m.Category
-            }).ToList();
-
-            return data;
+            return this.GetDbSet<JobOpening>();
         }
 
-        public void Create(JobOpening jobOpening, string createdBy)
+        /// <summary>
+        /// Adds a new job opening.
+        /// </summary>
+        /// <param name="jobOpening">The job opening to add.</param>
+        public void AddJobOpening(JobOpening jobOpening)
         {
-            jobOpening.CreatedBy = createdBy;
-            jobOpening.CreatedTime = DateTime.Now;
-            jobOpening.UpdatedBy = createdBy;
-            jobOpening.UpdatedTime = DateTime.Now;
-
-            _repository.AddJobOpening(jobOpening);
+            _context.JobOpening.Add(jobOpening);
+            _context.SaveChanges();
         }
 
-        public JobOpeningViewModel GetById(int id)
+        /// <summary>
+        /// Gets a job opening by its ID.
+        /// </summary>
+        /// <param name="id">The ID of the job opening to get.</param>
+        /// <returns>The job opening with the specified ID, or null if no such job opening exists.</returns>
+        public JobOpening GetJobOpeningById(int id)
         {
-            var data = _repository.GetAll().Where(m => m.Id == id).Select(m => new JobOpeningViewModel
-            {
-                Id = m.Id,
-                Title = m.Title,
-                EmploymentType = m.EmploymentType,
-                WorkSetup = m.WorkSetup,
-                Location = m.Location,
-                Category = m.Category
-            }).FirstOrDefault();
-
-            return data;
+            return _context.JobOpening.Find(id);
         }
 
-
-        public void Update(JobOpeningViewModel jobOpening, string updatedBy)
+        /// <summary>
+        /// Updates an existing job opening.
+        /// </summary>
+        /// <param name="jobOpening">The job opening to update.</param>
+        public void UpdateJobOpening(JobOpening jobOpening)
         {
-            var jobExisting = _repository.GetJobOpeningById(jobOpening.Id);
-            _mapper.Map(jobOpening, jobExisting);
-            jobExisting.UpdatedBy = updatedBy;
-            jobExisting.UpdatedTime = DateTime.Now;
-
-            _repository.UpdateJobOpening(jobExisting);
+            _context.JobOpening.Update(jobOpening);
+            _context.SaveChanges();
         }
 
-        public void Delete(JobOpeningViewModel jobOpening)
+        /// <summary>
+        /// Deletes a job opening.
+        /// </summary>
+        /// <param name="jobOpening">The job opening to delete.</param>
+        public void DeleteJobOpening(JobOpening jobOpening)
         {
-            var job = new JobOpening
-            {
-                Id = jobOpening.Id,
-                Title = jobOpening.Title,
-                EmploymentType = jobOpening.EmploymentType,
-                WorkSetup = jobOpening.WorkSetup,
-                Location = jobOpening.Location,
-                Category = jobOpening.Category
-            };
-
-            _repository.DeleteJobOpening(job);
+            _context.JobOpening.Remove(jobOpening);
+            _context.SaveChanges();
         }
-
     }
 }
