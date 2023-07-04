@@ -2,8 +2,10 @@
 
 Group 2 Summer Bridge Project
 
-```
-```
+
+## Entity Relationship Diagram 
+(Tentative)
+![HR Automation System ERD](ERD-GROUP2.png)
 ## Overview
 The HR Automation System is a cutting-edge software solution designed to streamline and automate various human resources processes within an organization.
 This system aims to simplify HR tasks, enhance efficiency, and empower HR professionals to focus on strategic initiatives rather than administrative burdens.
