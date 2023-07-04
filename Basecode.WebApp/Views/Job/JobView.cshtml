@@ -1,0 +1,145 @@
+﻿@model Basecode.Data.ViewModels.JobOpeningViewModel
+
+@{
+    ViewData["Title"] = "Job Details";
+}
+
+<style>
+    .job-details-container {
+        border: 1px solid lightgray;
+        padding: 20px;
+        margin: 0 auto;
+        margin-top: 3rem;
+        border-radius: 9px;
+        width: 80%;
+    }
+
+    p {
+        margin-top: none;
+        margin-bottom: none;
+    }
+
+    .header-cont {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    .header-title {
+        display: flex;
+        align-items: center;
+    }
+
+        .header-title img {
+            width: 40px;
+            height: 40px;
+            object-fit: cover;
+            margin-right: 10px;
+        }
+
+        .header-title h2 {
+            margin: 0;
+        }
+
+    .update-button,
+    .apply-now-button,
+    .delete-button {
+        color: #fff;
+        border: none;
+        border-radius: 7px;
+        text-decoration: none;
+        padding: 0.6rem 0.4rem;
+        height: fit-content;
+    }
+
+    .update-button {
+        background-color: dodgerblue;
+    }
+
+    .delete-button {
+        background-color: lightgrey;
+        width:100%;
+    }
+
+    .apply-now-button {
+        background-color: red
+    }
+
+        .apply-now-button:hover,
+        .update-button:hover,
+        .delete-button:hover {
+            color: #fff;
+        }
+
+    .location {
+        display: flex;
+        gap: 2px;
+        align-items: center;
+        padding: 0;
+        margin: 0;
+    }
+
+    .locContainer {
+        margin-bottom: 1rem;
+    }
+
+    .actions-btn {
+        display: flex;
+        text-align: center;
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .employment-work-container {
+        display: flex;
+        gap: 1rem;
+    }
+
+        .employment-work-container * {
+            background-color: #F3F4F6FF;
+            color: #323743FF;
+            padding: 5px 3px;
+            border-radius: 5px;
+        }
+</style>
+
+<a asp-action="Index">Back</a>
+
+<div class="job-details-container">
+    <div class="header-cont">
+        <div class="header-title">
+            <img src="~/images/job-icon-dummy.png" />
+            <h2>@Model.Title</h2>
+        </div>
+        <div class="actions-btn">
+             @*Admin view*@
+           <form asp-controller="Job" asp-action="Delete" method="post">
+                <input type="hidden" name="id" value="@Model.Id" />
+                <input type="submit" value="Delete" class="delete-button" />
+            </form>
+             <a class="update-button" asp-controller="Job" asp-action="UpdateView" asp-route-id="@Model.Id">Update</a>
+             @*Applicant view*@
+            <a class="apply-now-button" asp-controller="PublicApplicationForm" asp-action="Index">Apply Now</a>
+           
+        </div>
+    </div>
+
+    <div class="tags-container">
+        <div class="location locContainer">
+            <img src="~/images/location-icon.png" alt="Location Icon" class="location-icon">
+            <p class="location">@Model.Location</p>
+        </div>
+        <div class="employment-work-container">
+            <p class="employment-type">@Model.EmploymentType</p>
+            <p class="work-setup">@Model.WorkSetup</p>
+        </div>
+    </div>
+
+    <div class="job-qualifications">
+        <h5>Job Qualification</h5>
+    </div>
+
+    <div class="job-responsibilities">
+        <h5>Job Responsibility</h5>
+    </div>
+</div>

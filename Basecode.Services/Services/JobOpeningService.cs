@@ -1,5 +1,7 @@
-﻿using Basecode.Data.Interfaces;
+﻿using AutoMapper;
+using Basecode.Data.Interfaces;
 using Basecode.Data.Models;
+using Basecode.Data.ViewModels;
 using Basecode.Services.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -10,15 +12,27 @@ namespace Basecode.Services.Services
     public class JobOpeningService : IJobOpeningService
     {
         private readonly IJobOpeningRepository _repository;
+        private readonly IMapper _mapper;
 
-        public JobOpeningService(IJobOpeningRepository repository)
+        public JobOpeningService(IJobOpeningRepository repository, IMapper mapper)
         {
             _repository = repository;
+            _mapper = mapper;
         }
 
-        public List<JobOpening> GetJobs()
+        public List<JobOpeningViewModel> GetJobs()
         {
-            return _repository.GetAll().ToList();
+            var data = _repository.GetAll().Select(m => new JobOpeningViewModel
+            {
+                Id = m.Id,
+                Title = m.Title,
+                EmploymentType = m.EmploymentType,
+                WorkSetup = m.WorkSetup,
+                Location = m.Location,
+                Category = m.Category
+            }).ToList();
+
+            return data;
         }
 
         public void Create(JobOpening jobOpening, string createdBy)
@@ -31,22 +45,46 @@ namespace Basecode.Services.Services
             _repository.AddJobOpening(jobOpening);
         }
 
-        public JobOpening GetById(int id)
+        public JobOpeningViewModel GetById(int id)
         {
-            return _repository.GetJobOpeningById(id);
+            var data = _repository.GetAll().Where(m => m.Id == id).Select(m => new JobOpeningViewModel
+            {
+                Id = m.Id,
+                Title = m.Title,
+                EmploymentType = m.EmploymentType,
+                WorkSetup = m.WorkSetup,
+                Location = m.Location,
+                Category = m.Category
+            }).FirstOrDefault();
+
+            return data;
         }
 
-        public void Update(JobOpening jobOpening, string updatedBy)
-        {
-            jobOpening.UpdatedBy = updatedBy;
-            jobOpening.UpdatedTime = DateTime.Now;
 
-            _repository.UpdateJobOpening(jobOpening);
+        public void Update(JobOpeningViewModel jobOpening, string updatedBy)
+        {
+            var jobExisting = _repository.GetJobOpeningById(jobOpening.Id);
+            _mapper.Map(jobOpening, jobExisting);
+            jobExisting.UpdatedBy = updatedBy;
+            jobExisting.UpdatedTime = DateTime.Now;
+
+            _repository.UpdateJobOpening(jobExisting);
         }
 
-        public void Delete(JobOpening jobOpening)
+        public void Delete(JobOpeningViewModel jobOpening)
         {
-            _repository.DeleteJobOpening(jobOpening);
+            var job = new JobOpening
+            {
+                Id = jobOpening.Id,
+                Title = jobOpening.Title,
+                EmploymentType = jobOpening.EmploymentType,
+                WorkSetup = jobOpening.WorkSetup,
+                Location = jobOpening.Location,
+                Category = jobOpening.Category
+            };
+
+            _repository.DeleteJobOpening(job);
         }
+
     }
 }

@@ -2,6 +2,7 @@
 using Basecode.Data.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using Basecode.Data.ViewModels;
 
 namespace Basecode.WebApp.Controllers
 {
@@ -25,6 +26,17 @@ namespace Basecode.WebApp.Controllers
             return View();
         }
 
+        public IActionResult JobView(int id)
+        {
+            var jobOpening = _jobOpeningService.GetById(id);
+            if (jobOpening == null)
+            {
+                return NotFound();
+            }
+
+            return View(jobOpening);
+        }
+
         [HttpPost]
         public IActionResult Create(JobOpening jobOpening)
         {
@@ -46,7 +58,7 @@ namespace Basecode.WebApp.Controllers
         }
 
         [HttpPost]
-        public IActionResult Update(JobOpening jobOpening)
+        public IActionResult Update(JobOpeningViewModel jobOpening)
         {
             if (ModelState.IsValid)
             {
