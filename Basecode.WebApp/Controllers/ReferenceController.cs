@@ -2,7 +2,7 @@
 
 namespace Basecode.WebApp.Controllers
 {
-    public class CharacterReferenceFormController : Controller
+    public class ReferenceController : Controller
     {
         [HttpPost]
         public IActionResult Index(string firstName,

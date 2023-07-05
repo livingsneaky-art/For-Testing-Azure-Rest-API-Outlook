@@ -43,7 +43,7 @@
                 <p class="mb-0">Confirmation</p>
             </div>
         </div>
-        <form method="post" asp-controller="ConfirmationForm" asp-action="Index">
+        <form method="post" asp-controller="Confirmation" asp-action="Index">
             <input type="hidden" name="name" value="@TempData["Name"]" />
             <input type="hidden" name="birthdate" value="@TempData["Birthdate"]" />
             <input type="hidden" name="age" value="@TempData["Age"]" />

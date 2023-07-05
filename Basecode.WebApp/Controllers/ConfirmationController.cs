@@ -2,7 +2,7 @@
 
 namespace Basecode.WebApp.Controllers
 {
-    public class ConfirmationFormController : Controller
+    public class ConfirmationController : Controller
     {
         [HttpPost]
         public IActionResult Index(string name,
