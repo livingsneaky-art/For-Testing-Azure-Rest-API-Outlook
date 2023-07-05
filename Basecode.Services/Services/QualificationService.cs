@@ -48,6 +48,20 @@ namespace Basecode.Services.Services
             return data;
         }
 
+        public List<Qualification> GetQualificationsByJobOpeningId(int jobOpeningId)
+        {
+            var data = _repository.GetAll().Where(m => m.JobOpeningId == jobOpeningId).Select(m => new Qualification
+            {
+                Id = m.Id,
+                JobOpeningId = m.JobOpeningId,
+                Description = m.Description
+            }).ToList();
+
+            return data;
+        }
+
+
+
 
         public void Update(Qualification qualification)
         {

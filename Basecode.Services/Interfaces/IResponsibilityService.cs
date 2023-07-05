@@ -12,6 +12,8 @@ namespace Basecode.Services.Interfaces
         List<Responsibility> GetResponsibilities();
         void Create(Responsibility responsibility);
         Responsibility GetById(int id);
+
+        List<Responsibility> GetResponsibilitiesByJobOpeningId(int jobOpeningId);
         void Update(Responsibility responsibility);
         void Delete(Responsibility responsibility);
     }

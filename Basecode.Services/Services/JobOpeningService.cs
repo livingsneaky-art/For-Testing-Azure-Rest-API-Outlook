@@ -12,12 +12,16 @@ namespace Basecode.Services.Services
     public class JobOpeningService : IJobOpeningService
     {
         private readonly IJobOpeningRepository _repository;
+        private readonly IQualificationService _qualificationService;
+        private readonly IResponsibilityService _responsibilityService;
         private readonly IMapper _mapper;
 
-        public JobOpeningService(IJobOpeningRepository repository, IMapper mapper)
+        public JobOpeningService(IJobOpeningRepository repository, IMapper mapper, IQualificationService qualificationService, IResponsibilityService responsibilityService)
         {
             _repository = repository;
             _mapper = mapper;
+            _qualificationService = qualificationService;
+            _responsibilityService = responsibilityService;
         }
 
         public List<JobOpeningViewModel> GetJobs()
@@ -35,18 +39,23 @@ namespace Basecode.Services.Services
             return data;
         }
 
-        public void Create(JobOpening jobOpening, string createdBy)
+        public void Create(JobOpeningViewModel jobOpening, string createdBy)
         {
-            jobOpening.CreatedBy = createdBy;
-            jobOpening.CreatedTime = DateTime.Now;
-            jobOpening.UpdatedBy = createdBy;
-            jobOpening.UpdatedTime = DateTime.Now;
 
-            _repository.AddJobOpening(jobOpening);
+            var jobOpeningModel = _mapper.Map<JobOpening>(jobOpening);
+
+            jobOpeningModel.CreatedBy = createdBy;
+            jobOpeningModel.CreatedTime = DateTime.Now;
+            jobOpeningModel.UpdatedBy = createdBy;
+            jobOpeningModel.UpdatedTime = DateTime.Now;
+
+            _repository.AddJobOpening(jobOpeningModel);
         }
 
         public JobOpeningViewModel GetById(int id)
         {
+            var qualifications = _qualificationService.GetQualificationsByJobOpeningId(id);
+            var responsibilities = _responsibilityService.GetResponsibilitiesByJobOpeningId(id);
             var data = _repository.GetAll().Where(m => m.Id == id).Select(m => new JobOpeningViewModel
             {
                 Id = m.Id,
@@ -54,7 +63,9 @@ namespace Basecode.Services.Services
                 EmploymentType = m.EmploymentType,
                 WorkSetup = m.WorkSetup,
                 Location = m.Location,
-                Category = m.Category
+                Category = m.Category,
+                Responsibilities = responsibilities, 
+                Qualifications = qualifications
             }).FirstOrDefault();
 
             return data;

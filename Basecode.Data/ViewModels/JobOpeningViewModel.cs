@@ -46,6 +46,11 @@ namespace Basecode.Data.ViewModels
         /// <summary>
         /// Gets or sets the qualifications of the job opening.
         /// </summary>
-        public List<Qualification> Qualifications{ get; set; }
+        public List<Qualification> Qualifications { get; set; }
+
+        /// <summary>Gets or sets the responsibilities.</summary>
+        /// <value>The responsibilities.</value>
+        public List<Responsibility> Responsibilities { get; set; }
+
     }
 }

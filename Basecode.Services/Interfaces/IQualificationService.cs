@@ -12,6 +12,8 @@ namespace Basecode.Services.Interfaces
         List<Qualification> GetQualifications();
         void Create(Qualification qualification);
         Qualification GetById(int id);
+
+        List<Qualification> GetQualificationsByJobOpeningId(int jobOpeningId);
         void Update(Qualification qualification);
         void Delete(Qualification qualification);
     }

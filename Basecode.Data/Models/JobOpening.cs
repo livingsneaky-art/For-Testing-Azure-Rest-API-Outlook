@@ -23,5 +23,6 @@ namespace Basecode.Data.Models
         public DateTime UpdatedTime { get; set; }
 
         public List<Qualification> Qualifications { get; set; }
+        public List<Responsibility> Responsibilities { get; set; }
     }
 }

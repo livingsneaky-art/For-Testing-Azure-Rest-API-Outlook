@@ -22,6 +22,7 @@ namespace Basecode.WebApp
             services.AddScoped<IJobOpeningService, JobOpeningService>();
             services.AddScoped<IApplicationService, ApplicationService>();
             services.AddScoped<IQualificationService, QualificationService>();
+            services.AddScoped<IResponsibilityService, ResponsibilityService>();
 
             // Repositories
             services.AddScoped<IUserRepository, UserRepository>();

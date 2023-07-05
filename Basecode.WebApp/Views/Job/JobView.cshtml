@@ -121,6 +121,25 @@
             padding: 5px 3px;
             border-radius: 5px;
         }
+
+    .qualification-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 0.5rem;
+    }
+
+        .qualification-item img,
+        .responsibility-item img {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+        }
+
+    .responsibility-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 0.5rem;
+    }
 </style>
 
 <div class="actions-btn">
@@ -154,15 +173,45 @@
             <p class="work-setup">@Model.WorkSetup</p>
         </div>
     </div>
-
     <div class="job-qualifications">
-        <h5>Job Qualification</h5>
+        <h5>Job Qualifications</h5>
+        @if (Model.Qualifications != null && Model.Qualifications.Any())
+        {
+            <ul>
+                @foreach (var qualification in Model.Qualifications)
+                {
+                    <li class="qualification-item">
+                        <img src="~/images/check.png" alt="check Icon">
+                        <span>@qualification.Description</span>
+                    </li>
+                }
+            </ul>
+        }
+        else
+        {
+            <p>No qualifications found.</p>
+        }
     </div>
 
     <div class="job-responsibilities">
-        <h5>Job Responsibility</h5>
+        <h5>Job Responsibilities</h5>
+        @if (Model.Responsibilities != null && Model.Responsibilities.Any())
+        {
+            <ul>
+                @foreach (var responsibility in Model.Responsibilities)
+                {
+                    <li class="responsibility-item">
+                        <img src="~/images/check.png" alt="check Icon">
+                        <span>@responsibility.Description</span>
+                    </li>
+                }
+            </ul>
+        }
+        else
+        {
+            <p>No responsibilities found.</p>
+        }
     </div>
-
 </div>
 
 
