@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Basecode.Data.ViewModels;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Basecode.WebApp.Controllers
 {
@@ -12,13 +13,19 @@ namespace Basecode.WebApp.Controllers
         {
             return View();
         }
-        
+
         /// <summary>
         /// Redirect to dashboard when sign-up successfully
         /// </summary>
         /// <returns>Redirected page</returns>
-        public async Task<IActionResult> Login()
+        public IActionResult Login(LoginViewModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                // Add validation errors to ModelState
+                ModelState.AddModelError(string.Empty, "Invalid email or password.");
+                return View(model);
+            }
             return RedirectToAction("Index", "Dashboard");
         }
     }
