@@ -13,10 +13,18 @@ namespace Basecode.Services.Services
     {
         private readonly IResponsibilityRepository _repository;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ResponsibilityService"/> class.
+        /// </summary>
+        /// <param name="repository">The repository.</param>
         public ResponsibilityService(IResponsibilityRepository repository)
         {
             _repository = repository;
         }
+        /// <summary>
+        /// Gets the responsibilities.
+        /// </summary>
+        /// <returns></returns>
         public List<Responsibility> GetResponsibilities()
         {
             var data = _repository.GetAll().Select(m => new Responsibility
@@ -29,11 +37,20 @@ namespace Basecode.Services.Services
             return data;
         }
 
+        /// <summary>
+        /// Creates the specified responsibility.
+        /// </summary>
+        /// <param name="Responsibility"></param>
         public void Create(Responsibility Responsibility)
         {
             _repository.AddResponsibility(Responsibility);
         }
 
+        /// <summary>
+        /// Gets the by identifier.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns></returns>
         public Responsibility GetById(int id)
         {
             var data = _repository.GetAll().Where(m => m.Id == id).Select(m => new Responsibility
@@ -46,6 +63,11 @@ namespace Basecode.Services.Services
             return data;
         }
 
+        /// <summary>
+        /// Gets the responsibilities by job opening identifier.
+        /// </summary>
+        /// <param name="jobOpeningId">The job opening identifier.</param>
+        /// <returns></returns>
         public List<Responsibility> GetResponsibilitiesByJobOpeningId(int jobOpeningId)
         {
             var data = _repository.GetAll().Where(m => m.JobOpeningId == jobOpeningId).Select(m => new Responsibility
@@ -60,6 +82,10 @@ namespace Basecode.Services.Services
 
 
 
+        /// <summary>
+        /// Updates the specified responsibility.
+        /// </summary>
+        /// <param name="responsibility">The responsibility.</param>
         public void Update(Responsibility responsibility)
         {
             var responsibilityExisting = _repository.GetResponsibilityById(responsibility.Id);
@@ -68,6 +94,10 @@ namespace Basecode.Services.Services
             _repository.UpdateResponsibility(responsibilityExisting);
         }
 
+        /// <summary>
+        /// Deletes the specified responsibility.
+        /// </summary>
+        /// <param name="responsibility">The responsibility.</param>
         public void Delete(Responsibility responsibility)
         {
             _repository.DeleteResponsibility(responsibility);
