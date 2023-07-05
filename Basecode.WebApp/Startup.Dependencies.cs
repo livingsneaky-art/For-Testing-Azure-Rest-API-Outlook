@@ -4,6 +4,7 @@ using Basecode.Data.Interfaces;
 using Basecode.Data.Repositories;
 using Basecode.Services.Interfaces;
 using Basecode.Services.Services;
+using Basecode.Data.Models;
 
 namespace Basecode.WebApp
 {
@@ -20,6 +21,7 @@ namespace Basecode.WebApp
             services.AddScoped<IApplicantService, ApplicantService>();
             services.AddScoped<IJobOpeningService, JobOpeningService>();
             services.AddScoped<IApplicationService, ApplicationService>();
+            services.AddScoped<IQualificationService, QualificationService>();
 
             // Repositories
             services.AddScoped<IUserRepository, UserRepository>();
@@ -27,6 +29,7 @@ namespace Basecode.WebApp
             services.AddScoped<IJobOpeningRepository, JobOpeningRepository>();
             services.AddScoped<IApplicationRepository, ApplicationRepository>();
             services.AddScoped<IQualificationRepository, QualificationRepository>();
+            services.AddScoped<IResponsibilityRepository, ResponsibilityRepository>();
         }
     }
 }

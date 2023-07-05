@@ -21,5 +21,7 @@ namespace Basecode.Data.Models
         public string UpdatedBy { get; set; }
 
         public DateTime UpdatedTime { get; set; }
+
+        public List<Qualification> Qualifications { get; set; }
     }
 }
