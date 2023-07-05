@@ -40,7 +40,7 @@
                 <p class="mb-0">Confirmation</p>
             </div>
         </div>
-        <form method="post" asp-controller="CharacterReferenceForm" asp-action="Index">
+        <form method="post" asp-controller="Reference" asp-action="Index">
             <div class="container d-flex flex-column align-items-center justify-content-center">
                 <div class="container">
                     <div class="row align-items-center justify-content-center text-end mb-4">
@@ -63,7 +63,7 @@
                             <div class="d-flex column-gap-2 align-items-center justify-content-center">
                                 <input type="date" class="form-control" style="border: 1px solid #424856;" name="date">
                                 <p class="mb-0">Age</p>
-                                <input type="text" class="form-control" placeholder="Age" style="border: 1px solid #424856;" name="age">
+                                <input type="number" class="form-control" placeholder="Age" style="border: 1px solid #424856;" name="age">
                                 <p class="mb-0">Gender</p>
                                 <select class="form-select" style="border: 1px solid #424856;" name="gender">
                                     <option selected>Gender</option>
@@ -100,7 +100,7 @@
                             <div class="d-flex column-gap-2 align-items-center justify-content-center">
                                 <input type="text" class="form-control" placeholder="City" style="border: 1px solid #424856;" name="tempCity">
                                 <input type="text" class="form-control" placeholder="Province" style="border: 1px solid #424856;" name="tempProvince">
-                                <input type="text" class="form-control" placeholder="Zip" style="border: 1px solid #424856;" name="tempZip">
+                                <input type="number" class="form-control" placeholder="Zip" style="border: 1px solid #424856;" name="tempZip">
                             </div>
                         </div>
                     </div>
