@@ -8,11 +8,11 @@
 <style>
     .job-details-container {
         border: 1px solid lightgray;
-        padding: 3rem;
+        padding: 0 0 3rem 0;
         margin: 0 auto;
         margin-top: 3rem;
         border-radius: 9px;
-        width: 80%;
+        width: 800px;
     }
 
     p {
@@ -140,6 +140,15 @@
         align-items: center;
         margin-bottom: 0.5rem;
     }
+
+    .banner{
+        height: 170px;
+        width: 100%;
+        background-size: cover;
+        object-fit: cover;
+        object-position: bottom;
+        border-radius: 9px 9px 0 0;
+    }
 </style>
 
 <div class="actions-btn">
@@ -155,6 +164,9 @@
 </div>
 
 <div class="job-details-container">
+    <img class="banner" src="~/images/login/sign_in.png" />
+    <div class="p-5">
+
     <div class="header-cont">
         <div class="header-title">
             <img src="~/images/job-icon-dummy.png" />
@@ -212,6 +224,8 @@
             <p>No responsibilities found.</p>
         }
     </div>
+    </div>
+
 </div>
 
 
