@@ -146,9 +146,9 @@
                     </div>
 
                     <div class="quali-res">
-                        <div class="d-flex g-2 align-content-center flex-wrap">
+                        <div>
                             <label asp-for="Qualifications">Qualifications</label>
-                            <button id="addQualificationBtn" type="button" class="btn btn-primary">+</button>
+                            <button id="addQualificationBtn" type="button" class="btn btn-primary ms-3">+</button>
                         </div>
                         <div id="qualifications-list">
                             @if (Model.Qualifications != null)
@@ -164,7 +164,7 @@
                     <div class="quali-res">
                         <div class="d-flex g-2 align-content-center flex-wrap">
                             <label asp-for="Responsibilities">Responsibilities</label>
-                            <button id="addResponsibilityBtn" type="button" class="btn btn-primary">+</button>
+                            <button id="addResponsibilityBtn" type="button" class="btn btn-primary ms-3">+</button>
                         </div>
                         <div id="responsibilities-list">
                             @if (Model.Responsibilities != null)
@@ -176,11 +176,13 @@
                             }
                         </div>
                     </div>
-
-                    <button type="submit" class="btn btn-primary">Create</button>
-                    <a asp-action="Index">
-                        <button type="button" asp-action="Index" class="btn btn-primary">Cancel</button>
-                    </a>
+                    <div class="d-flex justify-content-between">
+                        <a asp-action="Index">
+                            <button type="button" asp-action="Index" class="btn btn-secondary">Cancel</button>
+                        </a>
+                        <button type="submit" class="btn publish-btn">Create</button>
+                    </div>
+                   
                 </form>
             </div>
         </div>
