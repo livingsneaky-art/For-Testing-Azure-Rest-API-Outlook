@@ -2,7 +2,7 @@
 
 namespace Basecode.WebApp.Controllers
 {
-    public class PublicApplicationFormController : Controller
+    public class PublicApplicationController : Controller
     {
         public IActionResult Index()
         {
