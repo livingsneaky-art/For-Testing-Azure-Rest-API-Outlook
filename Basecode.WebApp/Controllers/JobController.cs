@@ -5,10 +5,10 @@ using System;
 using Basecode.Data.ViewModels;
 using NLog;
 using Basecode.Services.Services;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Basecode.WebApp.Controllers
 {
-
     public class JobController : Controller
     {
         private readonly IJobOpeningService _jobOpeningService;
@@ -33,9 +33,16 @@ namespace Basecode.WebApp.Controllers
         {
             try
             {
-                //Get all jobs currently available.
+                // Get all jobs currently available.
                 var jobOpenings = _jobOpeningService.GetJobs();
-                _logger.Trace("Get Jobs Succesfully");
+
+                if (jobOpenings.IsNullOrEmpty())
+                {
+                    _logger.Error("No current jobs.");
+                    return View(new List<JobOpeningViewModel>());
+                }
+
+                _logger.Trace("Get Jobs Successfully");
                 return View(jobOpenings);
             }
             catch (Exception e)
@@ -45,6 +52,7 @@ namespace Basecode.WebApp.Controllers
             }
         }
 
+
         /// <summary>
         /// Returns a view for creating a new job opening.
         /// </summary>
@@ -53,10 +61,17 @@ namespace Basecode.WebApp.Controllers
         /// </returns>
         public IActionResult CreateView()
         {
-            JobOpeningViewModel model = new JobOpeningViewModel();
-            // Set other properties of the model as needed
+            try
+            {
+                var model = new JobOpeningViewModel();
+                return View(model);
+            }
+            catch (Exception e)
+            {
+                _logger.Error(ErrorHandling.DefaultException(e.Message));
+                return StatusCode(500, "Something went wrong.");
+            }
 
-            return View(model);
         }
 
         /// <summary>
@@ -68,13 +83,22 @@ namespace Basecode.WebApp.Controllers
         /// </returns>
         public IActionResult JobView(int id)
         {
-            var jobOpening = _jobOpeningService.GetById(id);
-            if (jobOpening == null)
+            try
             {
-                return NotFound();
+                var jobOpening = _jobOpeningService.GetById(id);
+                if (jobOpening == null)
+                {
+                    _logger.Error("Job Opening [" + id + "] not found!");
+                    return NotFound();
+                }
+                _logger.Trace("Job Opening [" + id + "] found.");
+                return View(jobOpening);
             }
-
-            return View(jobOpening);
+            catch (Exception e)
+            {
+                _logger.Error(ErrorHandling.DefaultException(e.Message));
+                return StatusCode(500, "Something went wrong.");
+            }
         }
 
         /// <summary>
@@ -115,13 +139,24 @@ namespace Basecode.WebApp.Controllers
         /// </returns>
         public IActionResult UpdateView(int id)
         {
-            var jobOpening = _jobOpeningService.GetById(id);
-            if (jobOpening == null)
+            try
             {
-                return NotFound();
-            }
+                //Checks if Job Opening Exists.
+                var jobOpening = _jobOpeningService.GetById(id);
 
-            return View(jobOpening);
+                if (jobOpening == null)
+                {
+                    _logger.Trace("Job Opening [" + id + "] not found!");
+                    return NotFound();
+                }
+                _logger.Trace("Successfully get JobOpening by the Id: { " + id + " }");
+                return View(jobOpening);
+            }
+            catch (Exception e)
+            {
+                _logger.Error(ErrorHandling.DefaultException(e.Message));
+                return StatusCode(500, "Something went wrong.");
+            }
         }
 
         /// <summary>
@@ -134,15 +169,28 @@ namespace Basecode.WebApp.Controllers
         [HttpPost]
         public IActionResult Update(JobOpeningViewModel jobOpening)
         {
-            if (ModelState.IsValid)
+            try
             {
-                string updatedBy = "dummy1";
-                _jobOpeningService.Update(jobOpening, updatedBy);
-                return RedirectToAction("Index");
-            }
 
-            return View(jobOpening);
+                string updatedBy = "dummy1";
+                var data = _jobOpeningService.Update(jobOpening, updatedBy);
+                if (!data.Result)
+                {
+                // Update the job opening
+                    _jobOpeningService.Update(jobOpening, updatedBy);
+                    _logger.Trace("Updated [" + jobOpening.Id + "] successfully.");
+                    return RedirectToAction("Index");
+                }
+                _logger.Trace(ErrorHandling.SetLog(data));
+                return View("UpdateView", jobOpening);
+            }
+            catch (Exception e)
+            {
+                _logger.Error(ErrorHandling.DefaultException(e.Message));
+                return StatusCode(500, "Something went wrong.");
+            }
         }
+
 
         /// <summary>
         /// Deletes a job opening with the given id and redirects to the Index action.
@@ -154,14 +202,25 @@ namespace Basecode.WebApp.Controllers
         [HttpPost]
         public IActionResult Delete(int id)
         {
-            var jobOpening = _jobOpeningService.GetById(id);
-            if (jobOpening == null)
+            try
             {
-                return NotFound();
-            }
+                //Checks if Job Opening Exists.
+                var jobOpening = _jobOpeningService.GetById(id);
 
-            _jobOpeningService.Delete(jobOpening);
-            return RedirectToAction("Index");
+                if (jobOpening == null)
+                {
+                    return NotFound();
+                }
+                _logger.Trace("Deleted [" + id + "] successfully.");
+                _jobOpeningService.Delete(jobOpening);
+                return RedirectToAction("Index");
+
+            }
+            catch (Exception e)
+            {
+                _logger.Error(ErrorHandling.DefaultException(e.Message));
+                return StatusCode(500, "Something went wrong.");
+            }
         }
 
     }

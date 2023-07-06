@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Basecode.Services.Services
 {
-    public class ResponsibilityService: IResponsibilityService
+    public class ResponsibilityService : IResponsibilityService
     {
         private readonly IResponsibilityRepository _repository;
 
@@ -21,18 +21,21 @@ namespace Basecode.Services.Services
         {
             _repository = repository;
         }
+
         /// <summary>
         /// Gets the responsibilities.
         /// </summary>
         /// <returns></returns>
         public List<Responsibility> GetResponsibilities()
         {
-            var data = _repository.GetAll().Select(m => new Responsibility
-            {
-                Id = m.Id,
-                JobOpeningId = m.JobOpeningId,
-                Description = m.Description
-            }).ToList();
+            var data = _repository.GetAll()
+                .Select(m => new Responsibility
+                {
+                    Id = m.Id,
+                    JobOpeningId = m.JobOpeningId,
+                    Description = m.Description
+                })
+                .ToList();
 
             return data;
         }
@@ -53,12 +56,15 @@ namespace Basecode.Services.Services
         /// <returns></returns>
         public Responsibility GetById(int id)
         {
-            var data = _repository.GetAll().Where(m => m.Id == id).Select(m => new Responsibility
-            {
-                Id = m.Id,
-                JobOpeningId = m.JobOpeningId,
-                Description = m.Description
-            }).FirstOrDefault();
+            var data = _repository.GetAll()
+                .Where(m => m.Id == id)
+                .Select(m => new Responsibility
+                {
+                    Id = m.Id,
+                    JobOpeningId = m.JobOpeningId,
+                    Description = m.Description
+                })
+                .FirstOrDefault();
 
             return data;
         }
@@ -70,17 +76,18 @@ namespace Basecode.Services.Services
         /// <returns></returns>
         public List<Responsibility> GetResponsibilitiesByJobOpeningId(int jobOpeningId)
         {
-            var data = _repository.GetAll().Where(m => m.JobOpeningId == jobOpeningId).Select(m => new Responsibility
-            {
-                Id = m.Id,
-                JobOpeningId = m.JobOpeningId,
-                Description = m.Description
-            }).ToList();
+            var data = _repository.GetAll()
+                .Where(m => m.JobOpeningId == jobOpeningId)
+                .Select(m => new Responsibility
+                {
+                    Id = m.Id,
+                    JobOpeningId = m.JobOpeningId,
+                    Description = m.Description
+                })
+                .ToList();
 
             return data;
         }
-
-
 
         /// <summary>
         /// Updates the specified responsibility.
@@ -101,6 +108,22 @@ namespace Basecode.Services.Services
         public void Delete(Responsibility responsibility)
         {
             _repository.DeleteResponsibility(responsibility);
+        }
+
+        /// <summary>
+        /// Deletes the responsibilities by job opening identifier.
+        /// </summary>
+        /// <param name="jobOpeningId">The job opening identifier.</param>
+        public void DeleteResponsibilitiesByJobOpeningId(int jobOpeningId)
+        {
+            var responsibilities = _repository.GetAll()
+                .Where(m => m.JobOpeningId == jobOpeningId)
+                .ToList();
+
+            foreach (var responsibility in responsibilities)
+            {
+                _repository.DeleteResponsibility(responsibility);
+            }
         }
     }
 }
