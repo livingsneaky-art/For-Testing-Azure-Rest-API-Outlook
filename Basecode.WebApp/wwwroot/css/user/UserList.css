@@ -3,6 +3,12 @@
     background-color: #D02A19;
     border-radius: 0.4rem;
     border-color: #D02A19;
+    font-weight: 500;
+}
+
+.btn:focus, .btn:active {
+    box-shadow: none !important;
+    outline: 0px !important;
 }
 
 .btn-edit, .btn-edit:hover {

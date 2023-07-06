@@ -39,6 +39,7 @@ namespace Basecode.WebApp.Controllers
         /// <param name="user">User object representing the user to be added.</param>
         /// <returns>Redirect to the Index() action to display the list of users.</returns>
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Add(User user)
         {
             _service.Add(user);
@@ -63,6 +64,7 @@ namespace Basecode.WebApp.Controllers
         /// <param name="user">User object representing the user with updated information.</param>
         /// <returns>Redirect to the Index() action to display the list of users.</returns>
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Update(User user)
         {
             _service.Update(user);
@@ -87,6 +89,7 @@ namespace Basecode.WebApp.Controllers
         /// <param name="id">Integer representing the ID of the user to be deleted.</param>
         /// <returns>Redirect to the Index() action to display the updated list of users.</returns>
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Delete(int id)
         {
             _service.Delete(id);
