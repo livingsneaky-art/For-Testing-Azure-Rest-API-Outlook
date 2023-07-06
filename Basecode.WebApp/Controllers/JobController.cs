@@ -31,7 +31,10 @@ namespace Basecode.WebApp.Controllers
         /// <returns>A view for creating a new job opening.</returns>
         public IActionResult CreateView()
         {
-            return View();
+            JobOpeningViewModel model = new JobOpeningViewModel();
+            // Set other properties of the model as needed
+
+            return View(model);
         }
 
         /// <summary>
@@ -56,7 +59,7 @@ namespace Basecode.WebApp.Controllers
         /// <param name="jobOpening">The JobOpening object to create.</param>
         /// <returns>Redirects to the Index action.</returns>
         [HttpPost]
-        public IActionResult Create(JobOpening jobOpening)
+        public IActionResult Create(JobOpeningViewModel jobOpening)
         {
             string createdBy = "dummy_person";
             _jobOpeningService.Create(jobOpening, createdBy);

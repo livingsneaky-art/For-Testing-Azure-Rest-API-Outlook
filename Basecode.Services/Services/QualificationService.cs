@@ -2,6 +2,7 @@
 using Basecode.Data.Interfaces;
 using Basecode.Data.Models;
 using Basecode.Data.ViewModels;
+using Basecode.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,14 +11,22 @@ using System.Threading.Tasks;
 
 namespace Basecode.Services.Services
 {
-    public class QualificationService
+    public class QualificationService : IQualificationService
     {
         private readonly IQualificationRepository _repository;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="QualificationService"/> class.
+        /// </summary>
+        /// <param name="repository">The repository.</param>
         public QualificationService(IQualificationRepository repository)
         {
             _repository = repository;
         }
+        /// <summary>
+        /// Gets the qualifications.
+        /// </summary>
+        /// <returns></returns>
         public List<Qualification> GetQualifications()
         {
             var data = _repository.GetAll().Select(m => new Qualification
@@ -30,11 +39,20 @@ namespace Basecode.Services.Services
             return data;
         }
 
+        /// <summary>
+        /// Creates the specified qualification.
+        /// </summary>
+        /// <param name="qualification">The qualification.</param>
         public void Create(Qualification qualification)
         {
             _repository.AddQualification(qualification);
         }
 
+        /// <summary>
+        /// Gets the by identifier.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns></returns>
         public Qualification GetById(int id)
         {
             var data = _repository.GetAll().Where(m => m.Id == id).Select(m => new Qualification
@@ -47,7 +65,30 @@ namespace Basecode.Services.Services
             return data;
         }
 
+        /// <summary>
+        /// Gets the qualifications by job opening identifier.
+        /// </summary>
+        /// <param name="jobOpeningId">The job opening identifier.</param>
+        /// <returns></returns>
+        public List<Qualification> GetQualificationsByJobOpeningId(int jobOpeningId)
+        {
+            var data = _repository.GetAll().Where(m => m.JobOpeningId == jobOpeningId).Select(m => new Qualification
+            {
+                Id = m.Id,
+                JobOpeningId = m.JobOpeningId,
+                Description = m.Description
+            }).ToList();
 
+            return data;
+        }
+
+
+
+
+        /// <summary>
+        /// Updates the specified qualification.
+        /// </summary>
+        /// <param name="qualification">The qualification.</param>
         public void Update(Qualification qualification)
         {
             var qualificationExisting = _repository.GetQualificationById(qualification.Id);
@@ -56,6 +97,10 @@ namespace Basecode.Services.Services
             _repository.UpdateQualification(qualificationExisting);
         }
 
+        /// <summary>
+        /// Deletes the specified qualification.
+        /// </summary>
+        /// <param name="qualification">The qualification.</param>
         public void Delete(Qualification qualification)
         { 
             _repository.DeleteQualification(qualification);

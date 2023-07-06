@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Basecode.Data.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -40,5 +42,15 @@ namespace Basecode.Data.ViewModels
         /// Gets or sets the category of the job opening.
         /// </summary>
         public string Category { get; set; }
+
+        /// <summary>
+        /// Gets or sets the qualifications of the job opening.
+        /// </summary>
+        public List<Qualification> Qualifications { get; set; }
+
+        /// <summary>Gets or sets the responsibilities.</summary>
+        /// <value>The responsibilities.</value>
+        public List<Responsibility> Responsibilities { get; set; }
+
     }
 }

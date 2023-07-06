@@ -30,6 +30,8 @@ namespace Basecode.Data
 
         public virtual DbSet<Qualification> Qualification { get; set; }
 
+        public virtual DbSet<Responsibility> Responsibility { get; set; }
+
         public virtual DbSet<RefreshToken> RefreshToken { get; set; }
     }
 }

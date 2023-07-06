@@ -1,4 +1,4 @@
-@model Basecode.Data.Models.JobOpening
+@model Basecode.Data.ViewModels.JobOpeningViewModel
 
 
 <style>
@@ -50,6 +50,11 @@
     .publish-btn {
         background-color: #f44336;
         color: white;
+    }
+
+    .quali-res{
+        margin-top: 1rem;
+        margin-bottom: 1rem;
     }
 
     .custom-control {
@@ -140,12 +145,70 @@
                         </div>
                     </div>
 
-                    <button type="submit" class="btn btn-primary">Create</button>
-                    <a asp-action="Index">
-                        <button type="button" asp-action="Index" class="btn btn-primary">Cancel</button>
-                    </a>
+                    <div class="quali-res">
+                        <div>
+                            <label asp-for="Qualifications">Qualifications</label>
+                            <button id="addQualificationBtn" type="button" class="btn btn-primary ms-3">+</button>
+                        </div>
+                        <div id="qualifications-list">
+                            @if (Model.Qualifications != null)
+                            {
+                                for (int i = 0; i < Model.Qualifications.Count; i++)
+                                {
+                                    <input type="text" asp-for="Qualifications[i].Description" class="custom-control qualification-input" />
+                                }
+                            }
+                        </div>
+                    </div>
+
+                    <div class="quali-res">
+                        <div class="d-flex g-2 align-content-center flex-wrap">
+                            <label asp-for="Responsibilities">Responsibilities</label>
+                            <button id="addResponsibilityBtn" type="button" class="btn btn-primary ms-3">+</button>
+                        </div>
+                        <div id="responsibilities-list">
+                            @if (Model.Responsibilities != null)
+                            {
+                                for (int i = 0; i < Model.Responsibilities.Count; i++)
+                                {
+                                    <input type="text" asp-for="Responsibilities[i].Description" class="custom-control responsibility-input" />
+                                }
+                            }
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <a asp-action="Index">
+                            <button type="button" asp-action="Index" class="btn btn-secondary">Cancel</button>
+                        </a>
+                        <button type="submit" class="btn publish-btn">Create</button>
+                    </div>
+                   
                 </form>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+    // Function to add a new input field to the list
+    function addInputField(containerId, inputClass, inputName) {
+        var container = document.getElementById(containerId);
+        var inputField = document.createElement("input");
+        inputField.type = "text";
+        inputField.className = "custom-control " + inputClass;
+        inputField.name = inputName + "[" + container.childElementCount + "].Description";
+        inputField.placeholder = "Please enter something...";
+        container.appendChild(inputField);
+    }
+
+    // Add event listeners to the buttons
+    var addQualificationBtn = document.getElementById("addQualificationBtn");
+    addQualificationBtn.addEventListener("click", function () {
+        addInputField("qualifications-list", "qualification-input", "Qualifications");
+    });
+
+    var addResponsibilityBtn = document.getElementById("addResponsibilityBtn");
+    addResponsibilityBtn.addEventListener("click", function () {
+        addInputField("responsibilities-list", "responsibility-input", "Responsibilities");
+    });
+</script>
