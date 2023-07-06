@@ -109,6 +109,8 @@
         <div class="form-group">
             <label asp-for="Title">Title</label>
             <input type="text" asp-for="Title" class="form-control" />
+            <span asp-validation-for="Title" class="text-danger"></span>
+
         </div>
         <div class="form-group side-double">
             <div class="d-flex flex-column">
@@ -141,7 +143,7 @@
         </div>
 
         <div class="quali-res">
-            <div class=" mb-2">
+            <div class="mb-2">
                 <label asp-for="Qualifications">Qualifications</label>
                 <button id="addQualificationBtn" type="button" class="btn btn-primary ms-3">+</button>
             </div>
@@ -151,7 +153,10 @@
                 {
                     for (int i = 0; i < Model.Qualifications.Count; i++)
                     {
-                        <input type="text" asp-for="Qualifications[i].Description" class="custom-control qualification-input" />
+                        <div class="input-container d-flex align-items-center mb-2 ">
+                            <input type="text" asp-for="Qualifications[i].Description" class="custom-control qualification-input me-2" />
+                            <button type="button" class="btn btn-danger delete-btn">-</button>
+                        </div>
                     }
                 }
             </div>
@@ -168,7 +173,10 @@
                 {
                     for (int i = 0; i < Model.Responsibilities.Count; i++)
                     {
-                        <input type="text" asp-for="Responsibilities[i].Description" class="custom-control responsibility-input" />
+                        <div class="input-container d-flex align-items-center mb-2 ">
+                            <input type="text" asp-for="Responsibilities[i].Description" class="custom-control responsibility-input me-2" />
+                            <button type="button" class="btn btn-danger delete-btn">-</button>
+                        </div>
                     }
                 }
             </div>
@@ -187,7 +195,7 @@
     function addInputField(containerId, inputClass, inputName) {
         var container = document.getElementById(containerId);
         var inputContainer = document.createElement("div");
-        inputContainer.className = "input-container d-flex align-items-center mb-2 ";
+        inputContainer.className = "input-container d-flex align-items-center mb-2";
         var inputField = document.createElement("input");
         inputField.type = "text";
         inputField.className = "custom-control " + inputClass;
@@ -214,6 +222,21 @@
     var addResponsibilityBtn = document.getElementById("addResponsibilityBtn");
     addResponsibilityBtn.addEventListener("click", function () {
         addInputField("responsibilities-list", "responsibility-input me-2", "Responsibilities");
+    });
+
+    // Event delegation for delete buttons
+    var qualificationsList = document.getElementById("qualifications-list");
+    qualificationsList.addEventListener("click", function (event) {
+        if (event.target.classList.contains("delete-btn")) {
+            event.target.parentNode.remove();
+        }
+    });
+
+    var responsibilitiesList = document.getElementById("responsibilities-list");
+    responsibilitiesList.addEventListener("click", function (event) {
+        if (event.target.classList.contains("delete-btn")) {
+            event.target.parentNode.remove();
+        }
     });
 </script>
 
