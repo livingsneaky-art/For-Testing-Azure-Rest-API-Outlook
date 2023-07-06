@@ -114,24 +114,25 @@ namespace Basecode.Services.Services
         public LogContent Update(JobOpeningViewModel jobOpening, string updatedBy)
         {
             LogContent logContent = new LogContent();
+            _responsibilityService.DeleteResponsibilitiesByJobOpeningId(jobOpening.Id);
+            _qualificationService.DeleteQualificationsByJobOpeningId(jobOpening.Id);
+
             var jobExisting = _repository.GetJobOpeningById(jobOpening.Id);
 
             _mapper.Map(jobOpening, jobExisting);
             jobExisting.UpdatedBy = updatedBy;
             jobExisting.UpdatedTime = DateTime.Now;
 
-            // Delete previous qualifications and responsibilities
-            _qualificationService.DeleteQualificationsByJobOpeningId(jobOpening.Id);
-            _responsibilityService.DeleteResponsibilitiesByJobOpeningId(jobOpening.Id);
-
-            // Add updated qualifications and responsibilities
-            jobExisting.Qualifications = jobOpening.Qualifications;
-            jobExisting.Responsibilities = jobOpening.Responsibilities;
+            // Update qualifications and responsibilities
+            jobExisting.Responsibilities = jobOpening.Responsibilities ?? new List<Responsibility>();
+            jobExisting.Qualifications = jobOpening.Qualifications ?? new List<Qualification>();
 
             _repository.UpdateJobOpening(jobExisting);
-
             return logContent;
         }
+
+
+
 
         /// <summary>
         /// Deletes a job opening.
