@@ -20,3 +20,5 @@ jobs:
         run: dotnet restore ./Basecode.sln
       - name: Build
         run: dotnet build ./Basecode.sln --configuration Release --no-restore
+      - name: Test
+        run: dotnet test ./Basecode.sln --verbosity normal
