@@ -1,6 +1,7 @@
 ﻿using Basecode.Data.Models;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Reflection.Metadata.Ecma335;
 using System.Text;
@@ -21,6 +22,8 @@ namespace Basecode.Data.ViewModels
         /// <summary>
         /// Gets or sets the title of the job opening.
         /// </summary>
+        [Required(ErrorMessage = "The title is required.")]
+        [MaxLength(50, ErrorMessage = "Maximum length for the title is 50 characters.")]
         public string Title { get; set; }
 
         /// <summary>

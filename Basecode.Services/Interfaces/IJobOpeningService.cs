@@ -1,6 +1,7 @@
 ﻿using Basecode.Data.Models;
 using Basecode.Data.ViewModels;
 using System.Collections.Generic;
+using static Basecode.Services.Services.ErrorHandling;
 
 namespace Basecode.Services.Interfaces
 {
@@ -20,7 +21,7 @@ namespace Basecode.Services.Interfaces
         /// </summary>
         /// <param name="jobOpening">The job opening to create.</param>
         /// <param name="createdBy">The user who created the job opening.</param>
-        void Create(JobOpeningViewModel jobOpening, string createdBy);
+        LogContent Create(JobOpeningViewModel jobOpening, string createdBy);
 
         /// <summary>
         /// Gets a job opening by its ID.

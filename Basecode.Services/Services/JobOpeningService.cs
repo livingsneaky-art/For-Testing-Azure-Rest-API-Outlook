@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace Basecode.Services.Services
 {
-    public class JobOpeningService : IJobOpeningService
+    public class JobOpeningService : ErrorHandling, IJobOpeningService
     {
         private readonly IJobOpeningRepository _repository;
         private readonly IQualificationService _qualificationService;
@@ -57,18 +57,35 @@ namespace Basecode.Services.Services
         /// </summary>
         /// <param name="jobOpening">The job opening to create.</param>
         /// <param name="createdBy">The user who created the job opening.</param>
-        public void Create(JobOpeningViewModel jobOpening, string createdBy)
+        ///<response code="400">JobOpening details are invalid</response>
+        ///<response code="201">JobOpening created successfully</response>
+        public LogContent Create(JobOpeningViewModel jobOpening, string createdBy)
         {
+            LogContent logContent = new LogContent();
 
-            var jobOpeningModel = _mapper.Map<JobOpening>(jobOpening);
+            if (string.IsNullOrEmpty(jobOpening.Title) || jobOpening.Title.Length > 50)
+            {
+                logContent.Result = false;
+                logContent.ErrorCode = "400";
+                logContent.Message = "Title length is 0 or more than 50 characters.";
+            }
+            else
+            {
+                logContent.Result = false;
+                logContent.ErrorCode = "201";
+                logContent.Message = "Create JobOpening succesfully.";
+                var jobOpeningModel = _mapper.Map<JobOpening>(jobOpening);
 
-            jobOpeningModel.CreatedBy = createdBy;
-            jobOpeningModel.CreatedTime = DateTime.Now;
-            jobOpeningModel.UpdatedBy = createdBy;
-            jobOpeningModel.UpdatedTime = DateTime.Now;
+                jobOpeningModel.CreatedBy = createdBy;
+                jobOpeningModel.CreatedTime = DateTime.Now;
+                jobOpeningModel.UpdatedBy = createdBy;
+                jobOpeningModel.UpdatedTime = DateTime.Now;
 
-            _repository.AddJobOpening(jobOpeningModel);
+                _repository.AddJobOpening(jobOpeningModel);
+            }
+            return logContent;
         }
+
 
         /// <summary>
         /// Gets a job opening by its ID.
@@ -89,7 +106,7 @@ namespace Basecode.Services.Services
                 WorkSetup = m.WorkSetup,
                 Location = m.Location,
                 Category = m.Category,
-                Responsibilities = responsibilities, 
+                Responsibilities = responsibilities,
                 Qualifications = qualifications
             }).FirstOrDefault();
 
