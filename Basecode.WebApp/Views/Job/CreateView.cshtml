@@ -111,38 +111,37 @@
                 <form asp-controller="Job" asp-action="Create" method="post">
                     <div class="form-group">
                         <label asp-for="Title">Job Title</label>
-                        <input type="text" asp-for="Title" class="custom-control" />
+                        <input type="text" asp-for="Title" class="custom-control" placeholder = "Software Developer" required />
                         <span asp-validation-for="Title" class="text-danger"></span>
                     </div>
                     <div class="form-group side-double">
                         <div class="d-flex flex-column">
                             <label asp-for="EmploymentType">Employment Type</label>
-                            <select name="EmploymentType" asp-for="EmploymentType" class="custom-control">
+                            <select name="EmploymentType" asp-for="EmploymentType" class="custom-control" required>
                                 <option value="">Select an employment type</option>
                                 <option value="Full-time">Full-time</option>
                                 <option value="Part-time">Part-time</option>
                                 <option value="Contract">Contract</option>
                             </select>
+                            <span asp-validation-for="EmploymentType" class="text-danger"></span>
                         </div>
                         <div class="d-flex flex-column">
                             <label asp-for="Location">Job Location</label>
-                            <input type="text" asp-for="Location" class="custom-control" />
+                            <input type="text" asp-for="Location" class="custom-control" required/>
+                            <span asp-validation-for="Location" class="text-danger"></span>
                         </div>
                     </div>
 
                     <div class="form-group side-double">
                         <div class="d-flex flex-column">
                             <label asp-for="WorkSetup">Work Setup</label>
-                            <select name="WorkSetup" asp-for="WorkSetup" class="custom-control">
+                            <select name="WorkSetup" asp-for="WorkSetup" class="custom-control" required>
                                 <option value="">Select a work setup</option>
                                 <option value="Remote">Remote</option>
                                 <option value="On-site">On-site</option>
                                 <option value="Hybrid">Hybrid</option>
                             </select>
-                        </div>
-                        <div class="d-flex flex-column">
-                            <label asp-for="Category">Category</label>
-                            <input type="text" asp-for="Category" class="custom-control" />
+                            <span asp-validation-for="WorkSetup" class="text-danger"></span>
                         </div>
                     </div>
 
@@ -151,6 +150,7 @@
                             <label asp-for="Qualifications">Qualifications</label>
                             <button id="addQualificationBtn" type="button" class="btn btn-primary ms-3">+</button>
                         </div>
+                        <span asp-validation-for="Qualifications" class="text-danger"></span>
                         <div id="qualifications-list">
                             @if (Model.Qualifications != null)
                             {
@@ -163,16 +163,17 @@
                     </div>
 
                     <div class="quali-res">
-                        <div class="d-flex g-2 align-content-center flex-wrap">
+                        <div class="mb-2">
                             <label asp-for="Responsibilities">Responsibilities</label>
                             <button id="addResponsibilityBtn" type="button" class="btn btn-primary ms-3">+</button>
                         </div>
+                        <span asp-validation-for="Responsibilities" class="text-danger"></span>
                         <div id="responsibilities-list">
                             @if (Model.Responsibilities != null)
                             {
                                 for (int i = 0; i < Model.Responsibilities.Count; i++)
                                 {
-                                    <input type="text" asp-for="Responsibilities[i].Description" class="custom-control responsibility-input" />
+                                    <input type="text" asp-for="Responsibilities[i].Description" class="custom-control responsibility-input"/>
                                 }
                             }
                         </div>
@@ -224,4 +225,10 @@
         addInputField("responsibilities-list", "responsibility-input me-2", "Responsibilities");
     });
 </script>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
 

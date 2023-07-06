@@ -46,7 +46,6 @@ namespace Basecode.Services.Services
                 EmploymentType = m.EmploymentType,
                 WorkSetup = m.WorkSetup,
                 Location = m.Location,
-                Category = m.Category
             }).ToList();
 
             return data;
@@ -100,7 +99,6 @@ namespace Basecode.Services.Services
                 EmploymentType = m.EmploymentType,
                 WorkSetup = m.WorkSetup,
                 Location = m.Location,
-                Category = m.Category,
                 Responsibilities = responsibilities,
                 Qualifications = qualifications
             }).FirstOrDefault();
@@ -150,7 +148,6 @@ namespace Basecode.Services.Services
                 EmploymentType = jobOpening.EmploymentType,
                 WorkSetup = jobOpening.WorkSetup,
                 Location = jobOpening.Location,
-                Category = jobOpening.Category
             };
 
             _repository.DeleteJobOpening(job);
