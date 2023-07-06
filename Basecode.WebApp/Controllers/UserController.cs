@@ -72,16 +72,12 @@ namespace Basecode.WebApp.Controllers
                 if (!data.Result)
                 {
                     _logger.Trace("Create new user sucessful.");
-                    //return RedirectToAction("Index");
                     return Json(new { redirectToUrl = Url.Action("Index", "User") });
                 }
 
                 _logger.Trace(ErrorHandling.SetLog(data));
                 ModelState.AddModelError("Email", "Email address must have a domain.");
-                //string validationErrors = GetValidationErrorsAsString(); // Convert ModelState errors to a string
-                //return BadRequest(validationErrors);
                 var validationErrors = GetValidationErrors();
-
                 return BadRequest(Json(validationErrors));
             }
             catch (Exception e)
@@ -112,8 +108,31 @@ namespace Basecode.WebApp.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Update(User user)
         {
-            _service.Update(user);
-            return RedirectToAction("Index");
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            try
+            {
+                var data = _service.Update(user);
+
+                if (!data.Result)
+                {
+                    _logger.Trace("Update user sucessful.");
+                    return Json(new { redirectToUrl = Url.Action("Index", "User") });
+                }
+
+                _logger.Trace(ErrorHandling.SetLog(data));
+                ModelState.AddModelError("Email", "Email address must have a domain.");
+                var validationErrors = GetValidationErrors();
+                return BadRequest(Json(validationErrors));
+            }
+            catch (Exception e)
+            {
+                _logger.Error(ErrorHandling.DefaultException(e.Message));
+                return StatusCode(500, "Something went wrong.");
+            }
         }
 
         /// <summary>
