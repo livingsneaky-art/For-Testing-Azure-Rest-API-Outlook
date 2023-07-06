@@ -13,6 +13,7 @@ namespace Basecode.Services.Services
     public class ApplicationService : IApplicationService
     {
         private readonly IApplicationRepository _repository;
+        private readonly IJobOpeningService _jobOpeningService;
         private readonly IMapper _mapper;
 
         /// <summary>
@@ -20,9 +21,10 @@ namespace Basecode.Services.Services
         /// </summary>
         /// <param name="repository">The repository.</param>
         /// <param name="mapper">The mapper.</param>
-        public ApplicationService(IApplicationRepository repository, IMapper mapper)
+        public ApplicationService(IApplicationRepository repository, IMapper mapper, IJobOpeningService jobOpeningService)
         {
             _repository = repository;
+            _jobOpeningService = jobOpeningService;
             _mapper = mapper;
         }
 
@@ -35,8 +37,18 @@ namespace Basecode.Services.Services
         /// </returns>
         public ApplicationViewModel GetById(Guid id)
         {
-            var data = _repository.GetById(id);
-            return _mapper.Map<ApplicationViewModel>(data);
+            var application = _repository.GetById(id);
+            var job = _jobOpeningService.GetById(application.JobOpeningId);
+            var data = new ApplicationViewModel
+            {
+                Id = application.Id,
+                ApplicantId = application.ApplicantId,
+                JobOpeningTitle = job.Title,
+                Status = application.Status,
+                UpdateTime = application.UpdateTime
+            };
+
+            return data;
         }
     }
 }
