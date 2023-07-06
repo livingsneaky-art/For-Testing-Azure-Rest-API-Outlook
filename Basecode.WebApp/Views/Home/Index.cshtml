@@ -93,35 +93,35 @@
 <!--Latest Job cards-->
 @if (Model.Count > 0)
 {
-<div class="jobContainer">
-    <div class="row col-12 mt-4">
-        @foreach (var jobOpening in Model)
-        {
-            <div class="col-lg-4 col-md-4 col-sm-4 col">
-            <div class="card mb-4 cardForJobs">
-                <div class="card-body">
-                    <div class="card-header">
-                            <img src="~/images/job-icon-dummy.png" alt="Card Image" class="card-image">
-                        <h5 class="card-title">@jobOpening.Title<br><span class="fw-light">₱30K - ₱60K</span></h5>
-                        </div>
-                        <div class="card-header">
-                            <img src="~/images/home-icon.png" alt="Card Image" class="card-image-small">
-                            <p class="card-text">Pariator</p>
-                        </div>
-                        <div class="card-header">
-                            <img src="~/images/location-icon.png" alt="Card Image" class="card-image-small">
-                            <p class="card-text">@jobOpening.Location</p>
-                        </div>
-                        <div class="card-header">
-                            <img src="~/images/bookmark-icon.png" alt="Card Image" class="card-image-small">
-                            <p class="card-text">@jobOpening.WorkSetup</p>
-                        </div>
+    <div class="jobContainer" id="cardContainer">
+        <div class="row col-12 mt-4">
+            @foreach (var jobOpening in Model)
+            {
+            <div class="mt-4 col-lg-4 col-md-4 col-sm-4 col">
+                <div class="card mb-4 cardForJobs">
+                    <div class="card-body">
+                            <div class="card-header">
+                                <img src="~/images/job-icon-dummy.png" alt="Card Image" class="card-image">
+                                <h5 class="card-title">@jobOpening.Title<br><span class="fw-light">₱30K - ₱60K</span></h5>
+                            </div>
+                            <div class="card-header">
+                                <img src="~/images/home-icon.png" alt="Card Image" class="card-image-small">
+                                <p class="card-text">Pariator</p>
+                            </div>
+                            <div class="card-header">
+                                <img src="~/images/location-icon.png" alt="Card Image" class="card-image-small">
+                                <p class="card-text">@jobOpening.Location</p>
+                            </div>
+                            <div class="card-header">
+                                <img src="~/images/bookmark-icon.png" alt="Card Image" class="card-image-small">
+                                <p class="card-text">@jobOpening.WorkSetup</p>
+                            </div>
                     </div>
                 </div>
             </div>
-        }
+            }
+        </div>
     </div>
-</div>
 }
 else
 {
@@ -131,7 +131,7 @@ else
 <!--See more & Top Up Feature-->
 <div style="margin-top: 2rem; margin-bottom: 2rem;" class="row col-12">
     <div class="col-lg-12 col-md-12 col-sm-12 col text-center">
-        <button class="btn btn-danger">See more</button>
+        <button class="btn btn-danger" id="seeMoreBtn">See more</button>
     </div>
 </div>
 

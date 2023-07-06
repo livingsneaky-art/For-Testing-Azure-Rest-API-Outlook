@@ -33,3 +33,35 @@ if (window.matchMedia("(min-width:576px)").matches) {
 } else {
     $(multipleItemCarousel).addClass('slide');
 }
+$(document).ready(function () {
+    // Number of cards to show initially
+    var initialCards = 3;
+
+    // Select the card container and the "See More" button
+    var cardContainer = $('#cardContainer');
+    var seeMoreBtn = $('#seeMoreBtn');
+
+    // Hide extra cards initially
+    cardContainer.find('.card:gt(' + (initialCards - 1) + ')').hide();
+
+    // Show/hide cards on "See More" button click
+    seeMoreBtn.click(function () {
+        var hiddenCards = cardContainer.find('.card:hidden');
+
+        if (hiddenCards.length === 0) {
+            // No hidden cards, toggle back to initial display
+            cardContainer.find('.card:gt(' + (initialCards - 1) + ')').hide();
+            seeMoreBtn.text('See More');
+        } else {
+            // Toggle visibility of the hidden cards
+            hiddenCards.show();
+
+            // Update "See More" button text based on hidden cards
+            if (hiddenCards.length > initialCards) {
+                seeMoreBtn.text('See Less');
+            } else {
+                seeMoreBtn.text('See More');
+            }
+        }
+    });
+});
