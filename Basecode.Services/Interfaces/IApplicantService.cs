@@ -10,5 +10,7 @@ namespace Basecode.Services.Interfaces
     public interface IApplicantService
     {
         List<Applicant> GetApplicants();
+
+        Applicant GetApplicantById(int id);
     }
 }
