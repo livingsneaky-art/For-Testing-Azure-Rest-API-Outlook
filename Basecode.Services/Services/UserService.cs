@@ -7,11 +7,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Basecode.Services.Services
 {
-    public class UserService : IUserService
+    public class UserService : ErrorHandling, IUserService
     {
         private readonly IUserRepository _repository;
 
@@ -45,12 +46,29 @@ namespace Basecode.Services.Services
         }
 
         /// <summary>
-        /// Adds a new user to the system.
+        /// Creates the specified user.
         /// </summary>
-        /// <param name="user">User object representing the user to be added.</param>
-        public void Add(User user)
+        /// <param name="user">The user.</param>
+        /// <response code="400">User details are invalid</response>
+        public LogContent Create(User user)
         {
-            _repository.Add(user);
+            LogContent logContent = new LogContent();
+
+            // Check if the inputted email has a domain (ex: .com, .dev)
+            string emailPattern = @"@[^\s@]+\.[^\s@]+$";
+            Match match = Regex.Match(user.Email, emailPattern);
+
+            if (!match.Success)
+            {
+                logContent.Result = true;
+                logContent.ErrorCode = "400";
+                logContent.Message = "Email address does not have a domain.";
+            }
+            else
+            {
+                _repository.Create(user);
+            }
+            return logContent;
         }
 
         /// <summary>
