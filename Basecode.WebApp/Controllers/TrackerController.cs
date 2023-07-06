@@ -18,16 +18,21 @@ namespace Basecode.WebApp.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetApplicationById(Guid id)
+        public IActionResult ResultView(Guid id)
         {
-            var application = _applicationService.GetById(id);
-            if (application != null)
+            if (id == Guid.Empty)
             {
-                return Json(new { success = true, data = application });
+                return RedirectToAction("Index");
+            }
+
+            var application = _applicationService.GetById(id);
+            if (application == null)
+            {
+                return RedirectToAction("Index");
             }
             else
             {
-                return Json(new { success = false, message = "Application not found." });
+                return View("Index", application);
             }
         }
     }
