@@ -48,15 +48,15 @@ namespace Basecode.Data.Models
         /// <summary>
         /// Represents the password associated with a user.
         /// </summary>
-        [Required]
-        //[StringLength(50, MinimumLength = 8)]
-        [MinLength(8, ErrorMessage = "Password must be at least 8 characters.")]
-        [MaxLength(50, ErrorMessage = "Password must be a maximum of 50 characters.")]
+        [Required(ErrorMessage = "The password is required.")]
+        [MaxLength(20, ErrorMessage = "Maximum length for the password is 20 characters.")]
+        [RegularExpression(
+            "^(?=.[A-Za-z])(?=.\d)[A-Za-z\d]{8,}$",
+            ErrorMessage = "The password must have at least eight characters, one letter, and one number")]
         public string Password { get; set; }
 
         /// <summary>
         /// Represents the role or position of a user in the system.
-        /// Examples: Human Resources, Deployment Team
         /// </summary>
         [Required]
         [StringLength(50)]
