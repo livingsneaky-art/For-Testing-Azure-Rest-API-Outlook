@@ -91,7 +91,7 @@ namespace Basecode.WebApp.Controllers
                     _logger.Trace("Job Opening [" + id + "] not found!");
                     return NotFound();
                 }
-
+                _logger.Trace("Job Opening [" + id + "] found.");
                 return View(jobOpening);
             }
             catch (Exception e)
