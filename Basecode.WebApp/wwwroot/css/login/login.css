@@ -57,13 +57,23 @@
 .error-style {
     font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     font-size: 0.8rem;
-    height:1.5em;   
-    margin:0;
-    padding:0;
+    height: 0.8em;
+    word-wrap: break-word;
+    width: 100%;
+}
+
+.form-parent {
+    width: 800px;
 }
 
 @media (max-width: 767px) {
     .img-show {
-        display:none;
+        display: none;
+    }
+}
+
+@media (max-width: 576px) {
+    .form-parent {
+        width:100%;
     }
 }
