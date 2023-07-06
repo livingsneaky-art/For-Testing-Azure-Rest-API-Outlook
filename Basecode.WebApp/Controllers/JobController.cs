@@ -9,7 +9,6 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace Basecode.WebApp.Controllers
 {
-
     public class JobController : Controller
     {
         private readonly IJobOpeningService _jobOpeningService;
