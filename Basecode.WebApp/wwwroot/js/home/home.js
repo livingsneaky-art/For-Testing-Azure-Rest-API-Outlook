@@ -65,3 +65,16 @@ $(document).ready(function () {
         }
     });
 });
+
+function goToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+window.onscroll = function () {
+    var topButton = document.getElementById("topButton");
+    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+        topButton.style.display = "block";
+    } else {
+        topButton.style.display = "none";
+    }
+};

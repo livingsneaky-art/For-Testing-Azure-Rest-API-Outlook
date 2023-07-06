@@ -13,16 +13,14 @@ namespace Basecode.Main.Controllers
         {
             _jobOpeningService = jobOpeningService;
         }
-
+        /// <summary>
+        /// Redirect to Home page when clicking Home in Nav Bar
+        /// </summary>
+        /// <returns>Redirected page</returns>
         public IActionResult Index()
         {
             var jobOpenings = _jobOpeningService.GetJobs();
             return View(jobOpenings);
-        }
-
-        public IActionResult Privacy()
-        {
-            return View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
