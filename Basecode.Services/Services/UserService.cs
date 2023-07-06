@@ -54,9 +54,7 @@ namespace Basecode.Services.Services
         {
             LogContent logContent = new LogContent();
 
-            // Check if the inputted email has a domain (ex: .com, .dev)
-            string emailPattern = @"@[^\s@]+\.[^\s@]+$";
-            Match match = Regex.Match(user.Email, emailPattern);
+            var match = CheckEmailDomain(user.Email);
 
             if (!match.Success)
             {
@@ -87,15 +85,29 @@ namespace Basecode.Services.Services
         /// Updates an existing user.
         /// </summary>
         /// <param name="user">Represents the user with updated information.</param>
-        public void Update(User user)
+        public LogContent Update(User user)
         {
-            var userToBeUpdated = _repository.GetById(user.Id);
-            userToBeUpdated.Fullname = user.Fullname;
-            userToBeUpdated.Username = user.Username;
-            userToBeUpdated.Email = user.Email;
-            userToBeUpdated.Password = user.Password;
-            userToBeUpdated.Role = user.Role;
-            _repository.Update(userToBeUpdated);
+            LogContent logContent = new LogContent();
+
+            var match = CheckEmailDomain(user.Email);
+
+            if (!match.Success)
+            {
+                logContent.Result = true;
+                logContent.ErrorCode = "400";
+                logContent.Message = "Email address does not have a domain.";
+            }
+            else
+            {
+                var userToBeUpdated = _repository.GetById(user.Id);
+                userToBeUpdated.Fullname = user.Fullname;
+                userToBeUpdated.Username = user.Username;
+                userToBeUpdated.Email = user.Email;
+                userToBeUpdated.Password = user.Password;
+                userToBeUpdated.Role = user.Role;
+                _repository.Update(userToBeUpdated);
+            }
+            return logContent;
         }
 
         /// <summary>
@@ -105,6 +117,14 @@ namespace Basecode.Services.Services
         public void Delete(int id)
         {
             _repository.Delete(id);
+        }
+
+        public Match CheckEmailDomain(string email)
+        {
+            // Check if the inputted email has a domain (ex: .com, .dev)
+            string emailPattern = @"@[^\s@]+\.[^\s@]+$";
+            Match match = Regex.Match(email, emailPattern);
+            return match;
         }
     }
 }
