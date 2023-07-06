@@ -1,5 +1,6 @@
 ﻿@{
     ViewData["Title"] = "Character Reference Form";
+    @model Basecode.WebApp.Models.ReferenceModel
 }
 <!DOCTYPE html>
 <html>
@@ -63,7 +64,7 @@
                     </div>
                     <div class="col-sm-10">
                         <div class="d-flex column-gap-2">
-                            <input type="text" class="form-control" placeholder="Full name" style="border: 1px solid #424856;" name="referenceName">
+                            <input type="text" class="form-control" placeholder="Full name" style="border: 1px solid #424856;" name="references[0].Name">
                         </div>
                     </div>
                 </div>
@@ -73,7 +74,7 @@
                     </div>
                     <div class="col-sm-10">
                         <div class="d-flex column-gap-2">
-                            <input type="text" class="form-control" placeholder="Street Address" style="border: 1px solid #424856;" name="referenceAddress">
+                            <input type="text" class="form-control" placeholder="Street Address" style="border: 1px solid #424856;" name="references[0].Address">
                         </div>
                     </div>
                 </div>
@@ -83,7 +84,7 @@
                     </div>
                     <div class="col-sm-10">
                         <div class="d-flex column-gap-2 align-items-center justify-content-center">
-                            <input type="email" class="form-control" placeholder="example@domain.com" style="border: 1px solid #424856;" name="referenceEmail">
+                            <input type="email" class="form-control" placeholder="example@domain.com" style="border: 1px solid #424856;" name="references[0].Email">
                         </div>
                     </div>
                 </div>
@@ -121,14 +122,17 @@
             var newId = "duplicateSection_" + sectionCounter;
             clone.id = newId;
 
-            // Increment the section counter
-            sectionCounter++;
-
-            // Clear the inputs of the cloned section
+            // Update the inputs of the cloned section with the correct index
             var inputElements = clone.querySelectorAll("input");
             inputElements.forEach(function (input) {
+                var inputName = input.getAttribute("name");
+                var newInputName = inputName.replace(/\[\d+\]/, "[" + sectionCounter + "]");
                 input.value = "";
+                input.name = newInputName; // Also update the 'name' attribute if needed
             });
+
+            // Increment the section counter
+            sectionCounter++;
 
             // Create a horizontal rule element
             var hr = document.createElement("hr");
