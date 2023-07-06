@@ -43,7 +43,7 @@ namespace Basecode.WebApp.Controllers
         /// <summary>
         /// Displays the modal for adding a new user.
         /// </summary>
-        /// <returns>A partial view and a User model.</returns>
+        /// <returns>A partial view with a User model.</returns>
         [HttpGet]
         public ActionResult AddView()
         {
@@ -60,6 +60,7 @@ namespace Basecode.WebApp.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(User user)
         {
+            // Check if model is invalid using its data annotations
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -69,15 +70,22 @@ namespace Basecode.WebApp.Controllers
             {
                 var data = _service.Create(user);
                 
+                // If service layer validation is successful
                 if (!data.Result)
                 {
                     _logger.Trace("Create new user sucessful.");
+                    // Tell AJAX to redirect to Index()
                     return Json(new { redirectToUrl = Url.Action("Index", "User") });
                 }
 
+                // If service layer validation failed
                 _logger.Trace(ErrorHandling.SetLog(data));
+                // The only service layer validation for now is checking whether the email has a domain
+                // Since validation failed, add a new error to the model state
                 ModelState.AddModelError("Email", "Email address must have a domain.");
-                var validationErrors = GetValidationErrors();
+                // Store the validation errors in a dictionary
+                Dictionary<string,string> validationErrors = GetValidationErrors();
+                // Return the validation errors as a JSON object
                 return BadRequest(Json(validationErrors));
             }
             catch (Exception e)
@@ -96,6 +104,12 @@ namespace Basecode.WebApp.Controllers
         public ActionResult UpdateView(int id)
         {
             var data = _service.GetById(id);
+
+            if (data == null)
+            {
+                return NotFound();
+            }
+
             return PartialView("~/Views/User/_UpdateView.cshtml", data);
         }
 
@@ -108,6 +122,7 @@ namespace Basecode.WebApp.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Update(User user)
         {
+            // Check if model is invalid using its data annotations
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -117,15 +132,22 @@ namespace Basecode.WebApp.Controllers
             {
                 var data = _service.Update(user);
 
+                // If service layer validation is successful
                 if (!data.Result)
                 {
                     _logger.Trace("Update user sucessful.");
+                    // Tell AJAX to redirect to Index()
                     return Json(new { redirectToUrl = Url.Action("Index", "User") });
                 }
 
+                // If service layer validation failed
                 _logger.Trace(ErrorHandling.SetLog(data));
+                // The only service layer validation for now is checking whether the email has a domain
+                // Since validation failed, add a new error to the model state
                 ModelState.AddModelError("Email", "Email address must have a domain.");
+                // Store the validation errors in a dictionary;
                 var validationErrors = GetValidationErrors();
+                // Return the validation errors as a JSON object
                 return BadRequest(Json(validationErrors));
             }
             catch (Exception e)
@@ -144,6 +166,12 @@ namespace Basecode.WebApp.Controllers
         public ActionResult DeleteView(int id)
         {
             var data = _service.GetById(id);
+
+            if (data == null)
+            {
+                return NotFound();
+            }
+
             return PartialView("~/Views/User/_DeleteView.cshtml", data);
         }
 
@@ -160,6 +188,10 @@ namespace Basecode.WebApp.Controllers
             return RedirectToAction("Index");
         }
 
+        /// <summary>
+        /// Gets the validation errors of the model.
+        /// </summary>
+        /// <returns>A dictionary containing the validation errors.</returns>
         private Dictionary<string, string> GetValidationErrors()
         {
             var validationErrors = new Dictionary<string, string>();

@@ -43,6 +43,11 @@ namespace Basecode.Services.Interfaces
         /// <param name="id">Represents the ID of the user to be deleted.</param>
         void Delete(int id);
 
-        Match CheckEmailDomain(string email);
+        /// <summary>
+        /// Checks the email format.
+        /// </summary>
+        /// <param name="email">The email.</param>
+        /// <returns></returns>
+        Match CheckEmailFormat(string email);
     }
 }

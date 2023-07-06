@@ -54,7 +54,8 @@ namespace Basecode.Services.Services
         {
             LogContent logContent = new LogContent();
 
-            var match = CheckEmailDomain(user.Email);
+            // Check if the email has a domain
+            var match = CheckEmailFormat(user.Email);
 
             if (!match.Success)
             {
@@ -89,7 +90,8 @@ namespace Basecode.Services.Services
         {
             LogContent logContent = new LogContent();
 
-            var match = CheckEmailDomain(user.Email);
+            // Check if the email has a domain
+            var match = CheckEmailFormat(user.Email);
 
             if (!match.Success)
             {
@@ -119,9 +121,14 @@ namespace Basecode.Services.Services
             _repository.Delete(id);
         }
 
-        public Match CheckEmailDomain(string email)
+        /// <summary>
+        /// Checks the email format.
+        /// </summary>
+        /// <param name="email">The email.</param>
+        /// <returns></returns>
+        public Match CheckEmailFormat(string email)
         {
-            // Check if the inputted email has a domain (ex: .com, .dev)
+            // RegEx pattern for an email, including the domain (ex: .com, .dev)
             string emailPattern = @"@[^\s@]+\.[^\s@]+$";
             Match match = Regex.Match(email, emailPattern);
             return match;
