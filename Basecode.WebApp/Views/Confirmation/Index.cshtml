@@ -1,5 +1,9 @@
 ﻿@{
     ViewData["Title"] = "Confirmation";
+    @using Newtonsoft.Json;
+    @using Basecode.WebApp.Models;
+    var referencesJson = TempData["ReferencesJson"] as string;
+    var references = JsonConvert.DeserializeObject<List<ReferenceModel>>(referencesJson);
 }
 <!DOCTYPE html>
 <html>
@@ -147,36 +151,41 @@
                 Character References
             </h5>
             <div class="container">
-                <div class="row align-items-center justify-content-center text-end mb-3">
-                    <div class="col-sm-2">
-                        <p class="mb-0">Name</p>
-                    </div>
-                    <div class="col-sm-10">
-                        <div class="d-flex column-gap-2">
-                            <input type="text" class="form-control border border-0" style="background-color: #F3F4F6; color: #BDC1CA;" value="@TempData["Reference Name"]" disabled>
+                @foreach (var reference in references)
+                {
+                    <div class="container">
+                        <div class="row align-items-center justify-content-center text-end mb-3">
+                            <div class="col-sm-2">
+                                <p class="mb-0">Name</p>
+                            </div>
+                            <div class="col-sm-10">
+                                <div class="d-flex column-gap-2">
+                                    <input type="text" class="form-control border border-0" style="background-color: #F3F4F6; color: #BDC1CA;" value="@reference.Name" disabled>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row align-items-center justify-content-center text-end mb-3">
+                            <div class="col-sm-2">
+                                <p class="mb-0">Address</p>
+                            </div>
+                            <div class="col-sm-10">
+                                <div class="d-flex column-gap-2">
+                                    <input type="text" class="form-control border border-0" style="background-color: #FEF2F1; color: #F58980;" value="@reference.Address" disabled>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row align-items-center justify-content-center text-end mb-5">
+                            <div class="col-sm-2">
+                                <p class="mb-0">Email</p>
+                            </div>
+                            <div class="col-sm-10">
+                                <div class="d-flex column-gap-2">
+                                    <input type="text" class="form-control border border-0" style="background-color: #F3F4F6; color: #BDC1CA;" value="@reference.Email" disabled>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="row align-items-center justify-content-center text-end mb-3">
-                    <div class="col-sm-2">
-                        <p class="mb-0">Address</p>
-                    </div>
-                    <div class="col-sm-10">
-                        <div class="d-flex column-gap-2">
-                            <input type="text" class="form-control border border-0" style="background-color: #FEF2F1; color: #F58980;" value="@TempData["Reference Address"]" disabled>
-                        </div>
-                    </div>
-                </div>
-                <div class="row align-items-center justify-content-center text-end mb-5">
-                    <div class="col-sm-2">
-                        <p class="mb-0">Email</p>
-                    </div>
-                    <div class="col-sm-10">
-                        <div class="d-flex column-gap-2">
-                            <input type="text" class="form-control border border-0" style="background-color: #F3F4F6; color: #BDC1CA;" value="@TempData["Reference Email"]" disabled>
-                        </div>
-                    </div>
-                </div>
+                }
             </div>
             <div class="container d-flex flex-row align-items-centeratio justify-content-between mb-5">
                 <a href="#" onclick="history.back();">

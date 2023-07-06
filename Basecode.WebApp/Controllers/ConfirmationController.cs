@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Basecode.WebApp.Models;
+using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using System.Diagnostics;
 
 namespace Basecode.WebApp.Controllers
 {
@@ -13,9 +16,7 @@ namespace Basecode.WebApp.Controllers
                             string address,
                             string phone,
                             string email,
-                            string referenceName,
-                            string referenceAddress,
-                            string referenceEmail)
+                            List<ReferenceModel> references)
         {
             // Store the name in TempData
             TempData["Name"] = name;
@@ -41,14 +42,11 @@ namespace Basecode.WebApp.Controllers
             // Store the email address in TempData
             TempData["Email"] = email;
 
-            // Store the reference name in TempData
-            TempData["Reference Name"] = referenceName;
+            // Serialize the references list to JSON
+            string referencesJson = JsonConvert.SerializeObject(references);
 
-            // Store the reference address in TempData
-            TempData["Reference Address"] = referenceAddress;
-
-            // Store the reference email address in TempData
-            TempData["Reference Email"] = referenceEmail;
+            // Store the references JSON in TempData
+            TempData["ReferencesJson"] = referencesJson;
 
             // Return a View result
             return View();
