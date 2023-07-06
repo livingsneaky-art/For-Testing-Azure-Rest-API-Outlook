@@ -37,7 +37,7 @@ namespace Basecode.Data.Repositories
         /// Adds a new user into the User table.
         /// </summary>
         /// <param name="user">Represents the user to be added.</param>
-        public void Add(User user)
+        public void Create(User user)
         {
             _context.User.Add(user);
             _context.SaveChanges();

@@ -1,12 +1,21 @@
 ﻿using Basecode.Data.Models;
 using Basecode.Services.Interfaces;
+using Basecode.Services.Services;
 using Microsoft.AspNetCore.Mvc;
+using NLog;
+using System.Text;
 
 namespace Basecode.WebApp.Controllers
 {
     public class UserController : Controller
     {
         private readonly IUserService _service;
+        private static readonly Logger _logger = LogManager.GetCurrentClassLogger();
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="UserController"/> class.
+        /// </summary>
+        /// <param name="service">The User service.</param>
         public UserController(IUserService service)
         {
             _service = service;
@@ -18,8 +27,17 @@ namespace Basecode.WebApp.Controllers
         /// <returns>A view containing all users as a list of UserViewModel objects.</returns>
         public IActionResult Index()
         {
-            var data = _service.RetrieveAll();
-            return View(data);
+            try
+            {
+                var data = _service.RetrieveAll();
+                _logger.Trace("Successfully retrieved all users");
+                return View(data);
+            }
+            catch (Exception e)
+            {
+                _logger.Error(ErrorHandling.DefaultException(e.Message));
+                return StatusCode(500, "Something went wrong.");
+            }    
         }
 
         /// <summary>
@@ -40,10 +58,37 @@ namespace Basecode.WebApp.Controllers
         /// <returns>Redirect to the Index() action to display the list of users.</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Add(User user)
+        public IActionResult Create(User user)
         {
-            _service.Add(user);
-            return RedirectToAction("Index");
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            try
+            {
+                var data = _service.Create(user);
+                
+                if (!data.Result)
+                {
+                    _logger.Trace("Create new user sucessful.");
+                    //return RedirectToAction("Index");
+                    return Json(new { redirectToUrl = Url.Action("Index", "User") });
+                }
+
+                _logger.Trace(ErrorHandling.SetLog(data));
+                ModelState.AddModelError("Email", "Email address must have a domain.");
+                //string validationErrors = GetValidationErrorsAsString(); // Convert ModelState errors to a string
+                //return BadRequest(validationErrors);
+                var validationErrors = GetValidationErrors();
+
+                return BadRequest(Json(validationErrors));
+            }
+            catch (Exception e)
+            {
+                _logger.Error(ErrorHandling.DefaultException(e.Message));
+                return StatusCode(500, "Something went wrong.");
+            }
         }
 
         /// <summary>
@@ -95,5 +140,23 @@ namespace Basecode.WebApp.Controllers
             _service.Delete(id);
             return RedirectToAction("Index");
         }
+
+        private Dictionary<string, string> GetValidationErrors()
+        {
+            var validationErrors = new Dictionary<string, string>();
+
+            foreach (var key in ModelState.Keys)
+            {
+                var modelStateEntry = ModelState[key];
+
+                foreach (var error in modelStateEntry.Errors)
+                {
+                    validationErrors.Add(key, error.ErrorMessage);
+                }
+            }
+
+            return validationErrors;
+        }
+
     }
 }

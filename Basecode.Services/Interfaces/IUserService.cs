@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Basecode.Services.Services.ErrorHandling;
 
 namespace Basecode.Services.Interfaces
 {
@@ -17,10 +18,10 @@ namespace Basecode.Services.Interfaces
         List<UserViewModel> RetrieveAll();
 
         /// <summary>
-        /// Adds a new user to the system.
+        /// Creates the specified user.
         /// </summary>
-        /// <param name="user">User object representing the user to be added.</param>
-        void Add(User user);
+        /// <param name="user">The user.</param>
+        LogContent Create(User user);
 
         /// <summary>
         /// Retrieves a specific user based on the provided ID.
