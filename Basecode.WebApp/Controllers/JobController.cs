@@ -40,7 +40,7 @@ namespace Basecode.WebApp.Controllers
             }
             catch (Exception e)
             {
-                _logger.Error(e.Message);
+                _logger.Error(ErrorHandling.DefaultException(e.Message));
                 return StatusCode(500, "Something went wrong.");
             }
         }
@@ -101,7 +101,7 @@ namespace Basecode.WebApp.Controllers
             }
             catch (Exception e)
             {
-                _logger.Error(e.Message);
+                _logger.Error(ErrorHandling.DefaultException(e.Message));
                 return StatusCode(500, "Something went wrong.");
             }
 

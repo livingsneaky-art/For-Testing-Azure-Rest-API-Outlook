@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Basecode.Services.Services.ErrorHandling;
 
 namespace Basecode.Services.Services
 {
@@ -21,6 +22,10 @@ namespace Basecode.Services.Services
         public static string SetLog(LogContent logContent)
         {
             return "ErrorCode: " + logContent.ErrorCode + ". Message: " + "\"" + logContent.Message + "\"";
+        }
+        public static string DefaultException(string message)
+        {
+            return "ErrorCode: " + 500 + ". Message: " + "\"" + message + "\"";
         }
     }
 }
