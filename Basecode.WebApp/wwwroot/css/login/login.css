@@ -78,6 +78,12 @@ input::placeholder {
 
 @media (max-width: 576px) {
     .form-parent {
-        width:100%;
+        width: 400px;
+    }
+}
+
+@media (max-width: 401px) {
+    .form-parent {
+        width: 100%;
     }
 }
