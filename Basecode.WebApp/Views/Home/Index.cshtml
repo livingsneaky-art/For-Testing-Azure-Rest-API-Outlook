@@ -1,4 +1,6 @@
-﻿@{
+﻿@using Basecode.Data.ViewModels;
+@model List<JobOpeningViewModel>
+@{
     ViewData["Title"] = "Home Page";
 }
 
@@ -89,16 +91,18 @@
 </div>
 
 <!--Latest Job cards-->
+@if (Model.Count > 0)
+{
 <div class="jobContainer">
     <div class="row col-12 mt-4">
-        @*@foreach (var jobOpening in Model)
-        {*@
+        @foreach (var jobOpening in Model)
+        {
             <div class="col-lg-4 col-md-4 col-sm-4 col">
             <div class="card mb-4 cardForJobs">
                 <div class="card-body">
                     <div class="card-header">
                             <img src="~/images/job-icon-dummy.png" alt="Card Image" class="card-image">
-                        <h5 class="card-title">UI/UX Designer <br><span class="fw-light">₱30K - ₱60K</span></h5>
+                        <h5 class="card-title">@jobOpening.Title<br><span class="fw-light">₱30K - ₱60K</span></h5>
                         </div>
                         <div class="card-header">
                             <img src="~/images/home-icon.png" alt="Card Image" class="card-image-small">
@@ -106,62 +110,23 @@
                         </div>
                         <div class="card-header">
                             <img src="~/images/location-icon.png" alt="Card Image" class="card-image-small">
-                            <p class="card-text">Cebu City, Cebu</p>
+                            <p class="card-text">@jobOpening.Location</p>
                         </div>
                         <div class="card-header">
                             <img src="~/images/bookmark-icon.png" alt="Card Image" class="card-image-small">
-                            <p class="card-text">Hybrid</p>
+                            <p class="card-text">@jobOpening.WorkSetup</p>
                         </div>
                     </div>
                 </div>
             </div>
-        <div class="col-lg-4 col-md-4 col-sm-4 col">
-            <div class="card mb-4 cardForJobs">
-                    <div class="card-body">
-                        <div class="card-header">
-                            <img src="~/images/job-icon-dummy01.png" alt="Card Image" class="card-image">
-                        <h5 class="card-title">C# Developer <br><span class="fw-light">₱50K - ₱120K</span></h5>
-                        </div>
-                        <div class="card-header">
-                            <img src="~/images/home-icon.png" alt="Card Image" class="card-image-small">
-                            <p class="card-text">Pariator</p>
-                        </div>
-                        <div class="card-header">
-                            <img src="~/images/location-icon.png" alt="Card Image" class="card-image-small">
-                            <p class="card-text">Chiyoda, Tokyo</p>
-                        </div>
-                        <div class="card-header">
-                            <img src="~/images/bookmark-icon.png" alt="Card Image" class="card-image-small">
-                            <p class="card-text">Hybrid</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        <div class="col-lg-4 col-md-4 col-sm-4 col">
-            <div class="card mb-4 cardForJobs">
-                    <div class="card-body">
-                        <div class="card-header">
-                            <img src="~/images/job-icon-dummy02.png" alt="Card Image" class="card-image">
-                        <h5 class="card-title">ReactJS Developer <br><span class="fw-light">₱30k - ₱79K</span></h5>
-                        </div>
-                        <div class="card-header">
-                            <img src="~/images/home-icon.png" alt="Card Image" class="card-image-small">
-                            <p class="card-text">Aliq</p>
-                        </div>
-                        <div class="card-header">
-                            <img src="~/images/location-icon.png" alt="Card Image" class="card-image-small">
-                            <p class="card-text">San Juan City, Metro Manila</p>
-                        </div>
-                        <div class="card-header">
-                            <img src="~/images/bookmark-icon.png" alt="Card Image" class="card-image-small">
-                            <p class="card-text">Remote</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        @*}*@
+        }
     </div>
 </div>
+}
+else
+{
+    <p>No job openings available.</p>
+}
 
 <!--See more & Top Up Feature-->
 <div style="margin-top: 2rem; margin-bottom: 2rem;" class="row col-12">

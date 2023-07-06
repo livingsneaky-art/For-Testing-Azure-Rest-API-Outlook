@@ -1,21 +1,23 @@
 ﻿using Basecode.Main.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using Basecode.Services.Interfaces;
 
 namespace Basecode.Main.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly IJobOpeningService _jobOpeningService;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(IJobOpeningService jobOpeningService)
         {
-            _logger = logger;
+            _jobOpeningService = jobOpeningService;
         }
 
         public IActionResult Index()
         {
-            return View();
+            var jobOpenings = _jobOpeningService.GetJobs();
+            return View(jobOpenings);
         }
 
         public IActionResult Privacy()
