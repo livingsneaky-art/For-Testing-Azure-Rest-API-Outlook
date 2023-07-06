@@ -56,7 +56,7 @@ namespace Basecode.Services.Services
         {
             LogContent logContent = new LogContent();
 
-            logContent = logContent.CheckJobOpening(jobOpening);
+            logContent = CheckJobOpening(jobOpening);
             if (logContent.Result == false)
             {
                 var jobOpeningModel = _mapper.Map<JobOpening>(jobOpening);
@@ -109,7 +109,7 @@ namespace Basecode.Services.Services
         public LogContent Update(JobOpeningViewModel jobOpening, string updatedBy)
         {
             LogContent logContent = new LogContent();
-            logContent = logContent.CheckJobOpening(jobOpening);
+            logContent = CheckJobOpening(jobOpening);
             if (logContent.Result == false)
             {
                 _responsibilityService.DeleteResponsibilitiesByJobOpeningId(jobOpening.Id);

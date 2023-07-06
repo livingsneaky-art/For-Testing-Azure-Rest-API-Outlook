@@ -120,7 +120,7 @@ namespace Basecode.WebApp.Controllers
                     return RedirectToAction("Index");
                 }
                 _logger.Trace(ErrorHandling.SetLog(data));
-                return StatusCode(400);
+                return View("CreateView", jobOpening);
             }
             catch (Exception e)
             {
