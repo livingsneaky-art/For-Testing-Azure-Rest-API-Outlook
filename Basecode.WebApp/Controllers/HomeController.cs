@@ -13,7 +13,10 @@ namespace Basecode.Main.Controllers
         {
             _jobOpeningService = jobOpeningService;
         }
-
+        /// <summary>
+        /// Redirect to Home page when successfully clicking Home Nav
+        /// </summary>
+        /// <returns>Redirected page</returns>
         public IActionResult Index()
         {
             var jobOpenings = _jobOpeningService.GetJobs();
