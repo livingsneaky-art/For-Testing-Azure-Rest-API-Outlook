@@ -114,14 +114,27 @@ namespace Basecode.Services.Services
         /// </summary>
         /// <param name="jobOpening">The job opening to update.</param>
         /// <param name="updatedBy">The user who updated the job opening.</param>
-        public void Update(JobOpeningViewModel jobOpening, string updatedBy)
+        public LogContent Update(JobOpeningViewModel jobOpening, string updatedBy)
         {
-            var jobExisting = _repository.GetJobOpeningById(jobOpening.Id);
-            _mapper.Map(jobOpening, jobExisting);
-            jobExisting.UpdatedBy = updatedBy;
-            jobExisting.UpdatedTime = DateTime.Now;
+            LogContent logContent = new LogContent();
 
-            _repository.UpdateJobOpening(jobExisting);
+            // Check if the job opening title is null or empty, or if its length is greater than 50 characters.
+            if (string.IsNullOrEmpty(jobOpening.Title) || jobOpening.Title.Length > 50)
+            {
+                //logContent.Result = true;
+                //logContent.ErrorCode = "400";
+                //logContent.Message = "Title length is 0 or more than 50 characters.";
+            }
+            else
+            {
+                var newJobOpening = new JobOpening();
+                _mapper.Map(newJobOpening, jobOpening);
+                newJobOpening.UpdatedBy = updatedBy;
+                newJobOpening.UpdatedTime = DateTime.Now;
+
+                _repository.UpdateJobOpening(newJobOpening);
+            }
+            return logContent;
         }
 
         /// <summary>
