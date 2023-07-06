@@ -56,13 +56,8 @@ namespace Basecode.Services.Services
         {
             LogContent logContent = new LogContent();
 
-            if (string.IsNullOrEmpty(jobOpening.Title) || jobOpening.Title.Length > 50)
-            {
-                logContent.Result = true;
-                logContent.ErrorCode = "400";
-                logContent.Message = "Title length is 0 or more than 50 characters.";
-            }
-            else
+            logContent = logContent.CheckJobOpening(jobOpening);
+            if (logContent.Result == false)
             {
                 var jobOpeningModel = _mapper.Map<JobOpening>(jobOpening);
                 jobOpeningModel.CreatedBy = createdBy;
@@ -114,20 +109,24 @@ namespace Basecode.Services.Services
         public LogContent Update(JobOpeningViewModel jobOpening, string updatedBy)
         {
             LogContent logContent = new LogContent();
-            _responsibilityService.DeleteResponsibilitiesByJobOpeningId(jobOpening.Id);
-            _qualificationService.DeleteQualificationsByJobOpeningId(jobOpening.Id);
+            logContent = logContent.CheckJobOpening(jobOpening);
+            if (logContent.Result == false)
+            {
+                _responsibilityService.DeleteResponsibilitiesByJobOpeningId(jobOpening.Id);
+                _qualificationService.DeleteQualificationsByJobOpeningId(jobOpening.Id);
 
-            var jobExisting = _repository.GetJobOpeningById(jobOpening.Id);
+                var jobExisting = _repository.GetJobOpeningById(jobOpening.Id);
 
-            _mapper.Map(jobOpening, jobExisting);
-            jobExisting.UpdatedBy = updatedBy;
-            jobExisting.UpdatedTime = DateTime.Now;
+                _mapper.Map(jobOpening, jobExisting);
+                jobExisting.UpdatedBy = updatedBy;
+                jobExisting.UpdatedTime = DateTime.Now;
 
-            // Update qualifications and responsibilities
-            jobExisting.Responsibilities = jobOpening.Responsibilities ?? new List<Responsibility>();
-            jobExisting.Qualifications = jobOpening.Qualifications ?? new List<Qualification>();
+                // Update qualifications and responsibilities
+                jobExisting.Responsibilities = jobOpening.Responsibilities ?? new List<Responsibility>();
+                jobExisting.Qualifications = jobOpening.Qualifications ?? new List<Qualification>();
 
-            _repository.UpdateJobOpening(jobExisting);
+                _repository.UpdateJobOpening(jobExisting);
+            }
             return logContent;
         }
 
