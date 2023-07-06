@@ -89,8 +89,8 @@ namespace Basecode.WebApp.Controllers
             {
                 string createdBy = "dummy_person";
                 var data = _jobOpeningService.Create(jobOpening, createdBy);
-                //Checks if valid state
-                if (data.Result)
+                //Checks if an error occurred.
+                if (!data.Result)
                 {
                     _logger.Trace("Create JobOpening succesfully.");
                     return RedirectToAction("Index");
