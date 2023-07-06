@@ -14,7 +14,7 @@ namespace Basecode.Main.Controllers
             _jobOpeningService = jobOpeningService;
         }
         /// <summary>
-        /// Redirect to Home page when successfully clicking Home Nav
+        /// Redirect to Home page when clicking Home in Nav Bar
         /// </summary>
         /// <returns>Redirected page</returns>
         public IActionResult Index()
