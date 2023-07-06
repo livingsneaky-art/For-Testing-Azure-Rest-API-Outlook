@@ -52,17 +52,16 @@ namespace Basecode.Services.Services
             return data;
         }
 
-        /// <summary>
-        /// Creates a new job opening.
-        /// </summary>
+        /// <summary>Creates a new job opening.</summary>
         /// <param name="jobOpening">The job opening to create.</param>
         /// <param name="createdBy">The user who created the job opening.</param>
-        ///<response code="400">JobOpening details are invalid</response>
-        ///<response code="201">JobOpening created successfully</response>
+        /// <response code="400">JobOpening details are invalid</response>
+        /// <response code="201">JobOpening created successfully</response>
         public LogContent Create(JobOpeningViewModel jobOpening, string createdBy)
         {
             LogContent logContent = new LogContent();
 
+            // Check if the job opening title is null or empty, or if its length is greater than 50 characters.
             if (string.IsNullOrEmpty(jobOpening.Title) || jobOpening.Title.Length > 50)
             {
                 logContent.Result = false;
