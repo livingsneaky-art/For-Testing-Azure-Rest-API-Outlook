@@ -22,9 +22,9 @@ namespace Basecode.Data.ViewModels
         public string JobOpeningTitle { get; set; }
 
         /// <summary>
-        /// Gets or sets the applicant ID.
+        /// Gets or sets the applicant name.
         /// </summary>
-        public int ApplicantId { get; set; }
+        public string ApplicantName { get; set; }
 
         /// <summary>
         /// Gets or sets the application status.
