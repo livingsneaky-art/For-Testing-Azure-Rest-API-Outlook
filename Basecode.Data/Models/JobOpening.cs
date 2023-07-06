@@ -13,7 +13,6 @@ namespace Basecode.Data.Models
         public string EmploymentType { get; set; }
         public string WorkSetup { get; set; }
         public string Location { get; set; }
-        public string Category { get; set; }
         public string CreatedBy { get; set; }
 
         public DateTime CreatedTime { get; set; }

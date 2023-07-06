@@ -17,6 +17,7 @@ namespace Basecode.Data.ViewModels
         /// <summary>
         /// Gets or sets the ID of the job opening.
         /// </summary>
+        [Key]
         public int Id { get; set; }
 
         /// <summary>
@@ -29,30 +30,32 @@ namespace Basecode.Data.ViewModels
         /// <summary>
         /// Gets or sets the employment type of the job opening.
         /// </summary>
+        [Required(ErrorMessage = "The Employment type is required.")]
+        [Display(Name = "Employment Type")]
         public string EmploymentType { get; set; }
 
         /// <summary>
         /// Gets or sets the work setup of the job opening.
         /// </summary>
+        [Required(ErrorMessage = "The Work Setup is required.")]
+        [Display(Name = "Work Setup")]
         public string WorkSetup { get; set; }
 
         /// <summary>
         /// Gets or sets the location of the job opening.
         /// </summary>
+        [Required(ErrorMessage = "The Location is required.")]
         public string Location { get; set; }
-
-        /// <summary>
-        /// Gets or sets the category of the job opening.
-        /// </summary>
-        public string Category { get; set; }
 
         /// <summary>
         /// Gets or sets the qualifications of the job opening.
         /// </summary>
+        [Required(ErrorMessage = "The Qualifications is required.")]
         public List<Qualification> Qualifications { get; set; }
 
         /// <summary>Gets or sets the responsibilities.</summary>
         /// <value>The responsibilities.</value>
+        [Required(ErrorMessage = "The Responsibilities is required.")]
         public List<Responsibility> Responsibilities { get; set; }
 
     }

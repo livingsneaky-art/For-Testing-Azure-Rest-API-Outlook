@@ -37,7 +37,6 @@ namespace Basecode.Tests.Controllers
                     EmploymentType = "Full-time",
                     WorkSetup = "Remote",
                     Location = "New York",
-                    Category = "Software Development",
                     Qualifications = new List<Qualification>
                     {
                         new Qualification { Id = 1, Description = "Bachelor's degree" },
