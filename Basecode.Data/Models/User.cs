@@ -25,14 +25,14 @@ namespace Basecode.Data.Models
         [Required]
         [DisplayName("Full Name")]
         [StringLength(50)]
-        [RegularExpression("^[a-zA-Z]+$", ErrorMessage = "Only alphabetic characters are allowed.")]
+        [RegularExpression("^[A-Za-zÀ-ÖØ-öø-ÿ ,.'-]+$", ErrorMessage = "Special characters are not allowed.")]
         public string Fullname { get; set; }
 
         /// <summary>
         /// Represents the username associated with a user.
         /// </summary>
         [Required]
-        [RegularExpression(@"^[a-zA-Z0-9_-]+$", ErrorMessage = "Special characters are not allowed.")]
+        [RegularExpression(@"^[a-zA-Z0-9_-]+$", ErrorMessage = "Special characters and spaces are not allowed.")]
         [StringLength(50)]
         public string Username { get; set; }
 
