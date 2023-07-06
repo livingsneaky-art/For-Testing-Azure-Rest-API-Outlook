@@ -42,5 +42,9 @@ namespace Basecode.Services.Interfaces
         /// </summary>
         /// <param name="responsibility">The responsibility.</param>
         void Delete(Responsibility responsibility);
+
+        /// <summary>Deletes the responsibilities by job opening identifier.</summary>
+        /// <param name="jobOpeningId">The job opening identifier.</param>
+        void DeleteResponsibilitiesByJobOpeningId(int jobOpeningId);
     }
 }

@@ -17,7 +17,7 @@ namespace Basecode.Services.Services
         private readonly IMapper _mapper;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="JobOpeningService"/> class.
+        /// Initializes a new instance of the <see cref="JobOpeningService" /> class.
         /// </summary>
         /// <param name="repository">The repository.</param>
         /// <param name="mapper">The mapper.</param>
@@ -39,27 +39,23 @@ namespace Basecode.Services.Services
         /// </returns>
         public List<JobOpeningViewModel> GetJobs()
         {
-            var data = _repository.GetAll().Select(m => new JobOpeningViewModel
-            {
-                Id = m.Id,
-                Title = m.Title,
-                EmploymentType = m.EmploymentType,
-                WorkSetup = m.WorkSetup,
-                Location = m.Location,
-            }).ToList();
+            var data = _repository.GetAll()
+                .Select(m => _mapper.Map<JobOpeningViewModel>(m))
+                .ToList();
 
             return data;
         }
 
-        /// <summary>Creates a new job opening.</summary>
+        /// <summary>
+        /// Creates a new job opening.
+        /// </summary>
         /// <param name="jobOpening">The job opening to create.</param>
         /// <param name="createdBy">The user who created the job opening.</param>
-        /// <response code="400">JobOpening details are invalid</response>
+        /// <returns></returns>
         public LogContent Create(JobOpeningViewModel jobOpening, string createdBy)
         {
             LogContent logContent = new LogContent();
 
-            // Check if the job opening title is null or empty, or if its length is greater than 50 characters.
             if (string.IsNullOrEmpty(jobOpening.Title) || jobOpening.Title.Length > 50)
             {
                 logContent.Result = true;
@@ -69,7 +65,6 @@ namespace Basecode.Services.Services
             else
             {
                 var jobOpeningModel = _mapper.Map<JobOpening>(jobOpening);
-
                 jobOpeningModel.CreatedBy = createdBy;
                 jobOpeningModel.CreatedTime = DateTime.Now;
                 jobOpeningModel.UpdatedBy = createdBy;
@@ -77,9 +72,9 @@ namespace Basecode.Services.Services
 
                 _repository.AddJobOpening(jobOpeningModel);
             }
+
             return logContent;
         }
-
 
         /// <summary>
         /// Gets a job opening by its ID.
@@ -92,34 +87,46 @@ namespace Basecode.Services.Services
         {
             var qualifications = _qualificationService.GetQualificationsByJobOpeningId(id);
             var responsibilities = _responsibilityService.GetResponsibilitiesByJobOpeningId(id);
-            var data = _repository.GetAll().Where(m => m.Id == id).Select(m => new JobOpeningViewModel
-            {
-                Id = m.Id,
-                Title = m.Title,
-                EmploymentType = m.EmploymentType,
-                WorkSetup = m.WorkSetup,
-                Location = m.Location,
-                Responsibilities = responsibilities,
-                Qualifications = qualifications
-            }).FirstOrDefault();
+
+            var data = _repository.GetAll()
+                .Where(m => m.Id == id)
+                .Select(m => new JobOpeningViewModel
+                {
+                    Id = m.Id,
+                    Title = m.Title,
+                    EmploymentType = m.EmploymentType,
+                    WorkSetup = m.WorkSetup,
+                    Location = m.Location,
+                    Responsibilities = responsibilities,
+                    Qualifications = qualifications
+                })
+                .FirstOrDefault();
 
             return data;
         }
-
 
         /// <summary>
         /// Updates an existing job opening.
         /// </summary>
         /// <param name="jobOpening">The job opening to update.</param>
         /// <param name="updatedBy">The user who updated the job opening.</param>
+        /// <returns></returns>
         public LogContent Update(JobOpeningViewModel jobOpening, string updatedBy)
         {
             LogContent logContent = new LogContent();
-
             var jobExisting = _repository.GetJobOpeningById(jobOpening.Id);
+
             _mapper.Map(jobOpening, jobExisting);
             jobExisting.UpdatedBy = updatedBy;
             jobExisting.UpdatedTime = DateTime.Now;
+
+            // Delete previous qualifications and responsibilities
+            _qualificationService.DeleteQualificationsByJobOpeningId(jobOpening.Id);
+            _responsibilityService.DeleteResponsibilitiesByJobOpeningId(jobOpening.Id);
+
+            // Add updated qualifications and responsibilities
+            jobExisting.Qualifications = jobOpening.Qualifications;
+            jobExisting.Responsibilities = jobOpening.Responsibilities;
 
             _repository.UpdateJobOpening(jobExisting);
 
@@ -132,17 +139,8 @@ namespace Basecode.Services.Services
         /// <param name="jobOpening">The job opening to delete.</param>
         public void Delete(JobOpeningViewModel jobOpening)
         {
-            var job = new JobOpening
-            {
-                Id = jobOpening.Id,
-                Title = jobOpening.Title,
-                EmploymentType = jobOpening.EmploymentType,
-                WorkSetup = jobOpening.WorkSetup,
-                Location = jobOpening.Location,
-            };
-
+            var job = _mapper.Map<JobOpening>(jobOpening);
             _repository.DeleteJobOpening(job);
         }
-
     }
 }
