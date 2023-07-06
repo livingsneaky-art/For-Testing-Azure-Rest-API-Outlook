@@ -19,13 +19,16 @@ namespace Basecode.Data.ViewModels
         [Required(ErrorMessage = "Email is required.")]
         [EmailAddress(ErrorMessage = "Invalid email format")]
         public string Email { get; set; }
+
+        /// <summary>
         /// Gets or sets the password.
         /// </summary>
         /// <value>
         /// The password.
         /// </value>
         [Required(ErrorMessage = "Password is required.")]
-        [StringLength(20, MinimumLength = 8, ErrorMessage = "Password must be between 8 and 20 characters.")]
+        [MaxLength(20, ErrorMessage = "Maximum length for the password is 20 characters.")]
+        [RegularExpression(@"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$",ErrorMessage = "At least eight characters, one letter, and one number")]
         public string Password { get; set; } 
     }
 }
