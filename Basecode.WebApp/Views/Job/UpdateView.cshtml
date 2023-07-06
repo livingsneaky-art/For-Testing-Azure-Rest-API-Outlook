@@ -1,26 +1,211 @@
 ﻿@model Basecode.Data.ViewModels.JobOpeningViewModel
+<style>
+    .form-container {
+        max-width: 500px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #fff;
+        border: 1px solid #F3F4F6FF;
+        border-radius: 10px;
+    }
 
-<h2>Update Job Opening</h2>
+    .form-title {
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 1.5rem;
+        margin-top: 1.5rem;
+        text-align: center;
+    }
 
-<form asp-controller="Job" asp-action="Update" method="post">
-    <input type="hidden" asp-for="Id"/>
-    <div class="form-group">
-        <label asp-for="Title">Title</label>
-        <input type="text" asp-for="Title" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label asp-for="Location">Location</label>
-        <input type="text" asp-for="Location" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label asp-for="WorkSetup">Work Setup</label>
-        <input type="text" asp-for="WorkSetup" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label asp-for="EmploymentType">Employment Type</label>
-        <input type="text" asp-for="EmploymentType" class="form-control" />
-    </div>
-    <button type="submit" class="btn btn-primary">Update</button>
-</form>
+    .form-label {
+        font-weight: bold;
+    }
 
-<a asp-action="Index">Back to List</a>
+    .form-control {
+        margin-bottom: 15px;
+    }
+
+    .form-group.big-padding textarea {
+        padding: 20px;
+    }
+
+    .form-actions {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px;
+    }
+
+    .preview-btn {
+        background-color: #4CAF50;
+        color: white;
+    }
+
+    .cancel-btn {
+        background-color: #f44336;
+        color: white;
+    }
+
+    .publish-btn {
+        background-color: #f44336;
+        color: white;
+    }
+
+    .quali-res {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .custom-control {
+        display: block;
+        width: 100%;
+        padding: 0.375rem 0.75rem;
+        font-size: 0.7rem;
+        font-weight: 400;
+        line-height: 1.5;
+        color: #212529;
+        background-color: #fff;
+        background-clip: padding-box;
+        border: 1px solid #ced4da;
+        -moz-appearance: none;
+        border-radius: 0.25rem;
+        transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    }
+
+    .head-title {
+        margin-bottom: 0.5rem;
+    }
+
+    option {
+        font-size: 0.7rem;
+    }
+
+    label {
+        font-size: 14px;
+    }
+
+    .side-double {
+        display: flex;
+        justify-content: space-between;
+        gap: 1rem;
+    }
+
+
+        .side-double * {
+            flex-grow: 1;
+        }
+
+        .side-double .form-control {
+            margin: 0;
+        }
+</style>
+
+<h2 class="form-title">Update Job Opening</h2>
+
+<div class="form-container">
+    <form asp-controller="Job" asp-action="Update" method="post">
+        <input type="hidden" asp-for="Id" />
+
+        <div class="form-group">
+            <label asp-for="Title">Title</label>
+            <input type="text" asp-for="Title" class="form-control" />
+        </div>
+        <div class="form-group side-double">
+            <div class="d-flex flex-column">
+                <label asp-for="EmploymentType">Employment Type</label>
+                <select name="EmploymentType" asp-for="EmploymentType" class="custom-control" required>
+                    <option value="">Select an employment type</option>
+                    <option value="Full-time">Full-time</option>
+                    <option value="Part-time">Part-time</option>
+                    <option value="Contract">Contract</option>
+                </select>
+                <span asp-validation-for="EmploymentType" class="text-danger"></span>
+            </div>
+            <div class="d-flex flex-column">
+                <label asp-for="Location">Job Location</label>
+                <input type="text" asp-for="Location" class="custom-control" required />
+                <span asp-validation-for="Location" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group side-double">
+            <div class="d-flex flex-column">
+                <label asp-for="WorkSetup">Work Setup</label>
+                <select name="WorkSetup" asp-for="WorkSetup" class="custom-control" required>
+                    <option value="">Select a work setup</option>
+                    <option value="Remote">Remote</option>
+                    <option value="On-site">On-site</option>
+                    <option value="Hybrid">Hybrid</option>
+                </select>
+                <span asp-validation-for="WorkSetup" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="quali-res">
+            <div class="mb-2">
+                <label>Qualifications</label>
+                <button id="addQualificationBtn" type="button" class="btn btn-primary ms-3">+</button>
+            </div>
+            <div id="qualifications-list">
+                @if (Model.Qualifications != null)
+                {
+                    for (int i = 0; i < Model.Qualifications.Count; i++)
+                    {
+                        <div class="form-group">
+                            <input type="text" asp-for="Qualifications[i].Description" class="form-control" />
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+
+        <div class="quali-res">
+            <div class="mb-2">
+                <label>Responsibilities</label>
+                <button id="addResponsibilityBtn" type="button" class="btn btn-primary ms-3">+</button>
+            </div>
+            <div id="responsibilities-list">
+                @if (Model.Responsibilities != null)
+                {
+                    for (int i = 0; i < Model.Responsibilities.Count; i++)
+                    {
+                        <div class="form-group">
+                            <input type="text" asp-for="Responsibilities[i].Description" class="form-control" />
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-between">
+            <a asp-action="Index">
+                <button type="button" asp-action="Index" class="btn btn-secondary">Back to List</button>
+            </a>
+            <button type="submit" class="btn btn-primary">Update</button>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <script>
+        // Function to add a new input field to the list
+        function addInputField(containerId) {
+            var container = document.getElementById(containerId);
+            var inputContainer = document.createElement("div");
+            inputContainer.className = "form-group";
+            var inputField = document.createElement("input");
+            inputField.type = "text";
+            inputField.className = "form-control";
+            inputContainer.appendChild(inputField);
+            container.appendChild(inputContainer);
+        }
+
+        // Add event listeners to the buttons
+        var addQualificationBtn = document.getElementById("addQualificationBtn");
+        addQualificationBtn.addEventListener("click", function () {
+            addInputField("qualifications-list");
+        });
+
+        var addResponsibilityBtn = document.getElementById("addResponsibilityBtn");
+        addResponsibilityBtn.addEventListener("click", function () {
+            addInputField("responsibilities-list");
+        });
+    </script>
+}

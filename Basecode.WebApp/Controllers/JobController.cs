@@ -171,16 +171,20 @@ namespace Basecode.WebApp.Controllers
         {
             try
             {
-                //Check if job opening exists.
+                // Check if job opening exists.
                 var foundJob = _jobOpeningService.GetById(jobOpening.Id);
 
                 if (foundJob == null)
                 {
                     return NotFound();
                 }
-                _logger.Trace("Updated [" + foundJob.Id + "] successfully.");
+
+                // Update the job opening
                 string updatedBy = "dummy1";
-                _jobOpeningService.Update(foundJob, updatedBy);
+                _jobOpeningService.Update(jobOpening, updatedBy);
+
+                _logger.Trace("Updated [" + jobOpening.Id + "] successfully.");
+
                 return RedirectToAction("Index");
             }
             catch (Exception e)
@@ -189,6 +193,7 @@ namespace Basecode.WebApp.Controllers
                 return StatusCode(500, "Something went wrong.");
             }
         }
+
 
         /// <summary>
         /// Deletes a job opening with the given id and redirects to the Index action.
