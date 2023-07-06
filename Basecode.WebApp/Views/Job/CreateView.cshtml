@@ -147,7 +147,7 @@
                     </div>
 
                     <div class="quali-res">
-                        <div>
+                        <div class=" mb-2">
                             <label asp-for="Qualifications">Qualifications</label>
                             <button id="addQualificationBtn" type="button" class="btn btn-primary ms-3">+</button>
                         </div>
@@ -194,22 +194,34 @@
     // Function to add a new input field to the list
     function addInputField(containerId, inputClass, inputName) {
         var container = document.getElementById(containerId);
+        var inputContainer = document.createElement("div");
+        inputContainer.className = "input-container d-flex align-items-center mb-2 ";
         var inputField = document.createElement("input");
         inputField.type = "text";
         inputField.className = "custom-control " + inputClass;
         inputField.name = inputName + "[" + container.childElementCount + "].Description";
         inputField.placeholder = "Please enter something...";
-        container.appendChild(inputField);
+        var deleteButton = document.createElement("button");
+        deleteButton.type = "button";
+        deleteButton.className = "btn btn-danger delete-btn";
+        deleteButton.textContent = "-";
+        deleteButton.addEventListener("click", function () {
+            inputContainer.remove();
+        });
+        inputContainer.appendChild(inputField);
+        inputContainer.appendChild(deleteButton);
+        container.appendChild(inputContainer);
     }
 
     // Add event listeners to the buttons
     var addQualificationBtn = document.getElementById("addQualificationBtn");
     addQualificationBtn.addEventListener("click", function () {
-        addInputField("qualifications-list", "qualification-input", "Qualifications");
+        addInputField("qualifications-list", "qualification-input me-2", "Qualifications");
     });
 
     var addResponsibilityBtn = document.getElementById("addResponsibilityBtn");
     addResponsibilityBtn.addEventListener("click", function () {
-        addInputField("responsibilities-list", "responsibility-input", "Responsibilities");
+        addInputField("responsibilities-list", "responsibility-input me-2", "Responsibilities");
     });
 </script>
+

@@ -63,7 +63,7 @@ namespace Basecode.Services.Services
             // Check if the job opening title is null or empty, or if its length is greater than 50 characters.
             if (string.IsNullOrEmpty(jobOpening.Title) || jobOpening.Title.Length > 50)
             {
-                logContent.Result = false;
+                logContent.Result = true;
                 logContent.ErrorCode = "400";
                 logContent.Message = "Title length is 0 or more than 50 characters.";
             }
