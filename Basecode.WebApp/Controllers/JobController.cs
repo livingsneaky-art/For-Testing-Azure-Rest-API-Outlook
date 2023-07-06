@@ -92,9 +92,8 @@ namespace Basecode.WebApp.Controllers
                 //Checks if valid state
                 if (data.Result)
                 {
-                    _logger.Trace(ErrorHandling.SetLog(data));
+                    _logger.Trace("Create JobOpening succesfully.");
                     return RedirectToAction("Index");
-
                 }
                 _logger.Trace(ErrorHandling.SetLog(data));
                 return View("CreateView", jobOpening);

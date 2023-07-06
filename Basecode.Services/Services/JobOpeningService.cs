@@ -56,7 +56,6 @@ namespace Basecode.Services.Services
         /// <param name="jobOpening">The job opening to create.</param>
         /// <param name="createdBy">The user who created the job opening.</param>
         /// <response code="400">JobOpening details are invalid</response>
-        /// <response code="201">JobOpening created successfully</response>
         public LogContent Create(JobOpeningViewModel jobOpening, string createdBy)
         {
             LogContent logContent = new LogContent();
@@ -70,9 +69,6 @@ namespace Basecode.Services.Services
             }
             else
             {
-                logContent.Result = false;
-                logContent.ErrorCode = "201";
-                logContent.Message = "Create JobOpening succesfully.";
                 var jobOpeningModel = _mapper.Map<JobOpening>(jobOpening);
 
                 jobOpeningModel.CreatedBy = createdBy;
