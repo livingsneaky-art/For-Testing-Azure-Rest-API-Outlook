@@ -22,3 +22,9 @@
         </div>
     </div>
 </div>
+
+<script>
+    $('#deleteUserModal').on('hidden.bs.modal', function () {
+        $(this).parent().empty();
+    });
+</script>
