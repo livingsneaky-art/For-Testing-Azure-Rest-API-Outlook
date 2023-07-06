@@ -18,10 +18,12 @@ namespace Basecode.Services.Services
         private readonly IMapper _mapper;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ApplicationService"/> class.
+        /// Initializes a new instance of the <see cref="ApplicationService" /> class.
         /// </summary>
         /// <param name="repository">The repository.</param>
         /// <param name="mapper">The mapper.</param>
+        /// <param name="jobOpeningService">The job opening service.</param>
+        /// <param name="applicantService">The applicant service.</param>
         public ApplicationService(IApplicationRepository repository, IMapper mapper, IJobOpeningService jobOpeningService, IApplicantService applicantService)
         {
             _repository = repository;
