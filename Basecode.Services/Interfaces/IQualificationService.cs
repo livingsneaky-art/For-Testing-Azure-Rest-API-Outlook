@@ -42,5 +42,11 @@ namespace Basecode.Services.Interfaces
         /// </summary>
         /// <param name="qualification">The qualification.</param>
         void Delete(Qualification qualification);
+
+        /// <summary>
+        /// Deletes the qualifications by job opening identifier.
+        /// </summary>
+        /// <param name="jobOpeningId">The job opening identifier.</param>
+        void DeleteQualificationsByJobOpeningId(int jobOpeningId);
     }
 }

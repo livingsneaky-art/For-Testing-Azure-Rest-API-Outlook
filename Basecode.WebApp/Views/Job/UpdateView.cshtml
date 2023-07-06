@@ -1,5 +1,8 @@
 ﻿@model Basecode.Data.ViewModels.JobOpeningViewModel
+
 <style>
+    /* Styles from CreateView */
+
     .form-container {
         max-width: 500px;
         margin: 0 auto;
@@ -89,7 +92,6 @@
         gap: 1rem;
     }
 
-
         .side-double * {
             flex-grow: 1;
         }
@@ -98,7 +100,6 @@
             margin: 0;
         }
 </style>
-
 <h2 class="form-title">Update Job Opening</h2>
 
 <div class="form-container">
@@ -112,7 +113,7 @@
         <div class="form-group side-double">
             <div class="d-flex flex-column">
                 <label asp-for="EmploymentType">Employment Type</label>
-                <select name="EmploymentType" asp-for="EmploymentType" class="custom-control" required>
+                <select asp-for="EmploymentType" class="custom-control" required>
                     <option value="">Select an employment type</option>
                     <option value="Full-time">Full-time</option>
                     <option value="Part-time">Part-time</option>
@@ -129,7 +130,7 @@
         <div class="form-group side-double">
             <div class="d-flex flex-column">
                 <label asp-for="WorkSetup">Work Setup</label>
-                <select name="WorkSetup" asp-for="WorkSetup" class="custom-control" required>
+                <select asp-for="WorkSetup" class="custom-control" required>
                     <option value="">Select a work setup</option>
                     <option value="Remote">Remote</option>
                     <option value="On-site">On-site</option>
@@ -138,19 +139,19 @@
                 <span asp-validation-for="WorkSetup" class="text-danger"></span>
             </div>
         </div>
+
         <div class="quali-res">
-            <div class="mb-2">
-                <label>Qualifications</label>
+            <div class=" mb-2">
+                <label asp-for="Qualifications">Qualifications</label>
                 <button id="addQualificationBtn" type="button" class="btn btn-primary ms-3">+</button>
             </div>
+            <span asp-validation-for="Qualifications" class="text-danger"></span>
             <div id="qualifications-list">
                 @if (Model.Qualifications != null)
                 {
                     for (int i = 0; i < Model.Qualifications.Count; i++)
                     {
-                        <div class="form-group">
-                            <input type="text" asp-for="Qualifications[i].Description" class="form-control" />
-                        </div>
+                        <input type="text" asp-for="Qualifications[i].Description" class="custom-control qualification-input" />
                     }
                 }
             </div>
@@ -158,17 +159,16 @@
 
         <div class="quali-res">
             <div class="mb-2">
-                <label>Responsibilities</label>
+                <label asp-for="Responsibilities">Responsibilities</label>
                 <button id="addResponsibilityBtn" type="button" class="btn btn-primary ms-3">+</button>
             </div>
+            <span asp-validation-for="Responsibilities" class="text-danger"></span>
             <div id="responsibilities-list">
                 @if (Model.Responsibilities != null)
                 {
                     for (int i = 0; i < Model.Responsibilities.Count; i++)
                     {
-                        <div class="form-group">
-                            <input type="text" asp-for="Responsibilities[i].Description" class="form-control" />
-                        </div>
+                        <input type="text" asp-for="Responsibilities[i].Description" class="custom-control responsibility-input" />
                     }
                 }
             </div>
@@ -182,30 +182,43 @@
         </div>
     </form>
 </div>
+<script>
+    // Function to add a new input field to the list
+    function addInputField(containerId, inputClass, inputName) {
+        var container = document.getElementById(containerId);
+        var inputContainer = document.createElement("div");
+        inputContainer.className = "input-container d-flex align-items-center mb-2 ";
+        var inputField = document.createElement("input");
+        inputField.type = "text";
+        inputField.className = "custom-control " + inputClass;
+        inputField.name = inputName + "[" + container.childElementCount + "].Description";
+        inputField.placeholder = "Please enter something...";
+        var deleteButton = document.createElement("button");
+        deleteButton.type = "button";
+        deleteButton.className = "btn btn-danger delete-btn";
+        deleteButton.textContent = "-";
+        deleteButton.addEventListener("click", function () {
+            inputContainer.remove();
+        });
+        inputContainer.appendChild(inputField);
+        inputContainer.appendChild(deleteButton);
+        container.appendChild(inputContainer);
+    }
+
+    // Add event listeners to the buttons
+    var addQualificationBtn = document.getElementById("addQualificationBtn");
+    addQualificationBtn.addEventListener("click", function () {
+        addInputField("qualifications-list", "qualification-input me-2", "Qualifications");
+    });
+
+    var addResponsibilityBtn = document.getElementById("addResponsibilityBtn");
+    addResponsibilityBtn.addEventListener("click", function () {
+        addInputField("responsibilities-list", "responsibility-input me-2", "Responsibilities");
+    });
+</script>
 
 @section Scripts {
-    <script>
-        // Function to add a new input field to the list
-        function addInputField(containerId) {
-            var container = document.getElementById(containerId);
-            var inputContainer = document.createElement("div");
-            inputContainer.className = "form-group";
-            var inputField = document.createElement("input");
-            inputField.type = "text";
-            inputField.className = "form-control";
-            inputContainer.appendChild(inputField);
-            container.appendChild(inputContainer);
-        }
-
-        // Add event listeners to the buttons
-        var addQualificationBtn = document.getElementById("addQualificationBtn");
-        addQualificationBtn.addEventListener("click", function () {
-            addInputField("qualifications-list");
-        });
-
-        var addResponsibilityBtn = document.getElementById("addResponsibilityBtn");
-        addResponsibilityBtn.addEventListener("click", function () {
-            addInputField("responsibilities-list");
-        });
-    </script>
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }
