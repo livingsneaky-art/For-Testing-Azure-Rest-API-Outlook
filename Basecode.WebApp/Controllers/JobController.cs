@@ -38,7 +38,7 @@ namespace Basecode.WebApp.Controllers
 
                 if (jobOpenings.IsNullOrEmpty())
                 {
-                    _logger.Trace("No current jobs.");
+                    _logger.Error("No current jobs.");
                     return View(new List<JobOpeningViewModel>());
                 }
 
@@ -88,7 +88,7 @@ namespace Basecode.WebApp.Controllers
                 var jobOpening = _jobOpeningService.GetById(id);
                 if (jobOpening == null)
                 {
-                    _logger.Trace("Job Opening [" + id + "] not found!");
+                    _logger.Error("Job Opening [" + id + "] not found!");
                     return NotFound();
                 }
                 _logger.Trace("Job Opening [" + id + "] found.");
@@ -171,21 +171,18 @@ namespace Basecode.WebApp.Controllers
         {
             try
             {
-                // Check if job opening exists.
-                var foundJob = _jobOpeningService.GetById(jobOpening.Id);
 
-                if (foundJob == null)
-                {
-                    return NotFound();
-                }
-
-                // Update the job opening
                 string updatedBy = "dummy1";
-                _jobOpeningService.Update(jobOpening, updatedBy);
-
-                _logger.Trace("Updated [" + jobOpening.Id + "] successfully.");
-
-                return RedirectToAction("Index");
+                var data = _jobOpeningService.Update(jobOpening, updatedBy);
+                if (!data.Result)
+                {
+                // Update the job opening
+                    _jobOpeningService.Update(jobOpening, updatedBy);
+                    _logger.Trace("Updated [" + jobOpening.Id + "] successfully.");
+                    return RedirectToAction("Index");
+                }
+                _logger.Trace(ErrorHandling.SetLog(data));
+                return View("UpdateView", jobOpening);
             }
             catch (Exception e)
             {

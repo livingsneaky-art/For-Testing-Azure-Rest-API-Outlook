@@ -50,12 +50,12 @@ namespace Basecode.Data.ViewModels
         /// <summary>
         /// Gets or sets the qualifications of the job opening.
         /// </summary>
-        [Required(ErrorMessage = "The Qualifications is required.")]
+        [Required(ErrorMessage = "At least one qualification is required.")]
         public List<Qualification> Qualifications { get; set; }
 
         /// <summary>Gets or sets the responsibilities.</summary>
         /// <value>The responsibilities.</value>
-        [Required(ErrorMessage = "The Responsibilities is required.")]
+        [Required(ErrorMessage = "At least one qualification is required.")]
         public List<Responsibility> Responsibilities { get; set; }
 
     }
