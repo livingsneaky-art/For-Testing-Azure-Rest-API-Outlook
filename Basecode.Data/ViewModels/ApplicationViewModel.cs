@@ -17,9 +17,9 @@ namespace Basecode.Data.ViewModels
         public Guid Id { get; set; }
 
         /// <summary>
-        /// Gets or sets the job opening ID.
+        /// Gets or sets the job opening title.
         /// </summary>
-        public int JobOpeningId { get; set; }
+        public string JobOpeningTitle { get; set; }
 
         /// <summary>
         /// Gets or sets the applicant ID.
