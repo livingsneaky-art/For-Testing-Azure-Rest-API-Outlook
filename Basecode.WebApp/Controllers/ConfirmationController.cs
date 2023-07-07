@@ -7,6 +7,19 @@ namespace Basecode.WebApp.Controllers
 {
     public class ConfirmationController : Controller
     {
+        /// <summary>
+        /// Stores data from the inputs of the user for their personal information and character references in the public application form.
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="birthdate"></param>
+        /// <param name="age"></param>
+        /// <param name="genderFinal"></param>
+        /// <param name="nationalityFinal"></param>
+        /// <param name="address"></param>
+        /// <param name="phone"></param>
+        /// <param name="email"></param>
+        /// <param name="references"></param>
+        /// <returns>View of the Confirmation of Public Application Form Page</returns>
         [HttpPost]
         public IActionResult Index(string name,
                             string birthdate,
@@ -18,37 +31,16 @@ namespace Basecode.WebApp.Controllers
                             string email,
                             List<ReferenceModel> references)
         {
-            // Store the name in TempData
             TempData["Name"] = name;
-
-            // Store the birthdate in TempData
             TempData["Birthdate"] = birthdate;
-
-            // Store the age in TempData
             TempData["Age"] = age;
-
-            // Store the final gender in TempData
             TempData["Gender"] = genderFinal;
-
-            // Store the final nationality in TempData
             TempData["Nationality"] = nationalityFinal;
-
-            // Store the address in TempData
             TempData["Address"] = address;
-
-            // Store the phone number in TempData
             TempData["Phone"] = phone;
-
-            // Store the email address in TempData
             TempData["Email"] = email;
-
-            // Serialize the references list to JSON
             string referencesJson = JsonConvert.SerializeObject(references);
-
-            // Store the references JSON in TempData
             TempData["ReferencesJson"] = referencesJson;
-
-            // Return a View result
             return View();
         }
     }
