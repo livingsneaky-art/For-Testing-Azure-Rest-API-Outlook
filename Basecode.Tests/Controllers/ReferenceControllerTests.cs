@@ -28,7 +28,7 @@ namespace Basecode.Tests.Controllers
         }
 
         [Fact]
-        public void Index_SetsTempData()
+        public void Index_SetsTempData_ReturnsViewResult()
         {
             // Act
             var result = _controller.Index("John", "Doe", "Smith", "2023-01-01", "30", "Male", "US",
@@ -43,6 +43,7 @@ namespace Basecode.Tests.Controllers
             Assert.Equal("123 Street, City, State 12345", _controller.TempData["Address"]);
             Assert.Equal("555-1234", _controller.TempData["Phone"]);
             Assert.Equal("test@example.com", _controller.TempData["Email"]);
+            Assert.IsType<ViewResult>(result);
         }
     }
 }
