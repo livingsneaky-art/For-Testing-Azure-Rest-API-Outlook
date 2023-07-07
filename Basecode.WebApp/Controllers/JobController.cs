@@ -64,6 +64,7 @@ namespace Basecode.WebApp.Controllers
             try
             {
                 var model = new JobOpeningViewModel();
+                _logger.Trace("Successfuly renders form.");
                 return View(model);
             }
             catch (Exception e)

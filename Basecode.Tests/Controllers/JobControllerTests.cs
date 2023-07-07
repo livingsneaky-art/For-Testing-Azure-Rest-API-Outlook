@@ -101,7 +101,7 @@ namespace Basecode.Tests.Controllers
         }
 
         [Fact]
-        public void CreateView_Exception_ReturnsServiceException()
+        public void CreateView_HasEmptyJob_ReturnsServiceException()
         {
             // Arrange
 
@@ -112,6 +112,19 @@ namespace Basecode.Tests.Controllers
             var viewResult = Assert.IsType<ViewResult>(result);
             Assert.IsType<JobOpeningViewModel>(viewResult.ViewData.Model);
         }
+
+        //[Fact]
+        //public void CreateView_Exception_ReturnsServiceException()
+        //{
+        //    // Arrange
+
+        //    // Act
+        //    var result = _controller.CreateView();
+
+        //    // Assert
+        //    var viewResult = Assert.IsType<ViewResult>(result);
+        //    Assert.IsType<JobOpeningViewModel>(viewResult.ViewData.Model);
+        //}
 
         [Fact]
         public void JobView_ExistingId_ReturnsViewResult()
