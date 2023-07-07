@@ -11,5 +11,6 @@ namespace Basecode.Data.Interfaces
     {
         IQueryable<Applicant> GetAll();
         Applicant GetById(int id);
+        void CreateApplicant(Applicant applicant);
     }
 }
