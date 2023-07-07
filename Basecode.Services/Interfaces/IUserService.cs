@@ -41,7 +41,7 @@ namespace Basecode.Services.Interfaces
         /// Deletes a user from the system based on the provided ID.
         /// </summary>
         /// <param name="id">Represents the ID of the user to be deleted.</param>
-        void Delete(int id);
+        void Delete(User user);
 
         /// <summary>
         /// Checks the email format.

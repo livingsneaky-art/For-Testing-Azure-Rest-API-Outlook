@@ -69,14 +69,10 @@ namespace Basecode.Data.Repositories
         /// Deletes a user from the User table based on the specified ID.
         /// </summary>
         /// <param name="id">Represents the ID of the user to be deleted.</param>
-        public void Delete(int id)
+        public void Delete(User user)
         {
-            var data = _context.User.Find(id);
-            if (data != null)
-            {
-                _context.User.Remove(data);
-                _context.SaveChanges();
-            }
+            _context.User.Remove(user);
+            _context.SaveChanges();
         }
     }
 }
