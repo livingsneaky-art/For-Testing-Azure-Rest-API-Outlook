@@ -39,9 +39,15 @@ namespace Basecode.Services.Services
         /// <returns>
         /// The application with the specified ID, or null if not found.
         /// </returns>
-        public ApplicationViewModel GetById(Guid id)
+        public ApplicationViewModel? GetById(Guid id)
         {
             var application = _repository.GetById(id);
+
+            if (application == null)
+            {
+                return null;
+            }
+
             var job = _jobOpeningService.GetById(application.JobOpeningId);
             var applicant = _applicantService.GetApplicantById(application.ApplicantId);
             var data = new ApplicationViewModel
