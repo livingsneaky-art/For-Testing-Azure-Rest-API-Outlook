@@ -23,7 +23,7 @@ namespace Basecode.Tests.Controllers
         public void Index_ReturnsViewResult()
         {
             // Act
-            var result = _controller.Index("", "", "", "", "", "", "", "", new List<ReferenceModel>()) as ViewResult;
+            var result = _controller.Index("", "", "", "", "", "", "", "", "", "", "", "", "", new List<ReferenceModel>()) as ViewResult;
 
             // Assert
             Assert.IsType<ViewResult>(result);
@@ -40,16 +40,18 @@ namespace Basecode.Tests.Controllers
             };
 
             // Act
-            var result = _controller.Index("John", "1990-01-01", "30", "Male", "US",
-                "123 Street", "555-1234", "test@example.com", references) as ViewResult;
+            var result = _controller.Index("John", "Middle", "Doe", "1990-01-01", "30", "Male", "US",
+                "123 Street", "City", "Province", "1234", "555-1234", "test@example.com", references) as ViewResult;
 
             // Assert
-            Assert.Equal("John", _controller.TempData["Name"]);
+            Assert.Equal("John", _controller.TempData["First Name"]);
+            Assert.Equal("Middle", _controller.TempData["Middle Name"]);
+            Assert.Equal("Doe", _controller.TempData["Last Name"]);
             Assert.Equal("1990-01-01", _controller.TempData["Birthdate"]);
             Assert.Equal("30", _controller.TempData["Age"]);
             Assert.Equal("Male", _controller.TempData["Gender"]);
             Assert.Equal("US", _controller.TempData["Nationality"]);
-            Assert.Equal("123 Street", _controller.TempData["Address"]);
+            Assert.Equal("123 Street, City, Province 1234", _controller.TempData["Street"] + ", " + _controller.TempData["City"] + ", " + _controller.TempData["Province"] + " " + _controller.TempData["Zip"]);
             Assert.Equal("555-1234", _controller.TempData["Phone"]);
             Assert.Equal("test@example.com", _controller.TempData["Email"]);
 
