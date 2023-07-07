@@ -12,9 +12,7 @@
             url: form.attr('action'),
             type: 'POST',
             data: form.serialize(),
-            success: function (response) {
-                window.location.href = response.redirectToUrl;
-            },
+            success: () => window.location.assign(window.location.href),
             error: function (response) {
                 if (response.status === 400) {
                     var errors = response.responseJSON.value;
