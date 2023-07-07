@@ -5,9 +5,9 @@ namespace Basecode.WebApp.Controllers
     public class PublicApplicationController : Controller
     {
         /// <summary>
-        /// Starting page of Public Application Form
+        /// Displays the index view for public applications.
         /// </summary>
-        /// <returns>View of Personal Information</returns>
+        /// <returns>The index view.</returns>
         public IActionResult Index()
         {
             return View();

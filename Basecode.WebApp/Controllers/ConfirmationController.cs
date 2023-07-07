@@ -14,6 +14,11 @@ namespace Basecode.WebApp.Controllers
         private readonly ICharacterReferenceService _characterReferenceService;
         private static readonly Logger _logger = LogManager.GetCurrentClassLogger();
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ConfirmationController"/> class.
+        /// </summary>
+        /// <param name="applicantService">The applicant service.</param>
+        /// <param name="characterReferenceService">The character reference service.</param>
         public ConfirmationController(IApplicantService applicantService, ICharacterReferenceService characterReferenceService)
         {
             _applicantService = applicantService;
@@ -21,23 +26,23 @@ namespace Basecode.WebApp.Controllers
         }
 
         /// <summary>
-        /// Stores input data from Personal Information and Character References.
+        /// Displays the confirmation page with the applicant and character reference data.
         /// </summary>
-        /// <param name="firstName"></param>
-        /// <param name="middleName"></param>
-        /// <param name="lastName"></param>
-        /// <param name="birthdate"></param>
-        /// <param name="age"></param>
-        /// <param name="gender"></param>
-        /// <param name="nationality"></param>
-        /// <param name="street"></param>
-        /// <param name="city"></param>
-        /// <param name="province"></param>
-        /// <param name="zip"></param>
-        /// <param name="phone"></param>
-        /// <param name="email"></param>
-        /// <param name="references"></param>
-        /// <returns>View of the Confirmation Page</returns>
+        /// <param name="firstName">The first name of the applicant.</param>
+        /// <param name="middleName">The middle name of the applicant.</param>
+        /// <param name="lastName">The last name of the applicant.</param>
+        /// <param name="birthdate">The birthdate of the applicant.</param>
+        /// <param name="age">The age of the applicant.</param>
+        /// <param name="gender">The gender of the applicant.</param>
+        /// <param name="nationality">The nationality of the applicant.</param>
+        /// <param name="street">The street address of the applicant.</param>
+        /// <param name="city">The city of the applicant.</param>
+        /// <param name="province">The province of the applicant.</param>
+        /// <param name="zip">The zip code of the applicant.</param>
+        /// <param name="phone">The phone number of the applicant.</param>
+        /// <param name="email">The email address of the applicant.</param>
+        /// <param name="references">The list of character references.</param>
+        /// <returns>The view result.</returns>
         [HttpPost]
         public IActionResult Index(string firstName,
                             string middleName,
@@ -72,6 +77,12 @@ namespace Basecode.WebApp.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Creates the applicant and character references based on the submitted data.
+        /// </summary>
+        /// <param name="applicant">The ApplicantViewModel object containing the applicant data.</param>
+        /// <param name="references">The list of CharacterReferenceViewModel objects containing the character reference data.</param>
+        /// <returns>The action result.</returns>
         [HttpPost]
         public IActionResult Create(ApplicantViewModel applicant, List<CharacterReferenceViewModel> references)
         {
@@ -79,7 +90,6 @@ namespace Basecode.WebApp.Controllers
             {
                 var (data, createdApplicantId) = _applicantService.Create(applicant);
 
-                // Checks for any validation warning
                 if (!data.Result)
                 {
                     _logger.Trace("Create Applicant successfully.");
@@ -94,14 +104,11 @@ namespace Basecode.WebApp.Controllers
                         }
                         else
                         {
-                            // Handle the validation warning/logContent here if needed
                             _logger.Trace(ErrorHandling.SetLog(logContent));
                         }
                     }
                     return RedirectToAction("Index", "Job");
                 }
-
-                // Fails the validation
                 _logger.Trace(ErrorHandling.SetLog(data));
                 return View("Index");
             }

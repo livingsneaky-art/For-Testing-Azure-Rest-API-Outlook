@@ -12,22 +12,22 @@ namespace Basecode.WebApp.Controllers
     public class ReferenceController : Controller
     {
         /// <summary>
-        /// Stores input data from Personal.
+        /// Handles the submission of a character reference form.
         /// </summary>
-        /// <param name="firstName"></param>
-        /// <param name="middleName"></param>
-        /// <param name="lastName"></param>
-        /// <param name="date"></param>
-        /// <param name="age"></param>
-        /// <param name="gender"></param>
-        /// <param name="nationality"></param>
-        /// <param name="street"></param>
-        /// <param name="city"></param>
-        /// <param name="province"></param>
-        /// <param name="zip"></param>
-        /// <param name="phone"></param>
-        /// <param name="email"></param>
-        /// <returns>View of Character References Form Page</returns>
+        /// <param name="firstName">The first name of the character reference.</param>
+        /// <param name="middleName">The middle name of the character reference.</param>
+        /// <param name="lastName">The last name of the character reference.</param>
+        /// <param name="date">The birthdate of the character reference.</param>
+        /// <param name="age">The age of the character reference.</param>
+        /// <param name="gender">The gender of the character reference.</param>
+        /// <param name="nationality">The nationality of the character reference.</param>
+        /// <param name="street">The street address of the character reference.</param>
+        /// <param name="city">The city of the character reference.</param>
+        /// <param name="province">The province of the character reference.</param>
+        /// <param name="zip">The zip code of the character reference.</param>
+        /// <param name="phone">The phone number of the character reference.</param>
+        /// <param name="email">The email address of the character reference.</param>
+        /// <returns>The view result.</returns>
         [HttpPost]
         public IActionResult Index(string firstName,
                             string middleName,

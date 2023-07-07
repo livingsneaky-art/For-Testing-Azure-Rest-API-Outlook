@@ -36,12 +36,22 @@ namespace Basecode.Services.Services
         {
             return _repository.GetAll().ToList();
         }
-        
+
+        /// <summary>
+        /// Retrieves an applicant by its ID.
+        /// </summary>
+        /// <param name="id">The ID of the applicant.</param>
+        /// <returns>The Applicant object.</returns>
         public Applicant GetApplicantById(int id)
         {
             return _repository.GetById(id);
         }
 
+        /// <summary>
+        /// Creates a new applicant.
+        /// </summary>
+        /// <param name="applicant">The ApplicantViewModel object containing the applicant data.</param>
+        /// <returns>A tuple containing a LogContent object and the ID of the created applicant.</returns>
         public (LogContent, int) Create(ApplicantViewModel applicant)
         {
             LogContent logContent = new LogContent();
@@ -53,10 +63,10 @@ namespace Basecode.Services.Services
 
                 int createdApplicantId = _repository.CreateApplicant(applicantModel);
 
-                return (logContent, createdApplicantId); // Return both LogContent and the created applicant ID
+                return (logContent, createdApplicantId);
             }
 
-            return (logContent, -1); // Return an invalid ID if the creation fails
+            return (logContent, -1);
         }
     }
 }
