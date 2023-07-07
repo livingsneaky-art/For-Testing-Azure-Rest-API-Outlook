@@ -1,6 +1,10 @@
-﻿using Basecode.WebApp.Models;
+﻿using Basecode.Data.ViewModels;
+using Basecode.Services.Interfaces;
+using Basecode.Services.Services;
+using Basecode.WebApp.Models;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using NLog;
 using System.Diagnostics;
 using System.Net;
 
@@ -8,6 +12,14 @@ namespace Basecode.WebApp.Controllers
 {
     public class ConfirmationController : Controller
     {
+        private readonly IApplicantService _applicantService;
+        private static readonly Logger _logger = LogManager.GetCurrentClassLogger();
+
+        public ConfirmationController(IApplicantService applicantService)
+        {
+            _applicantService = applicantService;
+        }
+
         /// <summary>
         /// Stores input data from Personal Information and Character References.
         /// </summary>
@@ -58,6 +70,30 @@ namespace Basecode.WebApp.Controllers
             string referencesJson = JsonConvert.SerializeObject(references);
             TempData["ReferencesJson"] = referencesJson;
             return View();
+        }
+
+        [HttpPost]
+        public IActionResult Create(ApplicantViewModel applicant)
+        {
+            try
+            {
+                var data = _applicantService.Create(applicant);
+                //Checks for any validation warning
+                if (!data.Result)
+                {
+                    _logger.Trace("Create Applicant succesfully.");
+                    return RedirectToAction("Index", "Job");
+                }
+                //Fails the validation
+                _logger.Trace(ErrorHandling.SetLog(data));
+                return View("Index");
+            }
+            catch (Exception e)
+            {
+                _logger.Error(ErrorHandling.DefaultException(e.Message));
+                return StatusCode(500, "Something went wrong.");
+            }
+
         }
     }
 }

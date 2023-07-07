@@ -93,5 +93,82 @@ namespace Basecode.Services.Services
 
             return logContent;
         }
+
+        public static LogContent CheckApplicant(ApplicantViewModel applicant)
+        {
+            LogContent logContent = new LogContent();
+            if (string.IsNullOrEmpty(applicant.Firstname))
+            {
+                logContent.SetError("400", "First Name is required but has no value.");
+                return logContent;
+            }
+
+            if (string.IsNullOrEmpty(applicant.Lastname))
+            {
+                logContent.SetError("400", "Last Name is required but has no value.");
+                return logContent;
+            }
+
+            if (string.IsNullOrEmpty(applicant.Age.ToString()))
+            {
+                logContent.SetError("400", "Age is required but has no value.");
+                return logContent;
+            }
+
+            if (string.IsNullOrEmpty(applicant.Birthdate.ToString()))
+            {
+                logContent.SetError("400", "irthdate is required but has no value.");
+                return logContent;
+            }
+
+            if (string.IsNullOrEmpty(applicant.Gender))
+            {
+                logContent.SetError("400", "Gender is required but has no value.");
+                return logContent;
+            }
+
+            if (string.IsNullOrEmpty(applicant.Nationality))
+            {
+                logContent.SetError("400", "Nationality is required but has no value.");
+                return logContent;
+            }
+
+            if (string.IsNullOrEmpty(applicant.Street))
+            {
+                logContent.SetError("400", "Street is required but has no value.");
+                return logContent;
+            }
+
+            if (string.IsNullOrEmpty(applicant.City))
+            {
+                logContent.SetError("400", "City is required but has no value.");
+                return logContent;
+            }
+
+            if (string.IsNullOrEmpty(applicant.Province))
+            {
+                logContent.SetError("400", "Province is required but has no value.");
+                return logContent;
+            }
+
+            if (string.IsNullOrEmpty(applicant.Zip))
+            {
+                logContent.SetError("400", "Zip is required but has no value.");
+                return logContent;
+            }
+
+            if (string.IsNullOrEmpty(applicant.Phone))
+            {
+                logContent.SetError("400", "Phone is required but has no value.");
+                return logContent;
+            }
+
+            if (string.IsNullOrEmpty(applicant.Email))
+            {
+                logContent.SetError("400", "Email is required but has no value.");
+                return logContent;
+            }
+            return logContent;
+        }
     }
 }
