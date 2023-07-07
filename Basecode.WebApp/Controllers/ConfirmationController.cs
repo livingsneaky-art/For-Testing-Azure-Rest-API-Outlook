@@ -21,7 +21,9 @@ namespace Basecode.WebApp.Controllers
         /// <param name="references"></param>
         /// <returns>View of the Confirmation of Public Application Form Page</returns>
         [HttpPost]
-        public IActionResult Index(string name,
+        public IActionResult Index(string firstName,
+                            string middleName,
+                            string lastName,
                             string birthdate,
                             string age,
                             string genderFinal,
@@ -31,7 +33,9 @@ namespace Basecode.WebApp.Controllers
                             string email,
                             List<ReferenceModel> references)
         {
-            TempData["Name"] = name;
+            TempData["First Name"] = firstName;
+            TempData["Middle Name"] = " " + middleName;
+            TempData["Last Name"] = " " + lastName;
             TempData["Birthdate"] = birthdate;
             TempData["Age"] = age;
             TempData["Gender"] = genderFinal;
