@@ -77,34 +77,31 @@ namespace Basecode.WebApp.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(User user)
         {
-            // Check if model is invalid using its data annotations
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
             try
             {
+                // Validate through data annotations
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+
+                // Create the new user
                 var data = _service.Create(user);
                 
-                // If service layer validation is successful
                 if (!data.Result)
                 {
                     _logger.Trace("Successfully created a new user.");
-                    // Tell AJAX to redirect to Index()
                     return Json(new { redirectToUrl = Url.Action("Index", "User") });
                 }
 
-                // If service layer validation failed
                 _logger.Trace(ErrorHandling.SetLog(data));
-                // The only service layer validation for now is checking whether the email has a domain
-                // Since validation failed, add a new error to the model state
                 ModelState.AddModelError("Email", "Email address must have a domain.");
+
                 // Store the validation errors in a dictionary
                 var result = GetValidationErrors();
+
                 if (result is Dictionary<string, string> validationErrors)
                 {
-                    // Return the validation errors as a JSON object
                     return BadRequest(Json(validationErrors));
                 }
                 else
@@ -157,34 +154,31 @@ namespace Basecode.WebApp.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Update(User user)
         {
-            // Check if model is invalid using its data annotations
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
             try
             {
+                // Validate through data annotations
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+
+                // Update the user
                 var data = _service.Update(user);
 
-                // If service layer validation is successful
                 if (!data.Result)
                 {
                     _logger.Trace("Successfully updated user [" + user.Id + "].");
-                    // Tell AJAX to redirect to Index()
                     return Json(new { redirectToUrl = Url.Action("Index", "User") });
                 }
 
-                // If service layer validation failed
                 _logger.Trace(ErrorHandling.SetLog(data));
-                // The only service layer validation for now is checking whether the email has a domain
-                // Since validation failed, add a new error to the model state
                 ModelState.AddModelError("Email", "Email address must have a domain.");
+
                 // Store the validation errors in a dictionary
                 var result = GetValidationErrors();
+
                 if (result is Dictionary<string, string> validationErrors)
                 {
-                    // Return the validation errors as a JSON object
                     return BadRequest(Json(validationErrors));
                 }
                 else
