@@ -1,5 +1,6 @@
 ﻿using Basecode.Data.Models;
 using Basecode.Data.ViewModels;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -49,5 +50,7 @@ namespace Basecode.Services.Interfaces
         /// <param name="email">The email.</param>
         /// <returns></returns>
         Match CheckEmailFormat(string email);
+
+        Dictionary<string, string> GetValidationErrors(ModelStateDictionary modelState);
     }
 }
