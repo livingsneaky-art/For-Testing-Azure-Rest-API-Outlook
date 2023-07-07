@@ -3,6 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using Basecode.Services.Interfaces;
 using NLog;
+using Basecode.Data.ViewModels;
+using Basecode.Services.Services;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Basecode.Main.Controllers
 {
@@ -28,8 +31,25 @@ namespace Basecode.Main.Controllers
         /// </returns>
         public IActionResult Index()
         {
-            var jobOpenings = _jobOpeningService.GetJobs();
-            return View(jobOpenings);
+            try
+            {
+                // Get all jobs currently available.
+                var jobOpenings = _jobOpeningService.GetJobs();
+
+                if (jobOpenings.IsNullOrEmpty())
+                {
+                    _logger.Error("No current jobs.");
+                    return View(new List<JobOpeningViewModel>());
+                }
+
+                _logger.Trace("Get Jobs Successfully");
+                return View(jobOpenings);
+            }
+            catch (Exception e)
+            {
+                _logger.Error(ErrorHandling.DefaultException(e.Message));
+                return StatusCode(500, "Something went wrong.");
+            }
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
