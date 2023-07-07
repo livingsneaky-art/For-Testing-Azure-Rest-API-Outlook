@@ -45,7 +45,9 @@
             </div>
         </div>
         <form method="post" asp-controller="Confirmation" asp-action="Index">
-            <input type="hidden" name="name" value="@TempData["Name"]" />
+            <input type="hidden" name="firstName" value="@TempData["First Name"]" />
+            <input type="hidden" name="middleName" value="@TempData["Middle Name"]" />
+            <input type="hidden" name="lastName" value="@TempData["Last Name"]" />
             <input type="hidden" name="birthdate" value="@TempData["Birthdate"]" />
             <input type="hidden" name="age" value="@TempData["Age"]" />
             <input type="hidden" name="genderFinal" value="@TempData["Gender"]" />

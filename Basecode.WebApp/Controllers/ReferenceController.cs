@@ -36,7 +36,9 @@ namespace Basecode.WebApp.Controllers
                             string tempPhone,
                             string tempMail)
         {
-            TempData["Name"] = firstName + " " + middleName + " " + lastName;
+            TempData["First Name"] = firstName;
+            TempData["Middle Name"] = middleName;
+            TempData["Last Name"] = lastName;
             TempData["Birthdate"] = date;
             TempData["Age"] = age;
             TempData["Gender"] = gender;
