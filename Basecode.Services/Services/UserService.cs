@@ -135,6 +135,11 @@ namespace Basecode.Services.Services
             return match;
         }
 
+        /// <summary>
+        /// Gets the validation errors.
+        /// </summary>
+        /// <param name="modelState">State of the model.</param>
+        /// <returns></returns>
         public Dictionary<string, string> GetValidationErrors(ModelStateDictionary modelState)
         {
             var validationErrors = new Dictionary<string, string>();

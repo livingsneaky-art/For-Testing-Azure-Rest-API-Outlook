@@ -1,7 +1,7 @@
 ﻿$('.modal').on('shown.bs.modal', function () {
     var modal = $(this); // Get the modal element that has just been shown
-    var form = modal.find('form'); // Find the form element within the modal
-    var formId = '#' + form.attr('id'); // Get the ID of the form
+    var form = modal.find('form'); 
+    var formId = '#' + form.attr('id'); 
 
     $(formId).submit(function (e) {
         e.preventDefault();
@@ -12,7 +12,7 @@
             url: form.attr('action'),
             type: 'POST',
             data: form.serialize(),
-            success: () => window.location.assign(window.location.href),
+            success: () => window.location.reload(), 
             error: function (response) {
                 if (response.status === 400) {
                     var errors = response.responseJSON.value;
@@ -26,14 +26,14 @@
                     });
                 }
                 else {
-                    // Handle other error cases
-                    console.log("other error");
+                    console.log("Something went wrong.");
                 }
             }
         });
     });
 });
 
+// Delete the modal's html if it has been closed
 $('.modal').on('hidden.bs.modal', function () {
     $(this).parent().empty();
 });
