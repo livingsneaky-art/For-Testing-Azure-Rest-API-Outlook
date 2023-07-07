@@ -91,7 +91,7 @@ namespace Basecode.WebApp.Controllers
                 if (!data.Result)
                 {
                     _logger.Trace("Successfully created a new user.");
-                    return Json(new { redirectToUrl = Url.Action("Index", "User") });
+                    return Ok();
                 }
 
                 _logger.Trace(ErrorHandling.SetLog(data));
@@ -168,7 +168,7 @@ namespace Basecode.WebApp.Controllers
                 if (!data.Result)
                 {
                     _logger.Trace("Successfully updated user [" + user.Id + "].");
-                    return Json(new { redirectToUrl = Url.Action("Index", "User") });
+                    return Ok();
                 }
 
                 _logger.Trace(ErrorHandling.SetLog(data));
