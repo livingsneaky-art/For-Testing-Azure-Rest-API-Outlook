@@ -19,7 +19,7 @@ namespace Basecode.Data.Interfaces
         /// Adds a new user into the User table.
         /// </summary>
         /// <param name="user">Represents the user to be added.</param>
-        void Add(User user);
+        void Create(User user);
 
         /// <summary>
         /// Retrieves a user from the User table based on the specified ID.
@@ -38,6 +38,6 @@ namespace Basecode.Data.Interfaces
         /// Deletes a user from the User table based on the specified ID.
         /// </summary>
         /// <param name="id">Represents the ID of the user to be deleted.</param>
-        void Delete(int id);
+        void Delete(User user);
     }
 }
