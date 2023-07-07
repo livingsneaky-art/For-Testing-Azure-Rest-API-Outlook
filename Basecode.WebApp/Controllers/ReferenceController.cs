@@ -2,8 +2,25 @@
 
 namespace Basecode.WebApp.Controllers
 {
-    public class CharacterReferenceFormController : Controller
+    public class ReferenceController : Controller
     {
+        /// <summary>
+        /// Stores data from the inputs of the user for their personal information in the public application form.
+        /// </summary>
+        /// <param name="firstName"></param>
+        /// <param name="middleName"></param>
+        /// <param name="lastName"></param>
+        /// <param name="date"></param>
+        /// <param name="age"></param>
+        /// <param name="gender"></param>
+        /// <param name="nationality"></param>
+        /// <param name="tempStreet"></param>
+        /// <param name="tempCity"></param>
+        /// <param name="tempProvince"></param>
+        /// <param name="tempZip"></param>
+        /// <param name="tempPhone"></param>
+        /// <param name="tempMail"></param>
+        /// <returns>View of the Character Reference Form Page.</returns>
         [HttpPost]
         public IActionResult Index(string firstName,
                             string middleName,
@@ -19,31 +36,14 @@ namespace Basecode.WebApp.Controllers
                             string tempPhone,
                             string tempMail)
         {
-            // Store the concatenated full name in TempData
             TempData["Name"] = firstName + " " + middleName + " " + lastName;
-
-            // Store the birthdate in TempData
             TempData["Birthdate"] = date;
-
-            // Store the age in TempData
             TempData["Age"] = age;
-
-            // Store the gender in TempData
             TempData["Gender"] = gender;
-
-            // Store the nationality in TempData
             TempData["Nationality"] = nationality;
-
-            // Concatenate the temporary address and store it in TempData
             TempData["Address"] = tempStreet + ", " + tempCity + ", " + tempProvince + " " + tempZip;
-
-            // Store the temporary phone number in TempData
             TempData["Phone"] = tempPhone;
-
-            // Store the temporary email address in TempData
             TempData["Email"] = tempMail;
-
-            // Return a View result
             return View();
         }
     }

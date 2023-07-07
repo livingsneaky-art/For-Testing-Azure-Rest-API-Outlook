@@ -14,14 +14,27 @@ namespace Basecode.Services.Services
     {
         private readonly IApplicantRepository _repository;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ApplicantService"/> class.
+        /// </summary>
+        /// <param name="repository">The repository.</param>
         public ApplicantService(IApplicantRepository repository)
         {
             _repository = repository;
         }
 
+        /// <summary>
+        /// Gets the applicants.
+        /// </summary>
+        /// <returns></returns>
         public List<Applicant> GetApplicants()
         {
             return _repository.GetAll().ToList();
+        }
+        
+        public Applicant GetApplicantById(int id)
+        {
+            return _repository.GetById(id);
         }
     }
 }

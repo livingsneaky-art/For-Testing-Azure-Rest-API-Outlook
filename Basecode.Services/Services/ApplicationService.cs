@@ -13,17 +13,53 @@ namespace Basecode.Services.Services
     public class ApplicationService : IApplicationService
     {
         private readonly IApplicationRepository _repository;
+        private readonly IJobOpeningService _jobOpeningService;
+        private readonly IApplicantService _applicantService;
         private readonly IMapper _mapper;
-        public ApplicationService(IApplicationRepository repository, IMapper mapper)
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ApplicationService" /> class.
+        /// </summary>
+        /// <param name="repository">The repository.</param>
+        /// <param name="mapper">The mapper.</param>
+        /// <param name="jobOpeningService">The job opening service.</param>
+        /// <param name="applicantService">The applicant service.</param>
+        public ApplicationService(IApplicationRepository repository, IMapper mapper, IJobOpeningService jobOpeningService, IApplicantService applicantService)
         {
             _repository = repository;
+            _jobOpeningService = jobOpeningService;
+            _applicantService = applicantService;
             _mapper = mapper;
         }
 
-        public ApplicationViewModel GetById(Guid id)
+        /// <summary>
+        /// Retrieves an application by its ID.
+        /// </summary>
+        /// <param name="id">The ID of the application to retrieve.</param>
+        /// <returns>
+        /// The application with the specified ID, or null if not found.
+        /// </returns>
+        public ApplicationViewModel? GetById(Guid id)
         {
-            var data = _repository.GetById(id);
-            return _mapper.Map<ApplicationViewModel>(data);
+            var application = _repository.GetById(id);
+
+            if (application == null)
+            {
+                return null;
+            }
+
+            var job = _jobOpeningService.GetById(application.JobOpeningId);
+            var applicant = _applicantService.GetApplicantById(application.ApplicantId);
+            var data = new ApplicationViewModel
+            {
+                Id = application.Id,
+                ApplicantName = applicant.Firstname + " " + applicant.Lastname,
+                JobOpeningTitle = job.Title,
+                Status = application.Status,
+                UpdateTime = application.UpdateTime
+            };
+
+            return data;
         }
     }
 }

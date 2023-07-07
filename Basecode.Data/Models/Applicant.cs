@@ -17,7 +17,7 @@ namespace Basecode.Data.Models
 
         public int Age { get; set; }
 
-        public DateFormat Birthdate { get; set; }
+        public DateTime Birthdate { get; set; }
         public string Gender { get; set; }
 
         public string Nationality { get; set; }

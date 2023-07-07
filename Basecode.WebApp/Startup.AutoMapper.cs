@@ -14,6 +14,7 @@ namespace Basecode.WebApp
                 cfg.CreateMap<JobOpening, JobOpeningViewModel>();
                 cfg.CreateMap<JobOpeningViewModel, JobOpening>();
                 cfg.CreateMap<Application, ApplicationViewModel>();
+                cfg.CreateMap<User, LoginViewModel>();
             });
 
             services.AddSingleton(Config.CreateMapper());

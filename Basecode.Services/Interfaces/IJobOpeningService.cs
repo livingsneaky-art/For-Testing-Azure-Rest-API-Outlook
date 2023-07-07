@@ -1,6 +1,7 @@
 ﻿using Basecode.Data.Models;
 using Basecode.Data.ViewModels;
 using System.Collections.Generic;
+using static Basecode.Services.Services.ErrorHandling;
 
 namespace Basecode.Services.Interfaces
 {
@@ -12,7 +13,9 @@ namespace Basecode.Services.Interfaces
         /// <summary>
         /// Gets a list of all job openings.
         /// </summary>
-        /// <returns>A list of job opening view models.</returns>
+        /// <returns>
+        /// A list of job opening view models.
+        /// </returns>
         List<JobOpeningViewModel> GetJobs();
 
         /// <summary>
@@ -20,13 +23,16 @@ namespace Basecode.Services.Interfaces
         /// </summary>
         /// <param name="jobOpening">The job opening to create.</param>
         /// <param name="createdBy">The user who created the job opening.</param>
-        void Create(JobOpening jobOpening, string createdBy);
+        /// <returns></returns>
+        LogContent Create(JobOpeningViewModel jobOpening, string createdBy);
 
         /// <summary>
         /// Gets a job opening by its ID.
         /// </summary>
         /// <param name="id">The ID of the job opening to get.</param>
-        /// <returns>A job opening view model, or null if no such job opening exists.</returns>
+        /// <returns>
+        /// A job opening view model, or null if no such job opening exists.
+        /// </returns>
         JobOpeningViewModel GetById(int id);
 
         /// <summary>
@@ -34,7 +40,8 @@ namespace Basecode.Services.Interfaces
         /// </summary>
         /// <param name="jobOpening">The job opening to update.</param>
         /// <param name="updatedBy">The user who updated the job opening.</param>
-        void Update(JobOpeningViewModel jobOpening, string updatedBy);
+        /// <returns></returns>
+        LogContent Update(JobOpeningViewModel jobOpening, string updatedBy);
 
         /// <summary>
         /// Deletes a job opening.

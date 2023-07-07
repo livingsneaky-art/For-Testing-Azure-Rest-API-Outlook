@@ -54,8 +54,36 @@
     font-weight: 700;
 }
 
-@media (max-width: 767px){
+.error-style {
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 0.8rem;
+    height: 0.8em;
+    word-wrap: break-word;
+    width: 100%;
+}
+
+.form-parent {
+    width: 800px;
+}
+
+input::placeholder {
+    font-size: 14px; /* Adjust the font size as needed */
+}
+
+@media (max-width: 767px) {
     .img-show {
-        display:none;
+        display: none;
+    }
+}
+
+@media (max-width: 576px) {
+    .form-parent {
+        width: 400px;
+    }
+}
+
+@media (max-width: 401px) {
+    .form-parent {
+        width: 100%;
     }
 }

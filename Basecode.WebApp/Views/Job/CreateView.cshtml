@@ -1,4 +1,4 @@
-@model Basecode.Data.Models.JobOpening
+@model Basecode.Data.ViewModels.JobOpeningViewModel
 
 
 <style>
@@ -50,6 +50,11 @@
     .publish-btn {
         background-color: #f44336;
         color: white;
+    }
+
+    .quali-res{
+        margin-top: 1rem;
+        margin-bottom: 1rem;
     }
 
     .custom-control {
@@ -106,46 +111,124 @@
                 <form asp-controller="Job" asp-action="Create" method="post">
                     <div class="form-group">
                         <label asp-for="Title">Job Title</label>
-                        <input type="text" asp-for="Title" class="custom-control" />
+                        <input type="text" asp-for="Title" class="custom-control" placeholder = "Software Developer" required />
+                        <span asp-validation-for="Title" class="text-danger"></span>
                     </div>
                     <div class="form-group side-double">
                         <div class="d-flex flex-column">
                             <label asp-for="EmploymentType">Employment Type</label>
-                            <select name="EmploymentType" asp-for="EmploymentType" class="custom-control">
+                            <select name="EmploymentType" asp-for="EmploymentType" class="custom-control" required>
                                 <option value="">Select an employment type</option>
                                 <option value="Full-time">Full-time</option>
                                 <option value="Part-time">Part-time</option>
                                 <option value="Contract">Contract</option>
                             </select>
+                            <span asp-validation-for="EmploymentType" class="text-danger"></span>
                         </div>
                         <div class="d-flex flex-column">
                             <label asp-for="Location">Job Location</label>
-                            <input type="text" asp-for="Location" class="custom-control" />
+                            <input type="text" asp-for="Location" class="custom-control" required/>
+                            <span asp-validation-for="Location" class="text-danger"></span>
                         </div>
                     </div>
 
                     <div class="form-group side-double">
                         <div class="d-flex flex-column">
                             <label asp-for="WorkSetup">Work Setup</label>
-                            <select name="WorkSetup" asp-for="WorkSetup" class="custom-control">
+                            <select name="WorkSetup" asp-for="WorkSetup" class="custom-control" required>
                                 <option value="">Select a work setup</option>
                                 <option value="Remote">Remote</option>
                                 <option value="On-site">On-site</option>
                                 <option value="Hybrid">Hybrid</option>
                             </select>
-                        </div>
-                        <div class="d-flex flex-column">
-                            <label asp-for="Category">Category</label>
-                            <input type="text" asp-for="Category" class="custom-control" />
+                            <span asp-validation-for="WorkSetup" class="text-danger"></span>
                         </div>
                     </div>
 
-                    <button type="submit" class="btn btn-primary">Create</button>
-                    <a asp-action="Index">
-                        <button type="button" asp-action="Index" class="btn btn-primary">Cancel</button>
-                    </a>
+                    <div class="quali-res">
+                        <div class=" mb-2">
+                            <label asp-for="Qualifications">Qualifications</label>
+                            <button id="addQualificationBtn" type="button" class="btn btn-primary ms-3">+</button>
+                        </div>
+                        <span asp-validation-for="Qualifications" class="text-danger"></span>
+                        <div id="qualifications-list">
+                            @if (Model.Qualifications != null)
+                            {
+                                for (int i = 0; i < Model.Qualifications.Count; i++)
+                                {
+                                    <input type="text" asp-for="Qualifications[i].Description" class="custom-control qualification-input" />
+                                }
+                            }
+                        </div>
+                    </div>
+
+                    <div class="quali-res">
+                        <div class="mb-2">
+                            <label asp-for="Responsibilities">Responsibilities</label>
+                            <button id="addResponsibilityBtn" type="button" class="btn btn-primary ms-3">+</button>
+                        </div>
+                        <span asp-validation-for="Responsibilities" class="text-danger"></span>
+                        <div id="responsibilities-list">
+                            @if (Model.Responsibilities != null)
+                            {
+                                for (int i = 0; i < Model.Responsibilities.Count; i++)
+                                {
+                                    <input type="text" asp-for="Responsibilities[i].Description" class="custom-control responsibility-input"/>
+                                }
+                            }
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <a asp-action="Index">
+                            <button type="button" asp-action="Index" class="btn btn-secondary">Cancel</button>
+                        </a>
+                        <button type="submit" class="btn publish-btn">Create</button>
+                    </div>
+                   
                 </form>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+    // Function to add a new input field to the list
+    function addInputField(containerId, inputClass, inputName) {
+        var container = document.getElementById(containerId);
+        var inputContainer = document.createElement("div");
+        inputContainer.className = "input-container d-flex align-items-center mb-2 ";
+        var inputField = document.createElement("input");
+        inputField.type = "text";
+        inputField.className = "custom-control " + inputClass;
+        inputField.name = inputName + "[" + container.childElementCount + "].Description";
+        inputField.placeholder = "Please enter something...";
+        var deleteButton = document.createElement("button");
+        deleteButton.type = "button";
+        deleteButton.className = "btn btn-danger delete-btn";
+        deleteButton.textContent = "-";
+        deleteButton.addEventListener("click", function () {
+            inputContainer.remove();
+        });
+        inputContainer.appendChild(inputField);
+        inputContainer.appendChild(deleteButton);
+        container.appendChild(inputContainer);
+    }
+
+    // Add event listeners to the buttons
+    var addQualificationBtn = document.getElementById("addQualificationBtn");
+    addQualificationBtn.addEventListener("click", function () {
+        addInputField("qualifications-list", "qualification-input me-2", "Qualifications");
+    });
+
+    var addResponsibilityBtn = document.getElementById("addResponsibilityBtn");
+    addResponsibilityBtn.addEventListener("click", function () {
+        addInputField("responsibilities-list", "responsibility-input me-2", "Responsibilities");
+    });
+</script>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+

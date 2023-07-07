@@ -16,9 +16,15 @@
                 <input type="hidden" asp-for="Id" />
                 <div class="modal-footer justify-content-between border-0 mx-3 mb-3">
                     <button type="button" class="btn btn-cancel" style="font-weight:500;" data-bs-dismiss="modal"><i class="fa-regular fa-circle-xmark"></i> CANCEL</button>
-                    <button type="submit" class="btn btn-submit" style="font-weight:500;"><i class="fa-solid fa-trash"></i> DELETE</button>
+                    <button type="submit" class="btn btn-danger" style="font-weight:500;"><i class="fa-solid fa-trash"></i> DELETE</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
+
+<script>
+    $('#deleteUserModal').on('hidden.bs.modal', function () {
+        $(this).parent().empty();
+    });
+</script>

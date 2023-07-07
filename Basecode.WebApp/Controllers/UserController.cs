@@ -1,12 +1,23 @@
 ﻿using Basecode.Data.Models;
+using Basecode.Data.ViewModels;
 using Basecode.Services.Interfaces;
+using Basecode.Services.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
+using NLog;
+using System.Text;
 
 namespace Basecode.WebApp.Controllers
 {
     public class UserController : Controller
     {
         private readonly IUserService _service;
+        private static readonly Logger _logger = LogManager.GetCurrentClassLogger();
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="UserController"/> class.
+        /// </summary>
+        /// <param name="service">The User service.</param>
         public UserController(IUserService service)
         {
             _service = service;
@@ -18,19 +29,43 @@ namespace Basecode.WebApp.Controllers
         /// <returns>A view containing all users as a list of UserViewModel objects.</returns>
         public IActionResult Index()
         {
-            var data = _service.RetrieveAll();
-            return View(data);
+            try
+            {
+                var data = _service.RetrieveAll();
+
+                if (data.IsNullOrEmpty())
+                {
+                    _logger.Error("No users found.");
+                    return View(new List<UserViewModel>());
+                }
+
+                _logger.Trace("Successfully retrieved all users.");
+                return View(data);
+            }
+            catch (Exception e)
+            {
+                _logger.Error(ErrorHandling.DefaultException(e.Message));
+                return StatusCode(500, "Something went wrong.");
+            }    
         }
 
         /// <summary>
         /// Displays the modal for adding a new user.
         /// </summary>
-        /// <returns>A partial view and a User model.</returns>
+        /// <returns>A partial view with a User model.</returns>
         [HttpGet]
         public ActionResult AddView()
         {
-            var userModel = new User();
-            return PartialView("~/Views/User/_AddView.cshtml", userModel);
+            try
+            {
+                var userModel = new User();
+                return PartialView("~/Views/User/_AddView.cshtml", userModel);
+            }
+            catch (Exception e)
+            {
+                _logger.Error(ErrorHandling.DefaultException(e.Message));
+                return StatusCode(500, "Something went wrong.");
+            }   
         }
 
         /// <summary>
@@ -39,10 +74,47 @@ namespace Basecode.WebApp.Controllers
         /// <param name="user">User object representing the user to be added.</param>
         /// <returns>Redirect to the Index() action to display the list of users.</returns>
         [HttpPost]
-        public IActionResult Add(User user)
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(User user)
         {
-            _service.Add(user);
-            return RedirectToAction("Index");
+            try
+            {
+                // Validate through data annotations
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+
+                // Create the new user
+                var data = _service.Create(user);
+                
+                if (!data.Result)
+                {
+                    _logger.Trace("Successfully created a new user.");
+                    return Json(new { redirectToUrl = Url.Action("Index", "User") });
+                }
+
+                _logger.Trace(ErrorHandling.SetLog(data));
+                ModelState.AddModelError("Email", "Email address must have a domain.");
+
+                // Store the validation errors in a dictionary
+                var result = GetValidationErrors();
+
+                if (result is Dictionary<string, string> validationErrors)
+                {
+                    return BadRequest(Json(validationErrors));
+                }
+                else
+                {
+                    _logger.Error(ErrorHandling.DefaultException("Failed to retrieve ModelState Errors."));
+                    return StatusCode(500, "Something went wrong.");
+                } 
+            }
+            catch (Exception e)
+            {
+                _logger.Error(ErrorHandling.DefaultException(e.Message));
+                return StatusCode(500, "Something went wrong.");
+            }
         }
 
         /// <summary>
@@ -53,8 +125,24 @@ namespace Basecode.WebApp.Controllers
         [HttpGet]
         public ActionResult UpdateView(int id)
         {
-            var data = _service.GetById(id);
-            return PartialView("~/Views/User/_UpdateView.cshtml", data);
+            try
+            {
+                var data = _service.GetById(id);
+
+                if (data == null)
+                {
+                    _logger.Trace("User [" + id + "] not found.");
+                    return NotFound();
+                }
+
+                _logger.Trace("Successfully retrieved user by ID: [" + id + "].");
+                return PartialView("~/Views/User/_UpdateView.cshtml", data);
+            }
+            catch (Exception e)
+            {
+                _logger.Error(ErrorHandling.DefaultException(e.Message));
+                return StatusCode(500, "Something went wrong.");
+            }
         }
 
         /// <summary>
@@ -63,10 +151,47 @@ namespace Basecode.WebApp.Controllers
         /// <param name="user">User object representing the user with updated information.</param>
         /// <returns>Redirect to the Index() action to display the list of users.</returns>
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Update(User user)
         {
-            _service.Update(user);
-            return RedirectToAction("Index");
+            try
+            {
+                // Validate through data annotations
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+
+                // Update the user
+                var data = _service.Update(user);
+
+                if (!data.Result)
+                {
+                    _logger.Trace("Successfully updated user [" + user.Id + "].");
+                    return Json(new { redirectToUrl = Url.Action("Index", "User") });
+                }
+
+                _logger.Trace(ErrorHandling.SetLog(data));
+                ModelState.AddModelError("Email", "Email address must have a domain.");
+
+                // Store the validation errors in a dictionary
+                var result = GetValidationErrors();
+
+                if (result is Dictionary<string, string> validationErrors)
+                {
+                    return BadRequest(Json(validationErrors));
+                }
+                else
+                {
+                    _logger.Error(ErrorHandling.DefaultException("Failed to retrieve ModelState Errors."));
+                    return StatusCode(500, "Something went wrong.");
+                }
+            }
+            catch (Exception e)
+            {
+                _logger.Error(ErrorHandling.DefaultException(e.Message));
+                return StatusCode(500, "Something went wrong.");
+            }
         }
 
         /// <summary>
@@ -77,8 +202,24 @@ namespace Basecode.WebApp.Controllers
         [HttpGet]
         public ActionResult DeleteView(int id)
         {
-            var data = _service.GetById(id);
-            return PartialView("~/Views/User/_DeleteView.cshtml", data);
+            try
+            {
+                var data = _service.GetById(id);
+
+                if (data == null)
+                {
+                    _logger.Trace("User [" + id + "] not found.");
+                    return NotFound();
+                }
+
+                _logger.Trace("Successfully retrieved user by ID: [" + id + "].");
+                return PartialView("~/Views/User/_DeleteView.cshtml", data);
+            }
+            catch (Exception e)
+            {
+                _logger.Error(ErrorHandling.DefaultException(e.Message));
+                return StatusCode(500, "Something went wrong.");
+            }
         }
 
         /// <summary>
@@ -87,10 +228,58 @@ namespace Basecode.WebApp.Controllers
         /// <param name="id">Integer representing the ID of the user to be deleted.</param>
         /// <returns>Redirect to the Index() action to display the updated list of users.</returns>
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Delete(int id)
         {
-            _service.Delete(id);
-            return RedirectToAction("Index");
+            try
+            {
+                var user = _service.GetById(id);
+
+                if (user == null)
+                {
+                    _logger.Trace("User [" + id + "] not found.");
+                    return NotFound();
+                }
+
+                _service.Delete(user);
+                _logger.Trace("Successfully deleted user [" + id + "].");
+                return RedirectToAction("Index");
+            }
+            catch (Exception e)
+            {
+                _logger.Error(ErrorHandling.DefaultException(e.Message));
+                return StatusCode(500, "Something went wrong.");
+            }    
         }
+
+        /// <summary>
+        /// Gets the validation errors of the model.
+        /// </summary>
+        /// <returns>A dictionary containing the validation errors.</returns>
+        private Object GetValidationErrors()
+        {
+            try
+            {
+                var validationErrors = new Dictionary<string, string>();
+
+                foreach (var key in ModelState.Keys)
+                {
+                    var modelStateEntry = ModelState[key];
+
+                    foreach (var error in modelStateEntry.Errors)
+                    {
+                        validationErrors.Add(key, error.ErrorMessage);
+                    }
+                }
+
+                return validationErrors;
+            }
+            catch (Exception e)
+            {
+                _logger.Error(ErrorHandling.DefaultException(e.Message));
+                return StatusCode(500, "Something went wrong.");
+            }
+        }
+
     }
 }
