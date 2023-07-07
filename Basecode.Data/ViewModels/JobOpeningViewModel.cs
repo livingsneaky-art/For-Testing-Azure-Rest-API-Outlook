@@ -1,11 +1,6 @@
 ﻿using Basecode.Data.Models;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Reflection.Metadata.Ecma335;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Basecode.Data.ViewModels
 {
@@ -53,10 +48,10 @@ namespace Basecode.Data.ViewModels
         [Required(ErrorMessage = "At least one qualification is required.")]
         public List<Qualification> Qualifications { get; set; }
 
-        /// <summary>Gets or sets the responsibilities.</summary>
-        /// <value>The responsibilities.</value>
-        [Required(ErrorMessage = "At least one qualification is required.")]
+        /// <summary>
+        /// Gets or sets the responsibilities of the job opening.
+        /// </summary>
+        [Required(ErrorMessage = "At least one responsibility is required.")]
         public List<Responsibility> Responsibilities { get; set; }
-
     }
 }

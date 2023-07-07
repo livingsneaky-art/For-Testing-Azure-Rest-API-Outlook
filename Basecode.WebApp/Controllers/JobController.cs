@@ -113,12 +113,13 @@ namespace Basecode.WebApp.Controllers
             {
                 string createdBy = "dummy_person";
                 var data = _jobOpeningService.Create(jobOpening, createdBy);
-                //Checks if an error occurred.
+                //Checks for any validation warning
                 if (!data.Result)
                 {
                     _logger.Trace("Create JobOpening succesfully.");
                     return RedirectToAction("Index");
                 }
+                //Fails the validation
                 _logger.Trace(ErrorHandling.SetLog(data));
                 return View("CreateView", jobOpening);
             }
@@ -177,7 +178,6 @@ namespace Basecode.WebApp.Controllers
                 if (!data.Result)
                 {
                 // Update the job opening
-                    _jobOpeningService.Update(jobOpening, updatedBy);
                     _logger.Trace("Updated [" + jobOpening.Id + "] successfully.");
                     return RedirectToAction("Index");
                 }
