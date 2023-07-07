@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,6 +15,8 @@ namespace Basecode.Data.ViewModels
         /// <summary>
         /// Gets or sets the ID of the applcation.
         /// </summary>
+        [Required(ErrorMessage = "Please enter a valid Application ID.")]
+        [RegularExpression(@"^[A-Fa-f0-9]{8}-[A-Fa-f0-9]{4}-[A-Fa-f0-9]{4}-[A-Fa-f0-9]{4}-[A-Fa-f0-9]{12}$", ErrorMessage = "Please enter a valid Application ID.")]
         public Guid Id { get; set; }
 
         /// <summary>
