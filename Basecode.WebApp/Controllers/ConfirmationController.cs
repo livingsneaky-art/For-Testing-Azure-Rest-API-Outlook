@@ -1,23 +1,23 @@
-﻿using Basecode.Data.ViewModels;
+﻿using Basecode.Data.Models;
+using Basecode.Data.ViewModels;
 using Basecode.Services.Interfaces;
 using Basecode.Services.Services;
-using Basecode.WebApp.Models;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using NLog;
-using System.Diagnostics;
-using System.Net;
 
 namespace Basecode.WebApp.Controllers
 {
     public class ConfirmationController : Controller
     {
         private readonly IApplicantService _applicantService;
+        private readonly ICharacterReferenceService _characterReferenceService;
         private static readonly Logger _logger = LogManager.GetCurrentClassLogger();
 
-        public ConfirmationController(IApplicantService applicantService)
+        public ConfirmationController(IApplicantService applicantService, ICharacterReferenceService characterReferenceService)
         {
             _applicantService = applicantService;
+            _characterReferenceService = characterReferenceService;
         }
 
         /// <summary>
@@ -52,7 +52,7 @@ namespace Basecode.WebApp.Controllers
                             string zip,
                             string phone,
                             string email,
-                            List<ReferenceModel> references)
+                            List<CharacterReferenceViewModel> references)
         {
             TempData["First Name"] = firstName;
             TempData["Middle Name"] = middleName;
@@ -73,18 +73,35 @@ namespace Basecode.WebApp.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(ApplicantViewModel applicant)
+        public IActionResult Create(ApplicantViewModel applicant, List<CharacterReferenceViewModel> references)
         {
             try
             {
-                var data = _applicantService.Create(applicant);
-                //Checks for any validation warning
+                var (data, createdApplicantId) = _applicantService.Create(applicant);
+
+                // Checks for any validation warning
                 if (!data.Result)
                 {
-                    _logger.Trace("Create Applicant succesfully.");
+                    _logger.Trace("Create Applicant successfully.");
+
+                    foreach (var characterReference in references)
+                    {
+                        var logContent = _characterReferenceService.Create(characterReference, createdApplicantId);
+
+                        if (logContent.Result == false)
+                        {
+                            _logger.Trace("Create Character Reference successfully.");
+                        }
+                        else
+                        {
+                            // Handle the validation warning/logContent here if needed
+                            _logger.Trace(ErrorHandling.SetLog(logContent));
+                        }
+                    }
                     return RedirectToAction("Index", "Job");
                 }
-                //Fails the validation
+
+                // Fails the validation
                 _logger.Trace(ErrorHandling.SetLog(data));
                 return View("Index");
             }
@@ -93,7 +110,6 @@ namespace Basecode.WebApp.Controllers
                 _logger.Error(ErrorHandling.DefaultException(e.Message));
                 return StatusCode(500, "Something went wrong.");
             }
-
         }
     }
 }

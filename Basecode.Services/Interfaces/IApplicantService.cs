@@ -14,6 +14,6 @@ namespace Basecode.Services.Interfaces
         List<Applicant> GetApplicants();
 
         Applicant GetApplicantById(int id);
-        LogContent Create(ApplicantViewModel applicant);
+        (LogContent, int) Create(ApplicantViewModel applicant);
     }
 }

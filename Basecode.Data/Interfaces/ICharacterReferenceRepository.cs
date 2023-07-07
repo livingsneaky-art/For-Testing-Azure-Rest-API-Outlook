@@ -7,10 +7,8 @@ using System.Threading.Tasks;
 
 namespace Basecode.Data.Interfaces
 {
-    public interface IApplicantRepository
+    public interface ICharacterReferenceRepository
     {
-        IQueryable<Applicant> GetAll();
-        Applicant GetById(int id);
-        int CreateApplicant(Applicant applicant);
+        void CreateReference(CharacterReference characterReference);
     }
 }

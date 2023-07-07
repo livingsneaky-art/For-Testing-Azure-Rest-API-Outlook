@@ -170,5 +170,28 @@ namespace Basecode.Services.Services
             }
             return logContent;
         }
+
+        public static LogContent CheckCharacterReference(CharacterReferenceViewModel characterReference)
+        {
+            LogContent logContent = new LogContent();
+            if (string.IsNullOrEmpty(characterReference.Name))
+            {
+                logContent.SetError("400", "Name is required but has no value.");
+                return logContent;
+            }
+
+            if (string.IsNullOrEmpty(characterReference.Address))
+            {
+                logContent.SetError("400", "Address is required but has no value.");
+                return logContent;
+            }
+
+            if (string.IsNullOrEmpty(characterReference.Email))
+            {
+                logContent.SetError("400", "Email is required but has no value.");
+                return logContent;
+            }
+            return logContent;
+        }
     }
 }
