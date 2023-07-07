@@ -51,6 +51,11 @@ namespace Basecode.Services.Interfaces
         /// <returns></returns>
         Match CheckEmailFormat(string email);
 
+        /// <summary>
+        /// Gets the validation errors.
+        /// </summary>
+        /// <param name="modelState">State of the model.</param>
+        /// <returns></returns>
         Dictionary<string, string> GetValidationErrors(ModelStateDictionary modelState);
     }
 }
