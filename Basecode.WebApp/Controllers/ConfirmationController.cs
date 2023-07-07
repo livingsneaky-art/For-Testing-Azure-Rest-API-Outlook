@@ -9,18 +9,23 @@ namespace Basecode.WebApp.Controllers
     public class ConfirmationController : Controller
     {
         /// <summary>
-        /// Stores data from the inputs of the user for their personal information and character references in the public application form.
+        /// Stores input data from Personal Information and Character References.
         /// </summary>
-        /// <param name="name"></param>
+        /// <param name="firstName"></param>
+        /// <param name="middleName"></param>
+        /// <param name="lastName"></param>
         /// <param name="birthdate"></param>
         /// <param name="age"></param>
-        /// <param name="genderFinal"></param>
-        /// <param name="nationalityFinal"></param>
-        /// <param name="address"></param>
+        /// <param name="gender"></param>
+        /// <param name="nationality"></param>
+        /// <param name="street"></param>
+        /// <param name="city"></param>
+        /// <param name="province"></param>
+        /// <param name="zip"></param>
         /// <param name="phone"></param>
         /// <param name="email"></param>
         /// <param name="references"></param>
-        /// <returns>View of the Confirmation of Public Application Form Page</returns>
+        /// <returns>View of the Confirmation Page</returns>
         [HttpPost]
         public IActionResult Index(string firstName,
                             string middleName,
