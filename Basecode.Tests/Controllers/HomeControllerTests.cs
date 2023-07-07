@@ -26,7 +26,7 @@ namespace Basecode.Tests.Controllers
         [Fact]
         public void Index_HasJobs_ReturnsJobs()
         {
-            //Arrange
+            // Arrange
             var expectedJobs = new List<JobOpeningViewModel>
             {
                 new JobOpeningViewModel
@@ -51,15 +51,47 @@ namespace Basecode.Tests.Controllers
 
             _fakeJobOpeningService.Setup(service => service.GetJobs()).Returns(expectedJobs);
 
-            //Act
+            // Act
             var result = _controller.Index();
 
-            //Assert
+            // Assert
             var viewResult = Assert.IsType<ViewResult>(result);
             var actualJobs = Assert.IsAssignableFrom<List<JobOpeningViewModel>>(viewResult.Model);
 
             Assert.Equal(expectedJobs, actualJobs);
             Assert.NotEmpty(actualJobs);
+        }
+
+        [Fact]
+        public void Index_HasNoJobs_ReturnsEmpty()
+        {
+            // Arrange
+            var expectedNoJobs = new List<JobOpeningViewModel>();
+            _fakeJobOpeningService.Setup(service => service.GetJobs()).Returns(expectedNoJobs);
+
+            // Act
+            var result = _controller.Index();
+
+            // Assert
+            var viewResult = Assert.IsType<ViewResult>(result);
+            var actualJobs = Assert.IsAssignableFrom<List<JobOpeningViewModel>>(viewResult.Model);
+
+            Assert.Equal(expectedNoJobs, actualJobs);
+            Assert.Empty(actualJobs);
+        }
+
+        [Fact]
+        public void Index_Exception_ReturnsServerError()
+        {
+            // Arrange
+            _fakeJobOpeningService.Setup(service => service.GetJobs()).Throws(new Exception());
+
+            // Act
+            var result = _controller.Index();
+
+            // Assert
+            var viewResult = Assert.IsType<ObjectResult>(result);
+            Assert.Equal(500, ((ObjectResult)result).StatusCode);
         }
     }
 }
