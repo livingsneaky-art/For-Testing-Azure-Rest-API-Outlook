@@ -2,12 +2,14 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using Basecode.Services.Interfaces;
+using NLog;
 
 namespace Basecode.Main.Controllers
 {
     public class HomeController : Controller
     {
         private readonly IJobOpeningService _jobOpeningService;
+        private static readonly Logger _logger = LogManager.GetCurrentClassLogger();
 
         public HomeController(IJobOpeningService jobOpeningService)
         {
