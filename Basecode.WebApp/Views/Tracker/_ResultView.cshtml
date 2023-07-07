@@ -1,0 +1,40 @@
+﻿@model Basecode.Data.ViewModels.ApplicationViewModel;
+
+<style>
+    .table th {
+        padding: 0.5rem;
+        color: #D02A19;
+        font-size: 18px;
+        text-align: center;
+        background: #F3F4F6;
+        width: 20%;
+    }
+
+    .table tbody {
+        padding: 0.5rem;
+        color: #171A1FFF;
+        font-size: 16px;
+        text-align: center;
+    }
+</style>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th scope="col">APPLICATION ID</th>
+            <th scope="col">APPLICANT NAME</th>
+            <th scope="col">POSITION APPLIED</th>
+            <th scope="col">LAST UPDATED</th>
+            <th scope="col">STATUS</th>
+        </tr>
+    </thead>
+    <tbody id="table-body">
+        <tr>
+            <td>@Model.Id</td>
+            <td>@Model.ApplicantName</td>
+            <td>@Model.JobOpeningTitle</td>
+            <td>@Model.UpdateTime.ToString("yyyy-MM-dd HH:mm:ss")</td>
+            <td><b>@Model.Status</b></td>
+        </tr>
+    </tbody>
+</table>

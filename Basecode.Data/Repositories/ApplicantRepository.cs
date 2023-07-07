@@ -21,5 +21,10 @@ namespace Basecode.Data.Repositories
         {
             return this.GetDbSet<Applicant>();
         }
+
+        public Applicant GetById(int id)
+        {
+            return _context.Applicant.Find(id);
+        }
     }
 }

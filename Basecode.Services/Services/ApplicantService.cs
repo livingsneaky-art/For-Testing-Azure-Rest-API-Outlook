@@ -23,5 +23,10 @@ namespace Basecode.Services.Services
         {
             return _repository.GetAll().ToList();
         }
+        
+        public Applicant GetApplicantById(int id)
+        {
+            return _repository.GetById(id);
+        }
     }
 }
