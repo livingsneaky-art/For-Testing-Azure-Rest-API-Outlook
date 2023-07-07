@@ -11,6 +11,10 @@ namespace Basecode.Main.Controllers
         private readonly IJobOpeningService _jobOpeningService;
         private static readonly Logger _logger = LogManager.GetCurrentClassLogger();
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="HomeController" /> class.
+        /// </summary>
+        /// <param name="jobOpeningService">The job opening service.</param>
         public HomeController(IJobOpeningService jobOpeningService)
         {
             _jobOpeningService = jobOpeningService;
