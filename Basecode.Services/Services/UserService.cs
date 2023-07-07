@@ -3,6 +3,7 @@ using Basecode.Data.Models;
 using Basecode.Data.Repositories;
 using Basecode.Data.ViewModels;
 using Basecode.Services.Interfaces;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -133,5 +134,23 @@ namespace Basecode.Services.Services
             Match match = Regex.Match(email, emailPattern);
             return match;
         }
+
+        public Dictionary<string, string> GetValidationErrors(ModelStateDictionary modelState)
+        {
+            var validationErrors = new Dictionary<string, string>();
+
+            foreach (var key in modelState.Keys)
+            {
+                var modelStateEntry = modelState[key];
+
+                foreach (var error in modelStateEntry.Errors)
+                {
+                    validationErrors.Add(key, error.ErrorMessage);
+                }
+            }
+
+            return validationErrors;
+        }
+
     }
 }
