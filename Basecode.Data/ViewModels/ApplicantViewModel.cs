@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Basecode.Data.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -49,5 +50,7 @@ namespace Basecode.Data.ViewModels
 
         [Required(ErrorMessage = "Email is required.")]
         public string Email { get; set; }
+
+        public List<CharacterReference> CharacterReferences { get; set; }
     }
 }

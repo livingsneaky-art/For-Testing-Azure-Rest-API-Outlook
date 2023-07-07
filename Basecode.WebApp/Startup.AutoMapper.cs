@@ -17,6 +17,8 @@ namespace Basecode.WebApp
                 cfg.CreateMap<User, LoginViewModel>();
                 cfg.CreateMap<ApplicantViewModel, Applicant>();
                 cfg.CreateMap<Applicant, ApplicantViewModel>();
+                cfg.CreateMap<CharacterReferenceViewModel, CharacterReference>();
+                cfg.CreateMap<CharacterReference, CharacterReferenceViewModel>();
             });
 
             services.AddSingleton(Config.CreateMapper());

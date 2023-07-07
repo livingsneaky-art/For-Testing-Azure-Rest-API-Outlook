@@ -42,7 +42,7 @@ namespace Basecode.Services.Services
             return _repository.GetById(id);
         }
 
-        public LogContent Create(ApplicantViewModel applicant)
+        public (LogContent, int) Create(ApplicantViewModel applicant)
         {
             LogContent logContent = new LogContent();
 
@@ -51,10 +51,12 @@ namespace Basecode.Services.Services
             {
                 var applicantModel = _mapper.Map<Applicant>(applicant);
 
-                _repository.CreateApplicant(applicantModel);
+                int createdApplicantId = _repository.CreateApplicant(applicantModel);
+
+                return (logContent, createdApplicantId); // Return both LogContent and the created applicant ID
             }
 
-            return logContent;
+            return (logContent, -1); // Return an invalid ID if the creation fails
         }
     }
 }
