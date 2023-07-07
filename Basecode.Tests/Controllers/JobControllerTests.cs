@@ -315,7 +315,8 @@ namespace Basecode.Tests.Controllers
             };
             string updatedBy = "dummy1";
 
-            _fakeJobOpeningService.Setup(service => service.Update(jobOpening, updatedBy)).Returns(new LogContent());
+            var logContent = new LogContent { Result = false }; 
+            _fakeJobOpeningService.Setup(service => service.Update(jobOpening, updatedBy)).Returns(logContent);
 
             // Act
             var result = _controller.Update(jobOpening);
@@ -332,19 +333,20 @@ namespace Basecode.Tests.Controllers
             var jobOpening = new JobOpeningViewModel
             {
                 Id = 1,
-                // Set other properties of the jobOpening object as needed
             };
             string updatedBy = "dummy1";
 
-            _fakeJobOpeningService.Setup(service => service.Update(jobOpening, updatedBy)).Returns(new LogContent());
+            var logContent = new LogContent { Result = true }; 
+            _fakeJobOpeningService.Setup(service => service.Update(jobOpening, updatedBy)).Returns(logContent);
 
 
             // Act
             var result = _controller.Update(jobOpening);
 
             // Assert
-            var actionResult = Assert.IsType<RedirectToActionResult>(result);
-            Assert.Equal("Index", actionResult.ActionName);
+            var viewResult = Assert.IsType<ViewResult>(result);
+            Assert.Equal("UpdateView", viewResult.ViewName);
+            Assert.Equal(jobOpening, viewResult.Model);
         }
 
         [Fact]
@@ -354,7 +356,6 @@ namespace Basecode.Tests.Controllers
             var jobOpening = new JobOpeningViewModel
             {
                 Id = 1,
-                // Set other properties of the jobOpening object as needed
             };
             string updatedBy = "dummy1";
 
