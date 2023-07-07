@@ -29,12 +29,12 @@ namespace Basecode.WebApp.Controllers
                             string age,
                             string gender,
                             string nationality,
-                            string tempStreet,
-                            string tempCity,
-                            string tempProvince,
-                            string tempZip,
-                            string tempPhone,
-                            string tempMail)
+                            string street,
+                            string city,
+                            string province,
+                            string zip,
+                            string phone,
+                            string email)
         {
             TempData["First Name"] = firstName;
             TempData["Middle Name"] = middleName;
@@ -43,9 +43,12 @@ namespace Basecode.WebApp.Controllers
             TempData["Age"] = age;
             TempData["Gender"] = gender;
             TempData["Nationality"] = nationality;
-            TempData["Address"] = tempStreet + ", " + tempCity + ", " + tempProvince + " " + tempZip;
-            TempData["Phone"] = tempPhone;
-            TempData["Email"] = tempMail;
+            TempData["Street"] = street;
+            TempData["City"] = city;
+            TempData["Province"] = province;
+            TempData["Zip"] = zip;
+            TempData["Phone"] = phone;
+            TempData["Email"] = email;
             return View();
         }
     }
