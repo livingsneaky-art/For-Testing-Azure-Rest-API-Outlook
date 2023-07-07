@@ -1,5 +1,6 @@
 ﻿using Basecode.Services.Interfaces;
 using Basecode.WebApp.Controllers;
+using Microsoft.AspNetCore.Mvc;
 using Moq;
 using System;
 using System.Collections.Generic;
@@ -16,6 +17,16 @@ namespace Basecode.Tests.Controllers
         public LoginControllerTests()
         {
             _controller = new LoginController();
+        }
+
+        [Fact]
+        public void Index_VisitLoginPage_ShowScreen()
+        {
+
+            //Act
+            var result = _controller.Index();
+            //Assert
+            Assert.IsType<ViewResult>(result);
         }
     }
 }
