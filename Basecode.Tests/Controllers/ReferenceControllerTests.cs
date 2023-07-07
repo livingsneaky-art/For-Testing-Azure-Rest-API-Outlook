@@ -28,7 +28,7 @@ namespace Basecode.Tests.Controllers
         }
 
         [Fact]
-        public void Index_SetsTempData()
+        public void Index_SetsTempData_ReturnsViewResult()
         {
             // Act
             var result = _controller.Index("John", "Doe", "Smith", "2023-01-01", "30", "Male", "US",
