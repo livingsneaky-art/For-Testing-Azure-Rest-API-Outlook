@@ -1,7 +1,9 @@
 ﻿using Basecode.Data.Models;
+using Basecode.Data.ViewModels;
 using Basecode.Services.Interfaces;
 using Basecode.Services.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using NLog;
 using System.Text;
 
@@ -30,7 +32,14 @@ namespace Basecode.WebApp.Controllers
             try
             {
                 var data = _service.RetrieveAll();
-                _logger.Trace("Successfully retrieved all users");
+
+                if (data.IsNullOrEmpty())
+                {
+                    _logger.Error("No users found.");
+                    return View(new List<UserViewModel>());
+                }
+
+                _logger.Trace("Successfully retrieved all users.");
                 return View(data);
             }
             catch (Exception e)
@@ -47,8 +56,16 @@ namespace Basecode.WebApp.Controllers
         [HttpGet]
         public ActionResult AddView()
         {
-            var userModel = new User();
-            return PartialView("~/Views/User/_AddView.cshtml", userModel);
+            try
+            {
+                var userModel = new User();
+                return PartialView("~/Views/User/_AddView.cshtml", userModel);
+            }
+            catch (Exception e)
+            {
+                _logger.Error(ErrorHandling.DefaultException(e.Message));
+                return StatusCode(500, "Something went wrong.");
+            }   
         }
 
         /// <summary>
@@ -73,7 +90,7 @@ namespace Basecode.WebApp.Controllers
                 // If service layer validation is successful
                 if (!data.Result)
                 {
-                    _logger.Trace("Create new user sucessful.");
+                    _logger.Trace("Successfully created a new user.");
                     // Tell AJAX to redirect to Index()
                     return Json(new { redirectToUrl = Url.Action("Index", "User") });
                 }
@@ -84,9 +101,17 @@ namespace Basecode.WebApp.Controllers
                 // Since validation failed, add a new error to the model state
                 ModelState.AddModelError("Email", "Email address must have a domain.");
                 // Store the validation errors in a dictionary
-                Dictionary<string,string> validationErrors = GetValidationErrors();
-                // Return the validation errors as a JSON object
-                return BadRequest(Json(validationErrors));
+                var result = GetValidationErrors();
+                if (result is Dictionary<string, string> validationErrors)
+                {
+                    // Return the validation errors as a JSON object
+                    return BadRequest(Json(validationErrors));
+                }
+                else
+                {
+                    _logger.Error(ErrorHandling.DefaultException("Failed to retrieve ModelState Errors."));
+                    return StatusCode(500, "Something went wrong.");
+                } 
             }
             catch (Exception e)
             {
@@ -103,14 +128,24 @@ namespace Basecode.WebApp.Controllers
         [HttpGet]
         public ActionResult UpdateView(int id)
         {
-            var data = _service.GetById(id);
-
-            if (data == null)
+            try
             {
-                return NotFound();
-            }
+                var data = _service.GetById(id);
 
-            return PartialView("~/Views/User/_UpdateView.cshtml", data);
+                if (data == null)
+                {
+                    _logger.Trace("User [" + id + "] not found.");
+                    return NotFound();
+                }
+
+                _logger.Trace("Successfully retrieved user by ID: [" + id + "].");
+                return PartialView("~/Views/User/_UpdateView.cshtml", data);
+            }
+            catch (Exception e)
+            {
+                _logger.Error(ErrorHandling.DefaultException(e.Message));
+                return StatusCode(500, "Something went wrong.");
+            }
         }
 
         /// <summary>
@@ -135,7 +170,7 @@ namespace Basecode.WebApp.Controllers
                 // If service layer validation is successful
                 if (!data.Result)
                 {
-                    _logger.Trace("Update user sucessful.");
+                    _logger.Trace("Successfully updated user [" + user.Id + "].");
                     // Tell AJAX to redirect to Index()
                     return Json(new { redirectToUrl = Url.Action("Index", "User") });
                 }
@@ -145,10 +180,18 @@ namespace Basecode.WebApp.Controllers
                 // The only service layer validation for now is checking whether the email has a domain
                 // Since validation failed, add a new error to the model state
                 ModelState.AddModelError("Email", "Email address must have a domain.");
-                // Store the validation errors in a dictionary;
-                var validationErrors = GetValidationErrors();
-                // Return the validation errors as a JSON object
-                return BadRequest(Json(validationErrors));
+                // Store the validation errors in a dictionary
+                var result = GetValidationErrors();
+                if (result is Dictionary<string, string> validationErrors)
+                {
+                    // Return the validation errors as a JSON object
+                    return BadRequest(Json(validationErrors));
+                }
+                else
+                {
+                    _logger.Error(ErrorHandling.DefaultException("Failed to retrieve ModelState Errors."));
+                    return StatusCode(500, "Something went wrong.");
+                }
             }
             catch (Exception e)
             {
@@ -165,14 +208,24 @@ namespace Basecode.WebApp.Controllers
         [HttpGet]
         public ActionResult DeleteView(int id)
         {
-            var data = _service.GetById(id);
-
-            if (data == null)
+            try
             {
-                return NotFound();
-            }
+                var data = _service.GetById(id);
 
-            return PartialView("~/Views/User/_DeleteView.cshtml", data);
+                if (data == null)
+                {
+                    _logger.Trace("User [" + id + "] not found.");
+                    return NotFound();
+                }
+
+                _logger.Trace("Successfully retrieved user by ID: [" + id + "].");
+                return PartialView("~/Views/User/_DeleteView.cshtml", data);
+            }
+            catch (Exception e)
+            {
+                _logger.Error(ErrorHandling.DefaultException(e.Message));
+                return StatusCode(500, "Something went wrong.");
+            }
         }
 
         /// <summary>
@@ -184,29 +237,54 @@ namespace Basecode.WebApp.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Delete(int id)
         {
-            _service.Delete(id);
-            return RedirectToAction("Index");
+            try
+            {
+                var user = _service.GetById(id);
+
+                if (user == null)
+                {
+                    _logger.Trace("User [" + id + "] not found.");
+                    return NotFound();
+                }
+
+                _service.Delete(user);
+                _logger.Trace("Successfully deleted user [" + id + "].");
+                return RedirectToAction("Index");
+            }
+            catch (Exception e)
+            {
+                _logger.Error(ErrorHandling.DefaultException(e.Message));
+                return StatusCode(500, "Something went wrong.");
+            }    
         }
 
         /// <summary>
         /// Gets the validation errors of the model.
         /// </summary>
         /// <returns>A dictionary containing the validation errors.</returns>
-        private Dictionary<string, string> GetValidationErrors()
+        private Object GetValidationErrors()
         {
-            var validationErrors = new Dictionary<string, string>();
-
-            foreach (var key in ModelState.Keys)
+            try
             {
-                var modelStateEntry = ModelState[key];
+                var validationErrors = new Dictionary<string, string>();
 
-                foreach (var error in modelStateEntry.Errors)
+                foreach (var key in ModelState.Keys)
                 {
-                    validationErrors.Add(key, error.ErrorMessage);
-                }
-            }
+                    var modelStateEntry = ModelState[key];
 
-            return validationErrors;
+                    foreach (var error in modelStateEntry.Errors)
+                    {
+                        validationErrors.Add(key, error.ErrorMessage);
+                    }
+                }
+
+                return validationErrors;
+            }
+            catch (Exception e)
+            {
+                _logger.Error(ErrorHandling.DefaultException(e.Message));
+                return StatusCode(500, "Something went wrong.");
+            }
         }
 
     }

@@ -116,9 +116,9 @@ namespace Basecode.Services.Services
         /// Deletes a user from the system based on the provided ID.
         /// </summary>
         /// <param name="id">Represents the ID of the user to be deleted.</param>
-        public void Delete(int id)
+        public void Delete(User user)
         {
-            _repository.Delete(id);
+            _repository.Delete(user);
         }
 
         /// <summary>
