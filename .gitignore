@@ -197,3 +197,9 @@ $RECYCLE.BIN/
 node_modules
 */src/*/Scripts/**/*.js
 */src/*/Scripts/**/*.js.map
+
+# Ignore CoverageReport directory
+CoverageReport/
+
+# Ignore TestResults directory
+TestResults/
