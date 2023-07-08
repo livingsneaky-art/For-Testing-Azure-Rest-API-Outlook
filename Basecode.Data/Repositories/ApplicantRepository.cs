@@ -26,5 +26,13 @@ namespace Basecode.Data.Repositories
         {
             return _context.Applicant.Find(id);
         }
+
+        public int CreateApplicant(Applicant applicant)
+        {
+            _context.Applicant.Add(applicant);
+            _context.SaveChanges();
+
+            return applicant.Id;
+        }
     }
 }
