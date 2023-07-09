@@ -101,7 +101,7 @@ namespace Basecode.Tests.Controllers
         }
 
         [Fact]
-        public void CreateView_HasJobOpeningViewModel_ReturnsAViewResult()
+        public void CreateView_HasEmptyJob_ReturnsServiceException()
         {
             // Arrange
 
@@ -112,6 +112,19 @@ namespace Basecode.Tests.Controllers
             var viewResult = Assert.IsType<ViewResult>(result);
             Assert.IsType<JobOpeningViewModel>(viewResult.ViewData.Model);
         }
+
+        //[Fact]
+        //public void CreateView_Exception_ReturnsServiceException()
+        //{
+        //    // Arrange
+
+        //    // Act
+        //    var result = _controller.CreateView();
+
+        //    // Assert
+        //    var viewResult = Assert.IsType<ViewResult>(result);
+        //    Assert.IsType<JobOpeningViewModel>(viewResult.ViewData.Model);
+        //}
 
         [Fact]
         public void JobView_ExistingId_ReturnsViewResult()
@@ -158,71 +171,84 @@ namespace Basecode.Tests.Controllers
             Assert.Equal(500, ((ObjectResult)result).StatusCode);
         }
 
-        //[Fact]
-        //public void Create_ValidJobOpening_RedirectsToIndex()
-        //{
-        //    // Arrange
-        //    var jobOpening = new JobOpeningViewModel
-        //    {
-        //        Id = 0, // Set to 0 to let the service generate a valid ID
-        //        Title = "Software Engineer", // Maximum length is 50 characters
-        //        EmploymentType = "Full-time",
-        //        WorkSetup = "On-site",
-        //        Location = "New York",
-        //        Qualifications = new List<Qualification>
-        //        {
-        //            new Qualification { Id = 0, JobOpeningId = 0, Description = "Bachelor's degree" },
-        //            new Qualification { Id = 0, JobOpeningId = 0, Description = "2+ years of experience" }
-        //        },
-        //        Responsibilities = new List<Responsibility>
-        //        {
-        //            new Responsibility { Id = 0, JobOpeningId = 0, Description = "Develop and maintain software applications" },
-        //            new Responsibility { Id = 0, JobOpeningId = 0, Description = "Collaborate with cross-functional teams" }
-        //        }
-        //     };
 
-        //    var createdBy = "dummy";
+        [Fact]
+        public void Create_ValidJobOpening_ReturnsRedirectToActionResult()
+        {
+            // Arrange
+            var jobOpening = new JobOpeningViewModel
+            {
+                Id = 1,
+                Title = "Software Engineer",
+                EmploymentType = "Full-time",
+                WorkSetup = "Remote",
+                Location = "New York",
+                Qualifications = new List<Qualification>
+                {
+                    new Qualification { Id = 1, JobOpeningId = 1, Description = "Bachelor's degree in Computer Science or related field" },
+                    new Qualification { Id = 2, JobOpeningId = 1, Description = "Proficiency in C# and .NET framework" }
+                },
+                Responsibilities = new List<Responsibility>
+                {
+                    new Responsibility { Id = 1, JobOpeningId = 1, Description = "Develop and maintain software applications" },
+                    new Responsibility { Id = 2, JobOpeningId = 1, Description = "Collaborate with cross-functional teams" }
+                }
+            };
+            var createdBy = "dummy_person";
 
-        //    _fakeJobOpeningService.Setup(service => service.Create(jobOpening, createdBy)).Returns(new LogContent());
+            var logContent = new LogContent { Result = false }; // Set Result to false for successful 
+            _fakeJobOpeningService.Setup(service => service.Create(jobOpening, createdBy)).Returns(logContent);
 
-        //    // Act
-        //    var result = _controller.Create(jobOpening);
+            // Act
+            var result = _controller.Create(jobOpening);
 
-        //    // Assert
-        //    var redirectResult = Assert.IsType<RedirectToActionResult>(result);
-        //    Assert.Equal("Index", redirectResult.ActionName);
-        //}
+            // Assert
+            var redirectToActionResult = Assert.IsType<RedirectToActionResult>(result);
+            Assert.Equal("Index", redirectToActionResult.ActionName);
+        }
 
-        //[Fact]
-        //public void Create_InvalidJobOpening_ReturnsCreateView()
-        //{
-        //    // Arrange
-        //    var jobOpening = new JobOpeningViewModel
-        //    {
-        //        Id = 0, // Set to 0 to let the service generate a valid ID
-        //        Title = "Dummy Job Opening",
-        //        EmploymentType = "Full-time",
-        //        WorkSetup = "Remote",
-        //        Location = "New York",
-        //        Qualifications = new List<Qualification>
-        //            {
-        //                new Qualification { Id = 0, JobOpeningId = 0, Description = null },
-        //            },
-        //        Responsibilities = new List<Responsibility>
-        //            {
-        //                new Responsibility { Id = 0, JobOpeningId = 0, Description = "Develop and maintain software applications" },
-        //                new Responsibility { Id = 0, JobOpeningId = 0, Description = "Collaborate with cross-functional teams" }
-        //            }
-        //    };
 
-        //    // Act
-        //    var result = _controller.Create(jobOpening);
+        [Fact]
+        public void Create_InvalidJobOpening_ReturnsCreateView()
+        {
+            // Arrange
+            var jobOpening = new JobOpeningViewModel
+            {
+                Id = 1,
+                Title = "Software Engineer",
+                EmploymentType = "Full-time",
+                WorkSetup = "Remote",
+                Location = "New York",
+                Qualifications = new List<Qualification>
+                {
+                    new Qualification { Id = 1, JobOpeningId = 1, Description = "Bachelor's degree in Computer Science or related field" },
+                    new Qualification { Id = 2, JobOpeningId = 1, Description = "Proficiency in C# and .NET framework" }
+                },
+                        Responsibilities = new List<Responsibility>
+                {
+                    new Responsibility { Id = 1, JobOpeningId = 1, Description = "Develop and maintain software applications" },
+                    new Responsibility { Id = 2, JobOpeningId = 1, Description = "Collaborate with cross-functional teams" }
+                }
+            };
+            var createdBy = "dummy_person";
 
-        //    // Assert
-        //    var viewResult = Assert.IsType<ViewResult>(result);
-        //    Assert.Equal("CreateView", viewResult.ViewName);
-        //    Assert.Equal(jobOpening, viewResult.Model);
-        //}
+            var logContent = new LogContent
+            {
+                Result = true,
+                ErrorCode = "test",
+                Message = "test",
+                Time = DateTime.Now
+            };
+            _fakeJobOpeningService.Setup(service => service.Create(jobOpening, createdBy)).Returns(logContent);
+
+            // Act
+            var result = _controller.Create(jobOpening);
+
+            // Assert
+            var viewResult = Assert.IsType<ViewResult>(result);
+            Assert.Equal("CreateView", viewResult.ViewName);
+            Assert.Equal(jobOpening, viewResult.Model);
+        }
 
 
 
@@ -302,7 +328,8 @@ namespace Basecode.Tests.Controllers
             };
             string updatedBy = "dummy1";
 
-            _fakeJobOpeningService.Setup(service => service.Update(jobOpening, updatedBy)).Returns(new LogContent());
+            var logContent = new LogContent { Result = false }; 
+            _fakeJobOpeningService.Setup(service => service.Update(jobOpening, updatedBy)).Returns(logContent);
 
             // Act
             var result = _controller.Update(jobOpening);
@@ -319,19 +346,20 @@ namespace Basecode.Tests.Controllers
             var jobOpening = new JobOpeningViewModel
             {
                 Id = 1,
-                // Set other properties of the jobOpening object as needed
             };
             string updatedBy = "dummy1";
 
-            _fakeJobOpeningService.Setup(service => service.Update(jobOpening, updatedBy)).Returns(new LogContent());
+            var logContent = new LogContent { Result = true }; 
+            _fakeJobOpeningService.Setup(service => service.Update(jobOpening, updatedBy)).Returns(logContent);
 
 
             // Act
             var result = _controller.Update(jobOpening);
 
             // Assert
-            var actionResult = Assert.IsType<RedirectToActionResult>(result);
-            Assert.Equal("Index", actionResult.ActionName);
+            var viewResult = Assert.IsType<ViewResult>(result);
+            Assert.Equal("UpdateView", viewResult.ViewName);
+            Assert.Equal(jobOpening, viewResult.Model);
         }
 
         [Fact]
@@ -341,7 +369,6 @@ namespace Basecode.Tests.Controllers
             var jobOpening = new JobOpeningViewModel
             {
                 Id = 1,
-                // Set other properties of the jobOpening object as needed
             };
             string updatedBy = "dummy1";
 
