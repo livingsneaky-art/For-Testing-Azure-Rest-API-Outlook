@@ -35,9 +35,9 @@ namespace Basecode.Data.Interfaces
         void Update(User user);
 
         /// <summary>
-        /// Deletes a user from the User table based on the specified ID.
+        /// Deletes the specified user.
         /// </summary>
-        /// <param name="id">Represents the ID of the user to be deleted.</param>
+        /// <param name="user">The user.</param>
         void Delete(User user);
     }
 }

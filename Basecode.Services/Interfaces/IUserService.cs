@@ -39,9 +39,9 @@ namespace Basecode.Services.Interfaces
         LogContent Update(User user);
 
         /// <summary>
-        /// Deletes a user from the system based on the provided ID.
+        /// Deletes the specified user.
         /// </summary>
-        /// <param name="id">Represents the ID of the user to be deleted.</param>
+        /// <param name="user">The user.</param>
         void Delete(User user);
 
         /// <summary>
@@ -55,7 +55,7 @@ namespace Basecode.Services.Interfaces
         /// Gets the validation errors.
         /// </summary>
         /// <param name="modelState">State of the model.</param>
-        /// <returns></returns>
+        /// <returns>Dictionary containing the validation errors.</returns>
         Dictionary<string, string> GetValidationErrors(ModelStateDictionary modelState);
     }
 }

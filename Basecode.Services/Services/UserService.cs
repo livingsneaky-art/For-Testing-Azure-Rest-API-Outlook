@@ -60,9 +60,7 @@ namespace Basecode.Services.Services
 
             if (!match.Success)
             {
-                logContent.Result = true;
-                logContent.ErrorCode = "400";
-                logContent.Message = "Email address does not have a domain.";
+                logContent.SetError("400", "Email address does not have a domain.");
             }
             else
             {
@@ -96,9 +94,7 @@ namespace Basecode.Services.Services
 
             if (!match.Success)
             {
-                logContent.Result = true;
-                logContent.ErrorCode = "400";
-                logContent.Message = "Email address does not have a domain.";
+                logContent.SetError("400", "Email address does not have a domain.");
             }
             else
             {
@@ -114,9 +110,9 @@ namespace Basecode.Services.Services
         }
 
         /// <summary>
-        /// Deletes a user from the system based on the provided ID.
+        /// Deletes the specified user.
         /// </summary>
-        /// <param name="id">Represents the ID of the user to be deleted.</param>
+        /// <param name="user">The user.</param>
         public void Delete(User user)
         {
             _repository.Delete(user);
@@ -139,9 +135,15 @@ namespace Basecode.Services.Services
         /// Gets the validation errors.
         /// </summary>
         /// <param name="modelState">State of the model.</param>
-        /// <returns></returns>
+        /// <returns>Dictionary containing the validation errors.</returns>
+        /// <exception cref="Basecode.Data.Constants.Exception">ModelState is empty</exception>
         public Dictionary<string, string> GetValidationErrors(ModelStateDictionary modelState)
         {
+            if (modelState.Count == 0)
+            {
+                throw new Exception("ModelState is empty");
+            }
+
             var validationErrors = new Dictionary<string, string>();
 
             foreach (var key in modelState.Keys)
