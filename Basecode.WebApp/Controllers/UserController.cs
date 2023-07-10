@@ -95,7 +95,7 @@ namespace Basecode.WebApp.Controllers
                 }
 
                 _logger.Trace(ErrorHandling.SetLog(data));
-                ModelState.AddModelError("Email", "Email address must have a domain.");
+                ModelState.AddModelError("Email", "The Email Address format is invalid.");
 
                 // Call the service method to get the validation errors
                 var validationErrors = _service.GetValidationErrors(ModelState);
@@ -164,7 +164,7 @@ namespace Basecode.WebApp.Controllers
                 }
 
                 _logger.Trace(ErrorHandling.SetLog(data));
-                ModelState.AddModelError("Email", "Email address must have a domain.");
+                ModelState.AddModelError("Email", "The Email Address format is invalid.");
 
                 // Call the service method to get the validation errors
                 var validationErrors = _service.GetValidationErrors(ModelState);
