@@ -1,5 +1,7 @@
-﻿using Basecode.Data.ViewModels;
+﻿using Basecode.Data.Models;
+using Basecode.Data.ViewModels;
 using System;
+using System.Text.RegularExpressions;
 
 namespace Basecode.Services.Services
 {
@@ -191,6 +193,22 @@ namespace Basecode.Services.Services
                 logContent.SetError("400", "Email is required but has no value.");
                 return logContent;
             }
+            return logContent;
+        }
+
+        public static LogContent CheckUser(User user)
+        {
+            LogContent logContent = new LogContent();
+
+            string emailPattern = @"@[^\s@]+\.[^\s@]+$";
+            Match match = Regex.Match(user.Email, emailPattern);
+
+            if (!match.Success)
+            {
+                logContent.SetError("400", "Email address does not have a domain.");
+                return logContent;
+            }
+
             return logContent;
         }
     }

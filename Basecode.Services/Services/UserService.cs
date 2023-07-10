@@ -54,18 +54,13 @@ namespace Basecode.Services.Services
         public LogContent Create(User user)
         {
             LogContent logContent = new LogContent();
+            logContent = CheckUser(user);
 
-            // Check if the email has a domain
-            var match = CheckEmailFormat(user.Email);
-
-            if (!match.Success)
-            {
-                logContent.SetError("400", "Email address does not have a domain.");
-            }
-            else
+            if (logContent.Result == false)
             {
                 _repository.Create(user);
             }
+
             return logContent;
         }
 
@@ -88,15 +83,9 @@ namespace Basecode.Services.Services
         public LogContent Update(User user)
         {
             LogContent logContent = new LogContent();
+            logContent = CheckUser(user);
 
-            // Check if the email has a domain
-            var match = CheckEmailFormat(user.Email);
-
-            if (!match.Success)
-            {
-                logContent.SetError("400", "Email address does not have a domain.");
-            }
-            else
+            if (logContent.Result == false)
             {
                 var userToBeUpdated = _repository.GetById(user.Id);
                 userToBeUpdated.Fullname = user.Fullname;
@@ -106,6 +95,7 @@ namespace Basecode.Services.Services
                 userToBeUpdated.Role = user.Role;
                 _repository.Update(userToBeUpdated);
             }
+
             return logContent;
         }
 
@@ -116,19 +106,6 @@ namespace Basecode.Services.Services
         public void Delete(User user)
         {
             _repository.Delete(user);
-        }
-
-        /// <summary>
-        /// Checks the email format.
-        /// </summary>
-        /// <param name="email">The email.</param>
-        /// <returns></returns>
-        public Match CheckEmailFormat(string email)
-        {
-            // RegEx pattern for an email, including the domain (ex: .com, .dev)
-            string emailPattern = @"@[^\s@]+\.[^\s@]+$";
-            Match match = Regex.Match(email, emailPattern);
-            return match;
         }
 
         /// <summary>

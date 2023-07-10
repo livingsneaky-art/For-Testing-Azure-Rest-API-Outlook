@@ -45,13 +45,6 @@ namespace Basecode.Services.Interfaces
         void Delete(User user);
 
         /// <summary>
-        /// Checks the email format.
-        /// </summary>
-        /// <param name="email">The email.</param>
-        /// <returns></returns>
-        Match CheckEmailFormat(string email);
-
-        /// <summary>
         /// Gets the validation errors.
         /// </summary>
         /// <param name="modelState">State of the model.</param>

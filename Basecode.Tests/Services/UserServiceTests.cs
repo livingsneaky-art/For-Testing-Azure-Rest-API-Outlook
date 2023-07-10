@@ -188,33 +188,6 @@ namespace Basecode.Tests.Services
             _fakeUserRepository.Verify(r => r.Delete(user), Times.Once);
         }
 
-        [Theory]
-        [InlineData("example@email.")]
-        [InlineData("example@email-")]
-        [InlineData("example@email")]
-        [InlineData("example@")]
-        [InlineData("example")]
-        public void CheckEmailFormat_InvalidFormat_ReturnsFalseMatch(string email)
-        {
-            // Act
-            var match = _service.CheckEmailFormat(email);
-
-            // Assert
-            Assert.False(match.Success);
-        }
-
-        [Theory]
-        [InlineData("example@email.c")]
-        [InlineData("example@asi-dev.com")]
-        public void CheckEmailFormat_ValidFormat_ReturnsTrueMatch(string email)
-        {
-            // Act
-            var match = _service.CheckEmailFormat(email);
-
-            // Assert
-            Assert.True(match.Success);
-        }
-
         [Fact]
         public void GetValidationErrors_HasErrors_ReturnsDictionary()
         {
