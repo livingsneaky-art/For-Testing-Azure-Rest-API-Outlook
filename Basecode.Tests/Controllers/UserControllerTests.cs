@@ -116,7 +116,7 @@ namespace Basecode.Tests.Controllers
             LogContent logContent = new LogContent();
             logContent.Result = true;
             logContent.ErrorCode = "400";
-            logContent.Message = "Email address does not have a domain.";
+            logContent.Message = "The Email Address format is invalid.";
             var user = new User();
             _fakeUserService.Setup(service => service.Create(user)).Returns(logContent);
 
@@ -224,7 +224,7 @@ namespace Basecode.Tests.Controllers
             LogContent logContent = new LogContent();
             logContent.Result = true;
             logContent.ErrorCode = "400";
-            logContent.Message = "Email address does not have a domain.";
+            logContent.Message = "The Email Address format is invalid.";
             var user = new User();
             _fakeUserService.Setup(service => service.Update(user)).Returns(logContent);
 

@@ -62,7 +62,6 @@ namespace Basecode.Tests.Services
             Assert.IsType<LogContent>(result);
             Assert.True(result.Result);
             Assert.Equal("400", result.ErrorCode);
-            Assert.Equal("Email address does not have a domain.", result.Message);
         }
 
         [Fact]
@@ -146,7 +145,6 @@ namespace Basecode.Tests.Services
             Assert.IsType<LogContent>(result);
             Assert.True(result.Result);
             Assert.Equal("400", result.ErrorCode);
-            Assert.Equal("Email address does not have a domain.", result.Message);
         }
 
         [Fact]

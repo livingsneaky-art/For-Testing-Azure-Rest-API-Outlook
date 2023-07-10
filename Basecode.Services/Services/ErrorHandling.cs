@@ -200,12 +200,12 @@ namespace Basecode.Services.Services
         {
             LogContent logContent = new LogContent();
 
-            string emailPattern = @"@[^\s@]+\.[^\s@]+$";
+            string emailPattern = @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$";
             Match match = Regex.Match(user.Email, emailPattern);
 
             if (!match.Success)
             {
-                logContent.SetError("400", "Email address does not have a domain.");
+                logContent.SetError("400", "The Email Address format is invalid.");
                 return logContent;
             }
 
