@@ -34,6 +34,8 @@ namespace Basecode.Data.Models
 
         public string Email { get; set; }
 
-        public byte[] CV { get; set; }
+        public byte[]? CV { get; set; }
+
+        public List<CharacterReference> CharacterReferences { get; set; }
     }
 }

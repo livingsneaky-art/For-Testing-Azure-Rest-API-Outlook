@@ -15,16 +15,7 @@ namespace Basecode.WebApp.Controllers
         /// <returns>The login view</returns>
         public IActionResult Index()
         {
-            try
-            {
-                _logger.Trace("Redirected to Login Page");  
-            }
-            catch(Exception e)
-            {
-                _logger.Error(ErrorHandling.DefaultException(e.Message));
-                return StatusCode(500, "Something went wrong." + e.Message);
-            }
-
+           _logger.Trace("Redirected to Login Page");  
             return View();
         }
 

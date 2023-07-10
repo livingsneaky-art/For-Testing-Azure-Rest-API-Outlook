@@ -91,24 +91,16 @@ namespace Basecode.WebApp.Controllers
                 if (!data.Result)
                 {
                     _logger.Trace("Successfully created a new user.");
-                    return Json(new { redirectToUrl = Url.Action("Index", "User") });
+                    return Ok();
                 }
 
                 _logger.Trace(ErrorHandling.SetLog(data));
                 ModelState.AddModelError("Email", "Email address must have a domain.");
 
-                // Store the validation errors in a dictionary
-                var result = GetValidationErrors();
+                // Call the service method to get the validation errors
+                var validationErrors = _service.GetValidationErrors(ModelState);
 
-                if (result is Dictionary<string, string> validationErrors)
-                {
-                    return BadRequest(Json(validationErrors));
-                }
-                else
-                {
-                    _logger.Error(ErrorHandling.DefaultException("Failed to retrieve ModelState Errors."));
-                    return StatusCode(500, "Something went wrong.");
-                } 
+                return BadRequest(Json(validationErrors));
             }
             catch (Exception e)
             {
@@ -168,24 +160,16 @@ namespace Basecode.WebApp.Controllers
                 if (!data.Result)
                 {
                     _logger.Trace("Successfully updated user [" + user.Id + "].");
-                    return Json(new { redirectToUrl = Url.Action("Index", "User") });
+                    return Ok();
                 }
 
                 _logger.Trace(ErrorHandling.SetLog(data));
                 ModelState.AddModelError("Email", "Email address must have a domain.");
 
-                // Store the validation errors in a dictionary
-                var result = GetValidationErrors();
+                // Call the service method to get the validation errors
+                var validationErrors = _service.GetValidationErrors(ModelState);
 
-                if (result is Dictionary<string, string> validationErrors)
-                {
-                    return BadRequest(Json(validationErrors));
-                }
-                else
-                {
-                    _logger.Error(ErrorHandling.DefaultException("Failed to retrieve ModelState Errors."));
-                    return StatusCode(500, "Something went wrong.");
-                }
+                return BadRequest(Json(validationErrors));
             }
             catch (Exception e)
             {
@@ -250,35 +234,6 @@ namespace Basecode.WebApp.Controllers
                 _logger.Error(ErrorHandling.DefaultException(e.Message));
                 return StatusCode(500, "Something went wrong.");
             }    
-        }
-
-        /// <summary>
-        /// Gets the validation errors of the model.
-        /// </summary>
-        /// <returns>A dictionary containing the validation errors.</returns>
-        private Object GetValidationErrors()
-        {
-            try
-            {
-                var validationErrors = new Dictionary<string, string>();
-
-                foreach (var key in ModelState.Keys)
-                {
-                    var modelStateEntry = ModelState[key];
-
-                    foreach (var error in modelStateEntry.Errors)
-                    {
-                        validationErrors.Add(key, error.ErrorMessage);
-                    }
-                }
-
-                return validationErrors;
-            }
-            catch (Exception e)
-            {
-                _logger.Error(ErrorHandling.DefaultException(e.Message));
-                return StatusCode(500, "Something went wrong.");
-            }
         }
 
     }

@@ -7,7 +7,7 @@ namespace Basecode.Tests.Controllers
     {
         private readonly PublicApplicationController _controller;
 
-        public PublicApplicationControllerTests()
+        public PublicApplicationControllerTests() 
         {
             _controller = new PublicApplicationController();
         }

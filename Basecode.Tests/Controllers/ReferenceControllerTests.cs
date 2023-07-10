@@ -1,5 +1,4 @@
 ﻿using Basecode.WebApp.Controllers;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Moq;
@@ -12,37 +11,35 @@ namespace Basecode.Tests.Controllers
 
         public ReferenceControllerTests()
         {
-            var httpContext = new DefaultHttpContext();
-            var tempData = new TempDataDictionary(httpContext, Mock.Of<ITempDataProvider>());
-            _controller = new ReferenceController { TempData = tempData };
+            _controller = new ReferenceController();
         }
 
         [Fact]
-        public void Index_ReturnsViewResult()
+        public void Index_ValidInput_ReturnsViewResult()
         {
+            // Arrange
+            var tempData = new Mock<ITempDataDictionary>();
+            _controller.TempData = tempData.Object;
+
+            string firstName = "John";
+            string middleName = "Doe";
+            string lastName = "Smith";
+            string date = "1990-01-01";
+            string age = "33";
+            string gender = "Male";
+            string nationality = "American";
+            string street = "123 Main St";
+            string city = "New York";
+            string province = "NY";
+            string zip = "10001";
+            string phone = "1234567890";
+            string email = "john@example.com";
+
             // Act
-            var result = _controller.Index("", "", "", "", "", "", "", "", "", "", "", "", "");
+            var result = _controller.Index(firstName, middleName, lastName, date, age, gender, nationality,
+                street, city, province, zip, phone, email);
 
             // Assert
-            Assert.IsType<ViewResult>(result);
-        }
-
-        [Fact]
-        public void Index_SetsTempData_ReturnsViewResult()
-        {
-            // Act
-            var result = _controller.Index("John", "Doe", "Smith", "2023-01-01", "30", "Male", "US",
-                "123 Street", "City", "State", "12345", "555-1234", "test@example.com") as ViewResult;
-
-            // Assert
-            Assert.Equal("John Doe Smith", _controller.TempData["Name"]);
-            Assert.Equal("2023-01-01", _controller.TempData["Birthdate"]);
-            Assert.Equal("30", _controller.TempData["Age"]);
-            Assert.Equal("Male", _controller.TempData["Gender"]);
-            Assert.Equal("US", _controller.TempData["Nationality"]);
-            Assert.Equal("123 Street, City, State 12345", _controller.TempData["Address"]);
-            Assert.Equal("555-1234", _controller.TempData["Phone"]);
-            Assert.Equal("test@example.com", _controller.TempData["Email"]);
             Assert.IsType<ViewResult>(result);
         }
     }

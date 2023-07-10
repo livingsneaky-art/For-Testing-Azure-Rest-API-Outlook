@@ -1,68 +1,84 @@
-﻿using Basecode.WebApp.Controllers;
-using Basecode.WebApp.Models;
-using Microsoft.AspNetCore.Http;
+﻿using Basecode.Data.ViewModels;
+using Basecode.Services.Interfaces;
+using Basecode.WebApp.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Moq;
-using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using static Basecode.Services.Services.ErrorHandling;
 
 namespace Basecode.Tests.Controllers
 {
     public class ConfirmationControllerTests
     {
+        private readonly Mock<IApplicantService> _fakeApplicantService;
+        private readonly Mock<ICharacterReferenceService> _fakeCharacterReferenceService;
         private readonly ConfirmationController _controller;
 
         public ConfirmationControllerTests()
         {
-            var httpContext = new DefaultHttpContext();
-            var tempData = new TempDataDictionary(httpContext, Mock.Of<ITempDataProvider>());
-            _controller = new ConfirmationController { TempData = tempData };
+            _fakeApplicantService = new Mock<IApplicantService>();
+            _fakeCharacterReferenceService = new Mock<ICharacterReferenceService>();
+            _controller = new ConfirmationController(_fakeApplicantService.Object, _fakeCharacterReferenceService.Object);
         }
 
         [Fact]
-        public void Index_ReturnsViewResult()
-        {
-            // Act
-            var result = _controller.Index("", "", "", "", "", "", "", "", new List<ReferenceModel>()) as ViewResult;
-
-            // Assert
-            Assert.IsType<ViewResult>(result);
-        }
-
-        [Fact]
-        public void Index_SetsTempData_ReturnsViewResult()
+        public void Index_WithData_ReturnsViewResult()
         {
             // Arrange
-            var references = new List<ReferenceModel>()
-            {
-                new ReferenceModel { Name = "John Doe", Address = "123 Street", Email = "john@example.com" },
-                new ReferenceModel { Name = "Jane Smith", Address = "456 Avenue", Email = "jane@example.com" }
-            };
+            var tempData = new Mock<ITempDataDictionary>();
+            _controller.TempData = tempData.Object;
+            List<CharacterReferenceViewModel> references = new List<CharacterReferenceViewModel>();
 
             // Act
-            var result = _controller.Index("John", "1990-01-01", "30", "Male", "US",
-                "123 Street", "555-1234", "test@example.com", references) as ViewResult;
+            var result = _controller.Index("John", "Middle", "Doe", "2000-01-01", "21", "Male", "US", "Street", "City", "State", "12345", "1234567890", "test@example.com", references);
 
             // Assert
-            Assert.Equal("John", _controller.TempData["Name"]);
-            Assert.Equal("1990-01-01", _controller.TempData["Birthdate"]);
-            Assert.Equal("30", _controller.TempData["Age"]);
-            Assert.Equal("Male", _controller.TempData["Gender"]);
-            Assert.Equal("US", _controller.TempData["Nationality"]);
-            Assert.Equal("123 Street", _controller.TempData["Address"]);
-            Assert.Equal("555-1234", _controller.TempData["Phone"]);
-            Assert.Equal("test@example.com", _controller.TempData["Email"]);
+            var viewResult = Assert.IsType<ViewResult>(result);
+            Assert.Null(viewResult.ViewName);
+        }
 
-            var referencesJson = _controller.TempData["ReferencesJson"] as string;
-            var deserializedReferences = JsonConvert.DeserializeObject<List<ReferenceModel>>(referencesJson);
-            Assert.Equal(2, deserializedReferences.Count);
-            Assert.Equal("John Doe", deserializedReferences[0].Name);
-            Assert.Equal("123 Street", deserializedReferences[0].Address);
-            Assert.Equal("john@example.com", deserializedReferences[0].Email);
-            Assert.Equal("Jane Smith", deserializedReferences[1].Name);
-            Assert.Equal("456 Avenue", deserializedReferences[1].Address);
-            Assert.Equal("jane@example.com", deserializedReferences[1].Email);
-            Assert.IsType<ViewResult>(result);
+        [Fact]
+        public void Create_ValidData_RedirectsToIndexActionInJobController()
+        {
+            // Arrange
+            var applicant = new ApplicantViewModel();
+            var references = new List<CharacterReferenceViewModel>();
+
+            _fakeApplicantService.Setup(s => s.Create(It.IsAny<ApplicantViewModel>()))
+                .Returns((new LogContent { Result = true }, 1));
+
+            _fakeCharacterReferenceService.Setup(s => s.Create(It.IsAny<CharacterReferenceViewModel>(), It.IsAny<int>()))
+                .Returns(new LogContent { Result = false });
+
+            // Act
+            var result = _controller.Create(applicant, references);
+
+            // Assert
+            var viewResult = Assert.IsType<ViewResult>(result);
+            Assert.Equal("Index", viewResult.ViewName);
+        }
+
+        [Fact]
+        public void Create_ExceptionOccurs_ReturnsStatusCode500()
+        {
+            // Arrange
+            var applicant = new ApplicantViewModel();
+            var references = new List<CharacterReferenceViewModel>();
+
+            _fakeApplicantService.Setup(s => s.Create(It.IsAny<ApplicantViewModel>()))
+                .Throws(new Exception("Something went wrong."));
+
+            // Act
+            var result = _controller.Create(applicant, references) as ObjectResult;
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.Equal(500, result.StatusCode);
         }
     }
 }
