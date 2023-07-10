@@ -139,11 +139,6 @@ namespace Basecode.Services.Services
         /// <exception cref="Basecode.Data.Constants.Exception">ModelState is empty</exception>
         public Dictionary<string, string> GetValidationErrors(ModelStateDictionary modelState)
         {
-            if (modelState.Count == 0)
-            {
-                throw new Exception("ModelState is empty");
-            }
-
             var validationErrors = new Dictionary<string, string>();
 
             foreach (var key in modelState.Keys)
