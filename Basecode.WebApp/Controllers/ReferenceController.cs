@@ -1,16 +1,27 @@
-﻿using Basecode.Data.Models;
-using Basecode.Data.ViewModels;
-using Basecode.Services.Interfaces;
-using Basecode.Services.Services;
-using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using NLog;
-using static System.Runtime.InteropServices.JavaScript.JSType;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace Basecode.WebApp.Controllers
 {
     public class ReferenceController : Controller
     {
+        /// <summary>
+        /// Handles the HTTP POST request to submit the reference form.
+        /// </summary>
+        /// <param name="firstName"></param>
+        /// <param name="middleName"></param>
+        /// <param name="lastName"></param>
+        /// <param name="date"></param>
+        /// <param name="age"></param>
+        /// <param name="gender"></param>
+        /// <param name="nationality"></param>
+        /// <param name="street"></param>
+        /// <param name="city"></param>
+        /// <param name="province"></param>
+        /// <param name="zip"></param>
+        /// <param name="phone"></param>
+        /// <param name="email"></param>
+        /// <param name="fileUpload"></param>
+        /// <returns>The view to be rendered after the form submission.</returns>
         [HttpPost]
         public IActionResult Index(string firstName,
                             string middleName,
@@ -49,7 +60,6 @@ namespace Basecode.WebApp.Controllers
                 return RedirectToAction("Index", "PublicApplication");
             }
 
-            TempData["FileName"] = Path.GetFileName(fileUpload.FileName);
             TempData["First Name"] = firstName;
             TempData["Middle Name"] = middleName;
             TempData["Last Name"] = lastName;
@@ -63,6 +73,7 @@ namespace Basecode.WebApp.Controllers
             TempData["Zip"] = zip;
             TempData["Phone"] = phone;
             TempData["Email"] = email;
+            TempData["FileName"] = Path.GetFileName(fileUpload.FileName);
 
             return View();
         }
