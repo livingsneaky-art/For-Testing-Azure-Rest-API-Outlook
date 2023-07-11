@@ -51,6 +51,9 @@ namespace Basecode.Data.ViewModels
         [Required(ErrorMessage = "Email is required.")]
         public string Email { get; set; }
 
+        [Required(ErrorMessage = "CV is required.")]
+        public byte[] CV { get; set; }
+
         public List<CharacterReference> CharacterReferences { get; set; }
     }
 }

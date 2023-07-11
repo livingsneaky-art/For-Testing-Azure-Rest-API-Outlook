@@ -1,5 +1,6 @@
 ﻿@{
     ViewData["Title"] = "Public Application Form";
+    var errorMessage = TempData["ErrorMessage"] as string;
 }
 <!DOCTYPE html>
 <html>
@@ -9,6 +10,12 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
 </head>
 <body>
+    @if (!string.IsNullOrEmpty(errorMessage))
+    {
+        <script>
+            alert('@Html.Raw(errorMessage)');
+        </script>
+    }
     <div class="container d-flex flex-column align-items-center justify-content-center row-gap-5 mt-5" style="width: 710px">
         <div class="d-flex flex-row align-items-start justify-content-center column-gap-2">
             <div class="d-flex flex-column align-items-center justify-content-start row-gap-1">
@@ -40,7 +47,7 @@
                 <p class="mb-0">Confirmation</p>
             </div>
         </div>
-        <form method="post" asp-controller="Reference" asp-action="Index">
+        <form id="applicationForm" method="post" asp-controller="Reference" asp-action="Index" enctype="multipart/form-data">
             <div class="container d-flex flex-column align-items-center justify-content-center">
                 <div class="container">
                     <div class="row align-items-center justify-content-center text-end mb-4">
@@ -49,9 +56,9 @@
                         </div>
                         <div class="col-sm-10">
                             <div class="d-flex column-gap-2">
-                                <input type="text" class="form-control" name="firstName" placeholder="First name" style="border: 1px solid #424856;">
+                                <input type="text" class="form-control" name="firstName" placeholder="First name" style="border: 1px solid #424856;" required>
                                 <input type="text" class="form-control" name="middleName" placeholder="Middle name" style="border: 1px solid #424856;">
-                                <input type="text" class="form-control" name="lastName" placeholder="Last name" style="border: 1px solid #424856;">
+                                <input type="text" class="form-control" name="lastName" placeholder="Last name" style="border: 1px solid #424856;" required>
                             </div>
                         </div>
                     </div>
@@ -61,12 +68,12 @@
                         </div>
                         <div class="col-sm-10">
                             <div class="d-flex column-gap-2 align-items-center justify-content-center">
-                                <input type="date" class="form-control" style="border: 1px solid #424856;" name="date">
+                                <input type="date" class="form-control" style="border: 1px solid #424856;" name="date" required>
                                 <p class="mb-0">Age</p>
-                                <input type="number" class="form-control" placeholder="Age" style="border: 1px solid #424856;" name="age">
+                                <input type="number" class="form-control" placeholder="Age" style="border: 1px solid #424856;" name="age" required>
                                 <p class="mb-0">Gender</p>
-                                <select class="form-select" style="border: 1px solid #424856;" name="gender">
-                                    <option selected>Gender</option>
+                                <select class="form-select" style="border: 1px solid #424856;" name="gender" required>
+                                    <option value="" disabled selected>Select Gender</option>
                                     <option value="Male">Male</option>
                                     <option value="Female">Female</option>
                                 </select>
@@ -79,7 +86,7 @@
                         </div>
                         <div class="col-sm-10">
                             <div class="d-flex column-gap-2 align-items-center justify-content-center">
-                                <input type="text" class="form-control" placeholder="Nationality" style="border: 1px solid #424856;" name="nationality">
+                                <input type="text" class="form-control" placeholder="Nationality" style="border: 1px solid #424856;" name="nationality" required>
                             </div>
                         </div>
                     </div>
@@ -89,7 +96,7 @@
                         </div>
                         <div class="col-sm-10">
                             <div class="d-flex column-gap-2 align-items-center justify-content-center">
-                                <input type="text" class="form-control" placeholder="Street" style="border: 1px solid #424856;" name="street">
+                                <input type="text" class="form-control" placeholder="Street" style="border: 1px solid #424856;" name="street" required>
                             </div>
                         </div>
                     </div>
@@ -98,9 +105,9 @@
                         </div>
                         <div class="col-sm-10">
                             <div class="d-flex column-gap-2 align-items-center justify-content-center">
-                                <input type="text" class="form-control" placeholder="City" style="border: 1px solid #424856;" name="city">
-                                <input type="text" class="form-control" placeholder="Province" style="border: 1px solid #424856;" name="province">
-                                <input type="number" class="form-control" placeholder="Zip" style="border: 1px solid #424856;" name="zip">
+                                <input type="text" class="form-control" placeholder="City" style="border: 1px solid #424856;" name="city" required>
+                                <input type="text" class="form-control" placeholder="Province" style="border: 1px solid #424856;" name="province" required>
+                                <input type="number" class="form-control" placeholder="Zip" style="border: 1px solid #424856;" name="zip" required>
                             </div>
                         </div>
                     </div>
@@ -110,7 +117,7 @@
                         </div>
                         <div class="col-sm-10">
                             <div class="d-flex column-gap-2 align-items-center justify-content-center">
-                                <input type="text" class="form-control" placeholder="09123456789" style="border: 1px solid #424856;" name="phone">
+                                <input type="text" class="form-control" placeholder="09123456789" style="border: 1px solid #424856;" name="phone" required>
                             </div>
                         </div>
                     </div>
@@ -120,7 +127,7 @@
                         </div>
                         <div class="col-sm-10">
                             <div class="d-flex column-gap-2 align-items-center justify-content-center">
-                                <input type="email" class="form-control" placeholder="example@domain.com" style="border: 1px solid #424856;" name="email">
+                                <input type="email" class="form-control" placeholder="example@domain.com" style="border: 1px solid #424856;" name="email" required>
                             </div>
                         </div>
                     </div>
@@ -133,11 +140,11 @@
                                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="#424856" class="bi bi-cloud-arrow-up-fill" viewBox="0 0 16 16">
                                     <path d="M8 2a5.53 5.53 0 0 0-3.594 1.342c-.766.66-1.321 1.52-1.464 2.383C1.266 6.095 0 7.555 0 9.318 0 11.366 1.708 13 3.781 13h8.906C14.502 13 16 11.57 16 9.773c0-1.636-1.242-2.969-2.834-3.194C12.923 3.999 10.69 2 8 2zm2.354 5.146a.5.5 0 0 1-.708.708L8.5 6.707V10.5a.5.5 0 0 1-1 0V6.707L6.354 7.854a.5.5 0 1 1-.708-.708l2-2a.5.5 0 0 1 .708 0l2 2z" />
                                 </svg>
-                                <p class="mb-0" style="font-size: 20px;">Drop file here</p>
+                                <p id="file-name" class="mb-0" style="font-size: 20px;">Drop file here</p>
                                 <p class="mb-0" style="font-size: 15px;">OR</p>
-                                <input type="file" id="file-upload" class="form-control" style="display: none;">
+                                <input type="file" id="file-upload" name="fileUpload" class="form-control" style="display: none;" accept="application/pdf">
                                 <label for="file-upload" class="btn" style="color: #EC3123; border-color: #EC3123;">Browse file</label>
-                                <p class="mb-0" style="font-size: 10px;">Supported formats: PDF, DOCX, DOC</p>
+                                <p class="mb-0" style="font-size: 10px;">Supported format: PDF</p>
                             </div>
                         </div>
                     </div>
@@ -149,5 +156,43 @@
         </form>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+    <script>
+        function validateForm() {
+            var form = document.getElementById("applicationForm");
+            var inputs = form.getElementsByTagName("input");
+            var select = form.querySelector("select"); // Get the first <select> element
+            var isValid = true;
+
+            for (var i = 0; i < inputs.length; i++) {
+                if (inputs[i].value === "") {
+                    isValid = false;
+                    break;
+                }
+            }
+
+            // Check if the <select> element is empty or the default "Select Gender" option is selected
+            if (select.value === "" || select.value === "Select Gender") {
+                isValid = false;
+            }
+
+            if (!isValid) {
+                alert("Please fill in all the fields.");
+            }
+
+            return isValid;
+        }
+    </script>
+    <script>
+        const fileUpload = document.getElementById('file-upload');
+        const fileName = document.getElementById('file-name');
+
+        fileUpload.addEventListener('change', function () {
+            if (fileUpload.files.length > 0) {
+                fileName.textContent = fileUpload.files[0].name;
+            } else {
+                fileName.textContent = 'Drop file here';
+            }
+        });
+    </script>
 </body>
 </html>

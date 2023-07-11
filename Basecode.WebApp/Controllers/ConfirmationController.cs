@@ -1,5 +1,4 @@
-﻿using Basecode.Data.Models;
-using Basecode.Data.ViewModels;
+﻿using Basecode.Data.ViewModels;
 using Basecode.Services.Interfaces;
 using Basecode.Services.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -26,23 +25,25 @@ namespace Basecode.WebApp.Controllers
         }
 
         /// <summary>
-        /// Displays the confirmation page with the applicant and character reference data.
+        /// Renders the confirmation view with the submitted data.
         /// </summary>
-        /// <param name="firstName">The first name of the applicant.</param>
-        /// <param name="middleName">The middle name of the applicant.</param>
-        /// <param name="lastName">The last name of the applicant.</param>
-        /// <param name="birthdate">The birthdate of the applicant.</param>
-        /// <param name="age">The age of the applicant.</param>
-        /// <param name="gender">The gender of the applicant.</param>
-        /// <param name="nationality">The nationality of the applicant.</param>
-        /// <param name="street">The street address of the applicant.</param>
-        /// <param name="city">The city of the applicant.</param>
-        /// <param name="province">The province of the applicant.</param>
-        /// <param name="zip">The zip code of the applicant.</param>
-        /// <param name="phone">The phone number of the applicant.</param>
-        /// <param name="email">The email address of the applicant.</param>
-        /// <param name="references">The list of character references.</param>
-        /// <returns>The view result.</returns>
+        /// <param name="firstName"></param>
+        /// <param name="middleName"></param>
+        /// <param name="lastName"></param>
+        /// <param name="birthdate"></param>
+        /// <param name="age"></param>
+        /// <param name="gender"></param>
+        /// <param name="nationality"></param>
+        /// <param name="street"></param>
+        /// <param name="city"></param>
+        /// <param name="province"></param>
+        /// <param name="zip"></param>
+        /// <param name="phone"></param>
+        /// <param name="email"></param>
+        /// <param name="fileName"></param>
+        /// <param name="fileData"></param>
+        /// <param name="references"></param>
+        /// <returns>The view to be rendered.</returns>
         [HttpPost]
         public IActionResult Index(string firstName,
                             string middleName,
@@ -57,8 +58,12 @@ namespace Basecode.WebApp.Controllers
                             string zip,
                             string phone,
                             string email,
+                            string fileName,
+                            byte[] fileData,
                             List<CharacterReferenceViewModel> references)
         {
+            string referencesJson = JsonConvert.SerializeObject(references);
+
             TempData["First Name"] = firstName;
             TempData["Middle Name"] = middleName;
             TempData["Last Name"] = lastName;
@@ -72,8 +77,10 @@ namespace Basecode.WebApp.Controllers
             TempData["Zip"] = zip;
             TempData["Phone"] = phone;
             TempData["Email"] = email;
-            string referencesJson = JsonConvert.SerializeObject(references);
+            TempData["FileData"] = fileData;
+            TempData["FileName"] = fileName;
             TempData["ReferencesJson"] = referencesJson;
+
             return View();
         }
 
