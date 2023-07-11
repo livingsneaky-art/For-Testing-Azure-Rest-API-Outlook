@@ -60,16 +60,12 @@ namespace Basecode.Services.Services
 
             var job = _jobOpeningService.GetById(application.JobOpeningId);
             var applicant = _applicantService.GetApplicantById(application.ApplicantId);
-            var data = new ApplicationViewModel
-            {
-                Id = application.Id,
-                ApplicantName = applicant.Firstname + " " + applicant.Lastname,
-                JobOpeningTitle = job.Title,
-                Status = application.Status,
-                UpdateTime = application.UpdateTime
-            };
 
-            return data;
+            var applicationViewModel = _mapper.Map<ApplicationViewModel>(application);
+            applicationViewModel.JobOpeningTitle = job.Title;
+            applicationViewModel.ApplicantName = $"{applicant.Firstname} {applicant.Lastname}";
+
+            return applicationViewModel;
         }
 
         /// <summary>
