@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Basecode.Services.Services
 {
-    public class ApplicationService : IApplicationService
+    public class ApplicationService : ErrorHandling, IApplicationService
     {
         private readonly IApplicationRepository _repository;
         private readonly IJobOpeningService _jobOpeningService;
@@ -72,14 +72,23 @@ namespace Basecode.Services.Services
         /// Updates the specified application.
         /// </summary>
         /// <param name="application">The application.</param>
-        public void Update(Application application)
+        /// <returns></returns>
+        public LogContent Update(Application application)
         {
             var existingApplication = _repository.GetById(application.Id);
-            
-            existingApplication.Status = application.Status;
-            existingApplication.UpdateTime = DateTime.Now;
 
-            _repository.UpdateApplication(existingApplication);
+            LogContent logContent = new LogContent();
+            logContent = CheckApplication(existingApplication);
+
+            if (logContent.Result == false)
+            {
+                existingApplication.Status = application.Status;
+                existingApplication.UpdateTime = DateTime.Now;
+
+                _repository.UpdateApplication(existingApplication);
+            }
+
+            return logContent;
         }
     }
 }
