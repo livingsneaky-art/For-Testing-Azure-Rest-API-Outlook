@@ -19,15 +19,15 @@ namespace Basecode.Tests.Services
         private readonly Mock<IApplicationRepository> _fakeApplicationRepository;
         private readonly Mock<IJobOpeningService> _fakeJobOpeningService;
         private readonly Mock<IApplicantService> _fakeApplicantService;
-        private readonly IMapper _fakeMapper;
+        private readonly Mock<IMapper> _fakeMapper;
 
         public ApplicationServiceTests()
         {
             _fakeApplicationRepository = new Mock<IApplicationRepository>();
             _fakeJobOpeningService = new Mock<IJobOpeningService>();
             _fakeApplicantService = new Mock<IApplicantService>();
-            _fakeMapper = new Mock<IMapper>().Object;
-            _service = new ApplicationService(_fakeApplicationRepository.Object, _fakeMapper, _fakeJobOpeningService.Object, _fakeApplicantService.Object);
+            _fakeMapper = new Mock<IMapper>();
+            _service = new ApplicationService(_fakeApplicationRepository.Object, _fakeMapper.Object, _fakeJobOpeningService.Object, _fakeApplicantService.Object);
         }
 
         [Fact]
@@ -59,7 +59,7 @@ namespace Basecode.Tests.Services
             {
                 Id = application.Id,
                 JobOpeningTitle = job.Title,
-                ApplicantName = applicant.Firstname + " " + applicant.Lastname,
+                ApplicantName = $"{applicant.Firstname} {applicant.Lastname}",
                 Status = application.Status,
                 UpdateTime = application.UpdateTime
             };
@@ -67,12 +67,14 @@ namespace Basecode.Tests.Services
             _fakeApplicationRepository.Setup(repo => repo.GetById(id)).Returns(application);
             _fakeJobOpeningService.Setup(service => service.GetById(application.JobOpeningId)).Returns(job);
             _fakeApplicantService.Setup(service => service.GetApplicantById(application.ApplicantId)).Returns(applicant);
+            _fakeMapper.Setup(mapper => mapper.Map<ApplicationViewModel>(application)).Returns(applicationViewModel);
 
             // Act
             var result = _service.GetById(id);
 
             // Assert
             Assert.NotNull(result);
+            Assert.IsType<ApplicationViewModel>(result);
             Assert.Equal(applicationViewModel.Id, result.Id);
             Assert.Equal(applicationViewModel.ApplicantName, result.ApplicantName);
             Assert.Equal(applicationViewModel.JobOpeningTitle, result.JobOpeningTitle);
