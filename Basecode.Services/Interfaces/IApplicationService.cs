@@ -1,4 +1,5 @@
-﻿using Basecode.Data.ViewModels;
+﻿using Basecode.Data.Models;
+using Basecode.Data.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,5 +19,17 @@ namespace Basecode.Services.Interfaces
         /// <param name="id">The ID of the application to retrieve.</param>
         /// <returns>The application with the specified ID, or null if not found.</returns>
         ApplicationViewModel GetById(Guid id);
+
+        /// <summary>
+        /// Creates the specified application.
+        /// </summary>
+        /// <param name="application">The application.</param>
+        void Create(Application application);
+
+        /// <summary>
+        /// Updates the specified application.
+        /// </summary>
+        /// <param name="application">The application.</param>
+        void Update(Application application);
     }
 }
