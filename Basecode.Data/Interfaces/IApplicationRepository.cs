@@ -24,5 +24,11 @@ namespace Basecode.Data.Interfaces
         /// </summary>
         /// <param name="application">The application to be added.</param>
         void CreateApplication(Application application);
+
+        /// <summary>
+        /// Updates an existing application.
+        /// </summary>
+        /// <param name="application">The application to update.</param>
+        void UpdateApplication(Application application);
     }
 }
