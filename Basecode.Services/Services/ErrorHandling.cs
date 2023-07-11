@@ -212,5 +212,15 @@ namespace Basecode.Services.Services
 
             return logContent;
         }
+
+        public static LogContent CheckApplication(Application existingApplication)
+        {
+            LogContent logContent = new LogContent();
+            if (existingApplication == null)
+            {
+                logContent.SetError("404", "Existing application not found.");
+            }
+            return logContent;
+        }
     }
 }

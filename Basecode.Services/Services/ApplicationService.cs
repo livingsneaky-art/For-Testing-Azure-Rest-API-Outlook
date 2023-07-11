@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Basecode.Data.Interfaces;
+using Basecode.Data.Models;
 using Basecode.Data.ViewModels;
 using Basecode.Services.Interfaces;
 using System;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Basecode.Services.Services
 {
-    public class ApplicationService : IApplicationService
+    public class ApplicationService : ErrorHandling, IApplicationService
     {
         private readonly IApplicationRepository _repository;
         private readonly IJobOpeningService _jobOpeningService;
@@ -33,6 +34,15 @@ namespace Basecode.Services.Services
         }
 
         /// <summary>
+        /// Creates the specified application.
+        /// </summary>
+        /// <param name="application">The application.</param>
+        public void Create(Application application)
+        {
+            _repository.CreateApplication(application);
+        }
+
+        /// <summary>
         /// Retrieves an application by its ID.
         /// </summary>
         /// <param name="id">The ID of the application to retrieve.</param>
@@ -50,16 +60,35 @@ namespace Basecode.Services.Services
 
             var job = _jobOpeningService.GetById(application.JobOpeningId);
             var applicant = _applicantService.GetApplicantById(application.ApplicantId);
-            var data = new ApplicationViewModel
-            {
-                Id = application.Id,
-                ApplicantName = applicant.Firstname + " " + applicant.Lastname,
-                JobOpeningTitle = job.Title,
-                Status = application.Status,
-                UpdateTime = application.UpdateTime
-            };
 
-            return data;
+            var applicationViewModel = _mapper.Map<ApplicationViewModel>(application);
+            applicationViewModel.JobOpeningTitle = job.Title;
+            applicationViewModel.ApplicantName = $"{applicant.Firstname} {applicant.Lastname}";
+
+            return applicationViewModel;
+        }
+
+        /// <summary>
+        /// Updates the specified application.
+        /// </summary>
+        /// <param name="application">The application.</param>
+        /// <returns></returns>
+        public LogContent Update(Application application)
+        {
+            var existingApplication = _repository.GetById(application.Id);
+
+            LogContent logContent = new LogContent();
+            logContent = CheckApplication(existingApplication);
+
+            if (logContent.Result == false)
+            {
+                existingApplication.Status = application.Status;
+                existingApplication.UpdateTime = DateTime.Now;
+
+                _repository.UpdateApplication(existingApplication);
+            }
+
+            return logContent;
         }
     }
 }
