@@ -5,6 +5,7 @@ using Basecode.Services.Services;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using NLog;
+using System.IO;
 
 namespace Basecode.WebApp.Controllers
 {
@@ -57,8 +58,11 @@ namespace Basecode.WebApp.Controllers
                             string zip,
                             string phone,
                             string email,
+                            string fileName,
                             List<CharacterReferenceViewModel> references)
         {
+            string referencesJson = JsonConvert.SerializeObject(references);
+
             TempData["First Name"] = firstName;
             TempData["Middle Name"] = middleName;
             TempData["Last Name"] = lastName;
@@ -72,8 +76,9 @@ namespace Basecode.WebApp.Controllers
             TempData["Zip"] = zip;
             TempData["Phone"] = phone;
             TempData["Email"] = email;
-            string referencesJson = JsonConvert.SerializeObject(references);
+            TempData["FileName"] = fileName;
             TempData["ReferencesJson"] = referencesJson;
+
             return View();
         }
 

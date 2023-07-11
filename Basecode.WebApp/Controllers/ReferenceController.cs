@@ -11,23 +11,6 @@ namespace Basecode.WebApp.Controllers
 {
     public class ReferenceController : Controller
     {
-        /// <summary>
-        /// Handles the submission of a character reference form.
-        /// </summary>
-        /// <param name="firstName">The first name of the character reference.</param>
-        /// <param name="middleName">The middle name of the character reference.</param>
-        /// <param name="lastName">The last name of the character reference.</param>
-        /// <param name="date">The birthdate of the character reference.</param>
-        /// <param name="age">The age of the character reference.</param>
-        /// <param name="gender">The gender of the character reference.</param>
-        /// <param name="nationality">The nationality of the character reference.</param>
-        /// <param name="street">The street address of the character reference.</param>
-        /// <param name="city">The city of the character reference.</param>
-        /// <param name="province">The province of the character reference.</param>
-        /// <param name="zip">The zip code of the character reference.</param>
-        /// <param name="phone">The phone number of the character reference.</param>
-        /// <param name="email">The email address of the character reference.</param>
-        /// <returns>The view result.</returns>
         [HttpPost]
         public IActionResult Index(string firstName,
                             string middleName,
@@ -41,8 +24,32 @@ namespace Basecode.WebApp.Controllers
                             string province,
                             string zip,
                             string phone,
-                            string email)
+                            string email,
+                            IFormFile fileUpload)
         {
+            if (fileUpload != null)
+            {
+                string fileExtension = Path.GetExtension(fileUpload.FileName);
+                if (fileExtension != ".pdf")
+                {
+                    TempData["ErrorMessage"] = "Only PDF files are allowed.";
+                    return RedirectToAction("Index", "PublicApplication");
+                }
+            }
+            else
+            {
+                TempData["ErrorMessage"] = "Please select a file.";
+                return RedirectToAction("Index", "PublicApplication");
+            }
+
+            var tempFilePath = Path.GetTempFileName();
+            using (var stream = new FileStream(tempFilePath, FileMode.Create))
+            {
+                fileUpload.CopyTo(stream);
+            }
+
+            TempData["UploadedFilePath"] = tempFilePath;
+            TempData["FileName"] = Path.GetFileName(fileUpload.FileName);
             TempData["First Name"] = firstName;
             TempData["Middle Name"] = middleName;
             TempData["Last Name"] = lastName;
@@ -56,6 +63,7 @@ namespace Basecode.WebApp.Controllers
             TempData["Zip"] = zip;
             TempData["Phone"] = phone;
             TempData["Email"] = email;
+
             return View();
         }
     }

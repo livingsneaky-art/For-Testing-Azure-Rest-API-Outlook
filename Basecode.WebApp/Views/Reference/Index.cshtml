@@ -44,7 +44,9 @@
                 <p class="mb-0">Confirmation</p>
             </div>
         </div>
-        <form id="characterReferenceForm" method="post" asp-controller="Confirmation" asp-action="Index" onsubmit="return validateForm()">
+        <form id="characterReferenceForm" method="post" asp-controller="Confirmation" asp-action="Index" onsubmit="return validateForm()" enctype="multipart/form-data">
+            <input type="hidden" name="file" value="@TempData["UploadedFilePath"]" />
+            <input type="hidden" name="fileName" value="@TempData["FileName"]" />
             <input type="hidden" name="firstName" value="@TempData["First Name"]" />
             <input type="hidden" name="middleName" value="@TempData["Middle Name"]" />
             <input type="hidden" name="lastName" value="@TempData["Last Name"]" />
