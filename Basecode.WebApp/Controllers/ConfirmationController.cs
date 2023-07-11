@@ -59,10 +59,12 @@ namespace Basecode.WebApp.Controllers
                             string phone,
                             string email,
                             string fileName,
+                            byte[] fileData,
                             List<CharacterReferenceViewModel> references)
         {
             string referencesJson = JsonConvert.SerializeObject(references);
 
+            TempData["FileData"] = fileData;
             TempData["First Name"] = firstName;
             TempData["Middle Name"] = middleName;
             TempData["Last Name"] = lastName;

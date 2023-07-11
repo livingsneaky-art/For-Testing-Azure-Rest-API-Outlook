@@ -170,6 +170,7 @@ namespace Basecode.Services.Services
                 logContent.SetError("400", "Email is required but has no value.");
                 return logContent;
             }
+
             return logContent;
         }
 

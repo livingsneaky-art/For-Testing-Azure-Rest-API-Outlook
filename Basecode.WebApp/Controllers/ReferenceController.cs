@@ -35,6 +35,13 @@ namespace Basecode.WebApp.Controllers
                     TempData["ErrorMessage"] = "Only PDF files are allowed.";
                     return RedirectToAction("Index", "PublicApplication");
                 }
+
+                using (var memoryStream = new MemoryStream())
+                {
+                    fileUpload.CopyTo(memoryStream);
+                    byte[] fileData = memoryStream.ToArray();
+                    TempData["FileData"] = fileData;
+                }
             }
             else
             {
@@ -42,13 +49,6 @@ namespace Basecode.WebApp.Controllers
                 return RedirectToAction("Index", "PublicApplication");
             }
 
-            var tempFilePath = Path.GetTempFileName();
-            using (var stream = new FileStream(tempFilePath, FileMode.Create))
-            {
-                fileUpload.CopyTo(stream);
-            }
-
-            TempData["UploadedFilePath"] = tempFilePath;
             TempData["FileName"] = Path.GetFileName(fileUpload.FileName);
             TempData["First Name"] = firstName;
             TempData["Middle Name"] = middleName;
