@@ -4,11 +4,6 @@ using Basecode.Services.Interfaces;
 using Basecode.WebApp.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using static Basecode.Services.Services.ErrorHandling;
 
 namespace Basecode.Tests.Controllers
@@ -121,7 +116,7 @@ namespace Basecode.Tests.Controllers
             LogContent logContent = new LogContent();
             logContent.Result = true;
             logContent.ErrorCode = "400";
-            logContent.Message = "Email address does not have a domain.";
+            logContent.Message = "The Email Address format is invalid.";
             var user = new User();
             _fakeUserService.Setup(service => service.Create(user)).Returns(logContent);
 
@@ -229,7 +224,7 @@ namespace Basecode.Tests.Controllers
             LogContent logContent = new LogContent();
             logContent.Result = true;
             logContent.ErrorCode = "400";
-            logContent.Message = "Email address does not have a domain.";
+            logContent.Message = "The Email Address format is invalid.";
             var user = new User();
             _fakeUserService.Setup(service => service.Update(user)).Returns(logContent);
 
