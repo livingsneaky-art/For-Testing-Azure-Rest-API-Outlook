@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Basecode.Data.Interfaces;
+using Basecode.Data.Models;
 using Basecode.Data.ViewModels;
 using Basecode.Services.Interfaces;
 using System;
@@ -33,6 +34,15 @@ namespace Basecode.Services.Services
         }
 
         /// <summary>
+        /// Creates the specified application.
+        /// </summary>
+        /// <param name="application">The application.</param>
+        public void Create(Application application)
+        {
+            _repository.CreateApplication(application);
+        }
+
+        /// <summary>
         /// Retrieves an application by its ID.
         /// </summary>
         /// <param name="id">The ID of the application to retrieve.</param>
@@ -60,6 +70,20 @@ namespace Basecode.Services.Services
             };
 
             return data;
+        }
+
+        /// <summary>
+        /// Updates the specified application.
+        /// </summary>
+        /// <param name="application">The application.</param>
+        public void Update(Application application)
+        {
+            var existingApplication = _repository.GetById(application.Id);
+            
+            existingApplication.Status = application.Status;
+            existingApplication.UpdateTime = DateTime.Now;
+
+            _repository.UpdateApplication(existingApplication);
         }
     }
 }
