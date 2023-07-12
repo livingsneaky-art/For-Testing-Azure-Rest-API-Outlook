@@ -20,10 +20,6 @@ namespace Basecode.WebApp.Controllers
             _jobOpeningService = jobOpeningService;
         }
 
-        /// <summary>
-        /// Displays the index view for public applications.
-        /// </summary>
-        /// <returns>The index view.</returns>
         [HttpGet("/PublicApplication/Index/{jobOpeningId}")]
         public IActionResult Index(int jobOpeningId)
         {
