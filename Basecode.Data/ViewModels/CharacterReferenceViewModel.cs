@@ -16,10 +16,10 @@ namespace Basecode.Data.ViewModels
         public string Name { get; set; }
 
         [Required(ErrorMessage = "Address is required.")]
-        [EmailAddress(ErrorMessage = "Invalid email format.")]
         public string Address { get; set; }
 
         [Required(ErrorMessage = "Email is required.")]
+        [EmailAddress(ErrorMessage = "Invalid email format.")]
         public string Email { get; set; }
 
         public int ApplicantId { get; set; }
