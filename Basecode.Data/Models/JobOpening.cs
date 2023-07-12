@@ -23,5 +23,7 @@ namespace Basecode.Data.Models
 
         public List<Qualification> Qualifications { get; set; }
         public List<Responsibility> Responsibilities { get; set; }
+
+        public List<Application>? Applications { get; set; }
     }
 }

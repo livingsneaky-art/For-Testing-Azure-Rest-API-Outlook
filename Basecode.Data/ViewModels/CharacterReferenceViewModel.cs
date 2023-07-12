@@ -20,5 +20,8 @@ namespace Basecode.Data.ViewModels
 
         [Required(ErrorMessage = "Email is required.")]
         public string Email { get; set; }
+
+        public int ApplicantId { get; set; }
+
     }
 }

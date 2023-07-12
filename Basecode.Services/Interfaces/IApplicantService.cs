@@ -27,6 +27,6 @@ namespace Basecode.Services.Interfaces
         /// </summary>
         /// <param name="applicant">The ApplicantViewModel object containing the applicant data.</param>
         /// <returns>A tuple containing a LogContent object and the ID of the created applicant.</returns>
-        (LogContent, int) Create(ApplicantViewModel applicant);
+        LogContent Create(ApplicantViewModel applicant, List<CharacterReferenceViewModel> references);
     }
 }

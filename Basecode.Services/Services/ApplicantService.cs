@@ -16,15 +16,17 @@ namespace Basecode.Services.Services
     public class ApplicantService : IApplicantService
     {
         private readonly IApplicantRepository _repository;
+        private readonly IApplicationRepository _applicationRepository;
         private readonly IMapper _mapper;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ApplicantService"/> class.
         /// </summary>
         /// <param name="repository">The repository.</param>
-        public ApplicantService(IApplicantRepository repository, IMapper mapper)
+        public ApplicantService(IApplicantRepository repository, IApplicationRepository applicationRepository, IMapper mapper)
         {
             _repository = repository;
+            _applicationRepository = applicationRepository;
             _mapper = mapper;
         }
 
@@ -52,21 +54,35 @@ namespace Basecode.Services.Services
         /// </summary>
         /// <param name="applicant">The ApplicantViewModel object containing the applicant data.</param>
         /// <returns>A tuple containing a LogContent object and the ID of the created applicant.</returns>
-        public (LogContent, int) Create(ApplicantViewModel applicant)
+        public LogContent Create(ApplicantViewModel applicant, List<CharacterReferenceViewModel> references)
         {
             LogContent logContent = new LogContent();
 
             logContent = CheckApplicant(applicant);
             if (logContent.Result == false)
             {
+
+                applicant.CharacterReferences = references;
+                
                 var applicantModel = _mapper.Map<Applicant>(applicant);
 
                 int createdApplicantId = _repository.CreateApplicant(applicantModel);
 
-                return (logContent, createdApplicantId);
+                var application = new Application
+                {
+                    JobOpeningId = applicant.JobOpeningId, 
+                    ApplicantId = createdApplicantId, 
+                    Status = "Pending", 
+                    ApplicationDate = DateTime.Now, 
+                    UpdateTime = DateTime.Now 
+                };
+
+                _applicationRepository.CreateApplication(application);
+
             }
 
-            return (logContent, -1);
+            return logContent;
         }
+
     }
 }
