@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Basecode.Data.ViewModels;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Basecode.WebApp.Controllers
 {
@@ -8,8 +9,10 @@ namespace Basecode.WebApp.Controllers
         /// Displays the index view for public applications.
         /// </summary>
         /// <returns>The index view.</returns>
-        public IActionResult Index()
+        [HttpGet("/PublicApplication/Index/{jobOpeningId}")]
+        public IActionResult Index(int jobOpeningId)
         {
+            TempData["jobOpeningId"] = jobOpeningId;
             return View();
         }
     }

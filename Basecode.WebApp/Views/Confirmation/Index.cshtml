@@ -51,6 +51,7 @@
             Please ensure that you carefully review the  correctness of all the provided data before submitting the application form.
         </div>
         <form method="post" asp-controller="Confirmation" asp-action="Create">
+            <input type="hidden" name="JobOpeningId" value ="@TempData["JobOpeningId"]"/>
             <div class="container d-flex flex-column align-items-center justify-content-center" style="width: 710px">
             <h5 class="mb-3">
                 Personal Information

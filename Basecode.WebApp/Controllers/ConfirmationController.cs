@@ -10,6 +10,7 @@ namespace Basecode.WebApp.Controllers
     public class ConfirmationController : Controller
     {
         private readonly IApplicantService _applicantService;
+        private readonly IJobOpeningService _jobOpeningService;
         private readonly ICharacterReferenceService _characterReferenceService;
         private static readonly Logger _logger = LogManager.GetCurrentClassLogger();
 
@@ -18,10 +19,11 @@ namespace Basecode.WebApp.Controllers
         /// </summary>
         /// <param name="applicantService">The applicant service.</param>
         /// <param name="characterReferenceService">The character reference service.</param>
-        public ConfirmationController(IApplicantService applicantService, ICharacterReferenceService characterReferenceService)
+        public ConfirmationController(IApplicantService applicantService, IJobOpeningService jobOpeningService, ICharacterReferenceService characterReferenceService)
         {
             _applicantService = applicantService;
             _characterReferenceService = characterReferenceService;
+            _jobOpeningService = jobOpeningService;
         }
 
         /// <summary>
@@ -60,6 +62,7 @@ namespace Basecode.WebApp.Controllers
                             string email,
                             string fileName,
                             byte[] fileData,
+                            int jobId,
                             List<CharacterReferenceViewModel> references)
         {
             string referencesJson = JsonConvert.SerializeObject(references);
@@ -80,6 +83,7 @@ namespace Basecode.WebApp.Controllers
             TempData["FileData"] = fileData;
             TempData["FileName"] = fileName;
             TempData["ReferencesJson"] = referencesJson;
+            TempData["JobOpeningId"] = jobId;
 
             return View();
         }
@@ -95,28 +99,35 @@ namespace Basecode.WebApp.Controllers
         {
             try
             {
-                var (data, createdApplicantId) = _applicantService.Create(applicant);
 
-                if (!data.Result)
+                var isJobOpening = _jobOpeningService.GetById(applicant.JobOpeningId);
+                if (isJobOpening != null)
                 {
-                    _logger.Trace("Create Applicant successfully.");
+                    var data = _applicantService.Create(applicant, references);
 
-                    foreach (var characterReference in references)
-                    {
-                        var logContent = _characterReferenceService.Create(characterReference, createdApplicantId);
-
-                        if (logContent.Result == false)
-                        {
-                            _logger.Trace("Create Character Reference successfully.");
-                        }
-                        else
-                        {
-                            _logger.Trace(ErrorHandling.SetLog(logContent));
-                        }
-                    }
-                    return RedirectToAction("Index", "Job");
                 }
-                _logger.Trace(ErrorHandling.SetLog(data));
+
+
+                //if (!data.Result)
+                //{
+                //    _logger.Trace("Create Applicant successfully.");
+
+                //    foreach (var characterReference in references)
+                //    {
+                //        var logContent = _characterReferenceService.Create(characterReference, createdApplicantId);
+
+                //        if (logContent.Result == false)
+                //        {
+                //            _logger.Trace("Create Character Reference successfully.");
+                //        }
+                //        else
+                //        {
+                //            _logger.Trace(ErrorHandling.SetLog(logContent));
+                //        }
+                //    }
+                //    return RedirectToAction("Index", "Job");
+                //}
+                //_logger.Trace(ErrorHandling.SetLog(data));
                 return View("Index");
             }
             catch (Exception e)
