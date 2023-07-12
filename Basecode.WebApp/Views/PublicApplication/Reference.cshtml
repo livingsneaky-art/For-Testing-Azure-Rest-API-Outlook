@@ -120,7 +120,7 @@
     function addInputField(containerId, inputClass, inputName) {
         var container = document.getElementById(containerId);
         var inputContainerOne = document.createElement("div");
-        inputContainerOne.className = "row align-items-center justify-content-center text-end mb-4 mt-4";
+        inputContainerOne.className = "row align-items-center justify-content-center text-end mb-4 mt-2";
         var inputContainerTwo = document.createElement("div");
         inputContainerTwo.className = "row align-items-center justify-content-center text-end mb-4";
         var inputContainerThree = document.createElement("div");
@@ -162,7 +162,7 @@
         emailInputField.name = inputName + "[" + count + "].Email";
         emailInputField.placeholder = "example@domain.com";
         var hr = document.createElement("hr");
-        hr.className = "container opacity-100";
+        hr.className = "container opacity-100 mb-4";
         hr.style.height = "1px";
         hr.style.color = "#424856";
 
@@ -172,6 +172,7 @@
         addressRowContainerTwo.appendChild(addressInputField);
         emailRowContainerOne.appendChild(emailLabel);
         emailRowContainerTwo.appendChild(emailInputField);
+        inputContainerOne.appendChild(hr);
         inputContainerOne.appendChild(nameRowContainerOne);
         inputContainerOne.appendChild(nameRowContainerTwo);
         inputContainerTwo.appendChild(addressRowContainerOne);
@@ -181,7 +182,6 @@
         container.appendChild(inputContainerOne);
         container.appendChild(inputContainerTwo);
         container.appendChild(inputContainerThree);
-        container.appendChild(hr);
         count++;
     }
 
