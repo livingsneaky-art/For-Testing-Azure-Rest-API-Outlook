@@ -117,5 +117,6 @@ namespace Basecode.Services.Services
             await _emailService.SendEmail(applicant.Email, "Application Status Update for Applicant",
                 $"Dear {applicant.Firstname},\n\nYour application status has been updated to {newStatus}.\n\nThank you.");
         }
+
     }
 }
