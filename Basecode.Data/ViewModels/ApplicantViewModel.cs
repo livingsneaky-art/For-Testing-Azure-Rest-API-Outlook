@@ -54,6 +54,7 @@ namespace Basecode.Data.ViewModels
         [Required(ErrorMessage = "CV is required.")]
         public byte[] CV { get; set; }
 
+        [Required(ErrorMessage = "At least one character reference is required.")]
         public List<CharacterReferenceViewModel> CharacterReferences { get; set; }
 
         public Application Application { get; set; }
