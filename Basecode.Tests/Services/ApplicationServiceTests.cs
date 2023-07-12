@@ -21,7 +21,7 @@ namespace Basecode.Tests.Services
         private readonly Mock<IJobOpeningService> _fakeJobOpeningService;
         private readonly Mock<IApplicantService> _fakeApplicantService;
         private readonly Mock<IMapper> _fakeMapper;
-        private readonly Mock<IEmailService> _fakeEmailService;
+        private readonly Mock<IEmailService> _fakeEmailService = new Mock<IEmailService>();
 
         public ApplicationServiceTests()
         {
