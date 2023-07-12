@@ -56,9 +56,39 @@
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="container d-flex flex-column align-items-center justify-content-center" style="width: 800px;">
             <div class="container" id="reference-list">
+                <div class="row align-items-center justify-content-center text-end mb-4">
+                    <div class="col-sm-2">
+                        <p class="mb-0">Name</p>
+                    </div>
+                    <div class="col-sm-10">
+                        <div class="d-flex column-gap-2">
+                            <input type="text" asp-for="CharacterReferences[0].Name" class="form-control reference-input" placeholder="Full name" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row align-items-center justify-content-center text-end mb-4">
+                    <div class="col-sm-2">
+                        <p class="mb-0">Address</p>
+                    </div>
+                    <div class="col-sm-10">
+                        <div class="d-flex column-gap-2">
+                            <input type="text" asp-for="CharacterReferences[0].Address" class="form-control reference-input" placeholder="Street address" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row align-items-center justify-content-center text-end mb-4">
+                    <div class="col-sm-2">
+                        <p class="mb-0">Email</p>
+                    </div>
+                    <div class="col-sm-10">
+                        <div class="d-flex column-gap-2 align-items-center justify-content-center">
+                            <input type="email" asp-for="CharacterReferences[0].Email" class="form-control reference-input" placeholder="example@domain.com" />
+                        </div>
+                    </div>
+                </div>
                 @if (Model.CharacterReferences != null)
                 {
-                    for (int i = 0; i < Model.CharacterReferences.Count; i++)
+                    for (int i = 1; i < Model.CharacterReferences.Count; i++)
                     {
                         <input type="text" asp-for="CharacterReferences[i].Name" class="form-control reference-input" placeholder="Full name" />
                         <input type="text" asp-for="CharacterReferences[i].Address" class="form-control reference-input" placeholder="Street address" />
@@ -78,14 +108,14 @@
                 <a href="#" onclick="history.back();">
                     <button type="button" class="btn" style="background-color: #EC3123; color:white; width: 100px;">Back</button>
                 </a>
-                <button type="submit" class="btn" style="background-color: #EC3123; color:white; width: 100px;">Next ></button>
+                <button type="submit" class="btn" value="Create" style="background-color: #EC3123; color:white; width: 100px;">Next ></button>
             </div>
         </div>
     </form>
 </div>
 
 <script>
-    var count = 0;
+    var count = 1;
     // Function to add a new input field to the list
     function addInputField(containerId, inputClass, inputName) {
         var container = document.getElementById(containerId);
