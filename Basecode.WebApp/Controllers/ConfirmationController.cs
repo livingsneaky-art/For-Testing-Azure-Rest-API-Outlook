@@ -12,16 +12,18 @@ namespace Basecode.WebApp.Controllers
         private readonly IApplicantService _applicantService;
         private readonly ICharacterReferenceService _characterReferenceService;
         private static readonly Logger _logger = LogManager.GetCurrentClassLogger();
+        private readonly IApplicationService _applicationService;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ConfirmationController"/> class.
         /// </summary>
         /// <param name="applicantService">The applicant service.</param>
         /// <param name="characterReferenceService">The character reference service.</param>
-        public ConfirmationController(IApplicantService applicantService, ICharacterReferenceService characterReferenceService)
+        public ConfirmationController(IApplicantService applicantService, ICharacterReferenceService characterReferenceService, IApplicationService applicationService)
         {
             _applicantService = applicantService;
             _characterReferenceService = characterReferenceService;
+            _applicationService = applicationService;
         }
 
         /// <summary>
