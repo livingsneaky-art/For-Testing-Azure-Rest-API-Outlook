@@ -1,8 +1,10 @@
-﻿using Basecode.Data.ViewModels;
+﻿using Basecode.Data.Models;
+using Basecode.Data.ViewModels;
 using Basecode.Services.Interfaces;
 using Basecode.Services.Services;
 using Microsoft.AspNetCore.Mvc;
 using NLog;
+using static Basecode.Services.Services.ErrorHandling;
 
 namespace Basecode.WebApp.Controllers
 {
@@ -25,6 +27,7 @@ namespace Basecode.WebApp.Controllers
         {
             try
             {
+                _logger.Trace("jobId: " + jobOpeningId);
                 TempData["jobOpeningId"] = jobOpeningId;
                 var model = new ApplicantViewModel();
                 _logger.Trace("Successfuly renders form.");
@@ -55,6 +58,7 @@ namespace Basecode.WebApp.Controllers
         {
             try
             {
+                _logger.Trace("jobId: " + jobId);
                 if (fileUpload != null)
                 {
                     string fileExtension = Path.GetExtension(fileUpload.FileName);
@@ -69,6 +73,7 @@ namespace Basecode.WebApp.Controllers
                         fileUpload.CopyTo(memoryStream);
                         byte[] fileData = memoryStream.ToArray();
                         TempData["FileData"] = fileData;
+                        
                     }
                 }
                 else
@@ -76,8 +81,8 @@ namespace Basecode.WebApp.Controllers
                     TempData["ErrorMessage"] = "Please select a file.";
                     return RedirectToAction("Index", new { jobOpeningId = jobId });
                 }
+                TempData["jobOpeningId"] = jobId;
                 TempData["FileName"] = Path.GetFileName(fileUpload.FileName);
-
                 var model = new ApplicantViewModel
                 {
                     Firstname = firstname,
@@ -95,6 +100,7 @@ namespace Basecode.WebApp.Controllers
                     Email = email,
                     JobOpeningId = jobId
                 };
+
                 _logger.Trace("Successfuly renders form.");
                 return View(model);
             }
@@ -125,6 +131,8 @@ namespace Basecode.WebApp.Controllers
         {
             try
             {
+                _logger.Trace("jobId: " + jobId);
+                TempData["jobOpeningId"] = jobId;
                 TempData["FileName"] = fileName;
                 TempData["FileData"] = fileData;
                 var model = new ApplicantViewModel
@@ -177,6 +185,7 @@ namespace Basecode.WebApp.Controllers
         {
             try
             {
+                _logger.Trace("jobId: " + jobId);
                 var applicant = new ApplicantViewModel
                 {
                     Firstname = firstname,
@@ -199,13 +208,13 @@ namespace Basecode.WebApp.Controllers
                 var isJobOpening = _jobOpeningService.GetById(applicant.JobOpeningId);
                 if (isJobOpening != null)
                 {
-                    var data = _applicantService.Create(applicant);
-                    if (!data.Result)
+                    (LogContent logContent, int createdApplicantId) = _applicantService.Create(applicant);
+                    if (!logContent.Result)
                     {
                         _logger.Trace("Create Applicant successfully.");
                         return RedirectToAction("Index", "Job");
                     }
-                    _logger.Trace(ErrorHandling.SetLog(data));
+                    _logger.Trace(ErrorHandling.SetLog(logContent));
                 }
                 return View("Index");
             }

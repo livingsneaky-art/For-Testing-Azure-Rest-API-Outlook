@@ -39,10 +39,9 @@
     <div class="container d-flex align-items-center justify-content-start mb-2">
         Please ensure that you carefully review the  correctness of all the provided data before submitting the application form.
     </div>
-    <form asp-controller="PublicApplication" asp-action="Create" method="post">
+    <form asp-controller="PublicApplication" asp-action="Create" method="post" enctype="multipart/form-data">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-        <input type="hidden" name="CV" value="@TempData["FileData"]">
-        <input type="hidden" name="JobOpeningId" value="@TempData["JobOpeningId"]" />
+        <input type="hidden" name="jobId" value="@TempData["JobOpeningId"]" />
         <div class="container d-flex flex-column align-items-center justify-content-center mb-2" style="width: 800px;">
             <h5 class="mb-3">
                 Personal Information
@@ -54,6 +53,9 @@
                     </div>
                     <div class="col-sm-10">
                         <input type="text" class="form-control border border-0" value="@Model.Firstname @Model.Middlename @Model.Lastname" style="background-color: #F3F4F6; color: #BDC1CA;" readonly>
+                        <input type="hidden" asp-for="Firstname" value="@Model.Firstname" />
+                        <input type="hidden" asp-for="Middlename" value="@Model.Middlename" />
+                        <input type="hidden" asp-for="Lastname" value="@Model.Lastname" />
                     </div>
                 </div>
                 <div class="row align-items-center justify-content-center text-end mb-4">
@@ -61,7 +63,7 @@
                         <p class="mb-0">Birthdate</p>
                     </div>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control border border-0" value="@Model.Birthdate" style="background-color: #FEF2F1; color: #F58980;" readonly>
+                        <input type="text" asp-for="Birthdate" class="form-control border border-0" value="@Model.Birthdate" style="background-color: #FEF2F1; color: #F58980;" readonly>
                     </div>
                 </div>
                 <div class="row align-items-center justify-content-center text-end mb-4">
@@ -69,7 +71,7 @@
                         <p class="mb-0">Age</p>
                     </div>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control border border-0" value="@Model.Age" style="background-color: #F3F4F6; color: #BDC1CA;" readonly>
+                        <input type="text" asp-for="Age" class="form-control border border-0" value="@Model.Age" style="background-color: #F3F4F6; color: #BDC1CA;" readonly>
                     </div>
                 </div>
                 <div class="row align-items-center justify-content-center text-end mb-4">
@@ -77,7 +79,7 @@
                         <p class="mb-0">Gender</p>
                     </div>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control border border-0" value="@Model.Gender" style="background-color: #FEF2F1; color: #F58980;" readonly>
+                        <input type="text" asp-for="Gender" class="form-control border border-0" value="@Model.Gender" style="background-color: #FEF2F1; color: #F58980;" readonly>
                     </div>
                 </div>
                 <div class="row align-items-center justify-content-center text-end mb-4">
@@ -85,7 +87,7 @@
                         <p class="mb-0">Nationality</p>
                     </div>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control border border-0" value="@Model.Nationality" style="background-color: #F3F4F6; color: #BDC1CA;" readonly>
+                        <input type="text" asp-for="Nationality" class="form-control border border-0" value="@Model.Nationality" style="background-color: #F3F4F6; color: #BDC1CA;" readonly>
                     </div>
                 </div>
                 <div class="row align-items-center justify-content-center text-end mb-4">
@@ -94,6 +96,10 @@
                     </div>
                     <div class="col-sm-10">
                         <input type="text" class="form-control border border-0" value="@Model.Street, @Model.City, @Model.Province @Model.Zip" style="background-color: #FEF2F1; color: #F58980;" readonly>
+                        <input type="hidden" asp-for="Street" value="@Model.Street" />
+                        <input type="hidden" asp-for="City" value="@Model.City" />
+                        <input type="hidden" asp-for="Province" value="@Model.Province" />
+                        <input type="hidden" asp-for="Zip" value="@Model.Zip" />
                     </div>
                 </div>
                 <div class="row align-items-center justify-content-center text-end mb-4">
@@ -101,7 +107,7 @@
                         <p class="mb-0">Phone</p>
                     </div>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control border border-0" value="@Model.Phone" style="background-color: #F3F4F6; color: #BDC1CA;" readonly>
+                        <input type="text" asp-for="Phone" class="form-control border border-0" value="@Model.Phone" style="background-color: #F3F4F6; color: #BDC1CA;" readonly>
                     </div>
                 </div>
                 <div class="row align-items-center justify-content-center text-end mb-4">
@@ -109,7 +115,7 @@
                         <p class="mb-0">Email</p>
                     </div>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control border border-0" value="@Model.Email" style="background-color: #FEF2F1; color: #F58980;" readonly>
+                        <input type="text" asp-for="Email" class="form-control border border-0" value="@Model.Email" style="background-color: #FEF2F1; color: #F58980;" readonly>
                     </div>
                 </div>
                 <div class="row align-items-center justify-content-center text-end mb-3">
@@ -119,6 +125,7 @@
                     <div class="col-sm-10">
                         <div class="d-flex column-gap-2">
                             <input type="text" class="form-control" style="background-color: #F3F4F6; color: #BDC1CA; width: 50%; border: dashed;" value="@TempData["FileName"]" readonly>
+                            <input type="hidden" asp-for="CV" value="@TempData["FileData"]" />
                         </div>
                     </div>
                 </div>
@@ -136,7 +143,7 @@
                         </div>
                         <div class="col-sm-10">
                             <div class="d-flex column-gap-2">
-                                <input type="text" class="form-control border border-0" style="background-color: #F3F4F6; color: #BDC1CA;" value="@Model.CharacterReferences[i].Name" readonly>
+                                <input type="text" asp-for="CharacterReferences[i].Name" class=" form-control border border-0" style="background-color: #F3F4F6; color: #BDC1CA;" value="@Model.CharacterReferences[i].Name" readonly>
                             </div>
                         </div>
                     </div>
@@ -146,7 +153,7 @@
                         </div>
                         <div class="col-sm-10">
                             <div class="d-flex column-gap-2">
-                                <input type="text" class="form-control border border-0" style="background-color: #FEF2F1; color: #F58980;" value="@Model.CharacterReferences[i].Address" readonly>
+                                <input type="text" asp-for="CharacterReferences[i].Address" class="form-control border border-0" style="background-color: #FEF2F1; color: #F58980;" value="@Model.CharacterReferences[i].Address" readonly>
                             </div>
                         </div>
                     </div>
@@ -156,7 +163,7 @@
                         </div>
                         <div class="col-sm-10">
                             <div class="d-flex column-gap-2">
-                                <input type="text" class="form-control border border-0" style="background-color: #F3F4F6; color: #BDC1CA;" value="@Model.CharacterReferences[i].Email" readonly>
+                                <input type="text" asp-for="CharacterReferences[i].Email" class="form-control border border-0" style="background-color: #F3F4F6; color: #BDC1CA;" value="@Model.CharacterReferences[i].Email" readonly>
                             </div>
                         </div>
                     </div>

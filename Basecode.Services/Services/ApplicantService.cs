@@ -49,32 +49,31 @@ namespace Basecode.Services.Services
             return _repository.GetById(id);
         }
 
-        public LogContent Create(ApplicantViewModel applicant)
+        public (LogContent, int) Create(ApplicantViewModel applicant)
         {
             LogContent logContent = new LogContent();
+            int createdApplicantId = 0;
 
             logContent = CheckApplicant(applicant);
             if (logContent.Result == false)
             {
                 var applicantModel = _mapper.Map<Applicant>(applicant);
 
-                int createdApplicantId = _repository.CreateApplicant(applicantModel);
+                createdApplicantId = _repository.CreateApplicant(applicantModel);
 
                 var application = new Application
                 {
-                    JobOpeningId = applicant.JobOpeningId, 
-                    ApplicantId = createdApplicantId, 
-                    Status = "Pending", 
-                    ApplicationDate = DateTime.Now, 
-                    UpdateTime = DateTime.Now 
+                    JobOpeningId = applicant.JobOpeningId,
+                    ApplicantId = createdApplicantId,
+                    Status = "Pending",
+                    ApplicationDate = DateTime.Now,
+                    UpdateTime = DateTime.Now
                 };
 
                 _applicationRepository.CreateApplication(application);
-
             }
 
-            return logContent;
+            return (logContent, createdApplicantId);
         }
-
     }
 }

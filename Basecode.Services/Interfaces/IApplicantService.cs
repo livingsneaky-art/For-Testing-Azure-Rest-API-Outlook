@@ -22,6 +22,6 @@ namespace Basecode.Services.Interfaces
         /// <returns>The Applicant object.</returns>
         Applicant GetApplicantById(int id);
 
-        LogContent Create(ApplicantViewModel applicant);
+        (LogContent, int) Create(ApplicantViewModel applicant);
     }
 }
