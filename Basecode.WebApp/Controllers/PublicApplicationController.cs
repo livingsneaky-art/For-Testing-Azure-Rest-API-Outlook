@@ -15,5 +15,10 @@ namespace Basecode.WebApp.Controllers
             TempData["jobOpeningId"] = jobOpeningId;
             return View();
         }
+
+        public IActionResult Reference()
+        {
+            return View();
+        }
     }
 }
