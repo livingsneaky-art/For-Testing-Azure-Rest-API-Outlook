@@ -54,16 +54,13 @@ namespace Basecode.Services.Services
         /// </summary>
         /// <param name="applicant">The ApplicantViewModel object containing the applicant data.</param>
         /// <returns>A tuple containing a LogContent object and the ID of the created applicant.</returns>
-        public LogContent Create(ApplicantViewModel applicant, List<CharacterReferenceViewModel> references)
+        public LogContent Create(ApplicantViewModel applicant)
         {
             LogContent logContent = new LogContent();
 
             logContent = CheckApplicant(applicant);
             if (logContent.Result == false)
             {
-
-                applicant.CharacterReferences = references;
-                
                 var applicantModel = _mapper.Map<Applicant>(applicant);
 
                 int createdApplicantId = _repository.CreateApplicant(applicantModel);

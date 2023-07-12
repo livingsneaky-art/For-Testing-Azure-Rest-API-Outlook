@@ -2,6 +2,14 @@
 
 @{
     ViewData["Title"] = "PersonalInformation";
+    var errorMessage = TempData["ErrorMessage"] as string;
+}
+
+@if (!string.IsNullOrEmpty(errorMessage))
+{
+    <script>
+        alert('@Html.Raw(errorMessage)');
+    </script>
 }
 
 <div class="container d-flex flex-column align-items-center justify-content-center mt-5 mb-5" style="width: 800px">
@@ -35,7 +43,8 @@
             <p class="mb-0">Confirmation</p>
         </div>
     </div>
-    <form asp-controller="PublicApplication" asp-action="Reference" method="post">
+    <form asp-controller="PublicApplication" asp-action="Reference" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="jobId" value="@TempData["JobOpeningId"]" />
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="container d-flex flex-column align-items-center justify-content-center">
             <div class="container">
@@ -64,11 +73,11 @@
                     <div class="col-sm-10">
                         <div class="d-flex gap-2">
                             <div class="d-flex">
-                                <input type="date" asp-for="Birthdate" class="form-control" style="width: 163px;" />
+                                <input type="date" value="" asp-for="Birthdate" class="form-control" style="width: 163px;" />
                             </div>
                             <div class="d-flex">
                                 <p class="mb-0 mt-1 me-2">Age</p>
-                                <input asp-for="Age" class="form-control" placeholder="Age" />
+                                <input asp-for="Age" value="" class="form-control" placeholder="Age" />
                             </div>
                             <div class="d-flex">
                                 <p class="mb-0 mt-1 me-2">Gender</p>
