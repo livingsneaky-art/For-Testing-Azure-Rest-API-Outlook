@@ -49,6 +49,11 @@ namespace Basecode.Services.Services
             return _repository.GetById(id);
         }
 
+        /// <summary>
+        /// Creates a new applicant based on the provided applicant data.
+        /// </summary>
+        /// <param name="applicant"></param>
+        /// <returns>Returns a tuple with the log content and the ID of the created applicant.</returns>
         public (LogContent, int) Create(ApplicantViewModel applicant)
         {
             LogContent logContent = new LogContent();

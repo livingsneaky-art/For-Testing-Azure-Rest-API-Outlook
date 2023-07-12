@@ -15,6 +15,12 @@ namespace Basecode.WebApp.Controllers
         private readonly ICharacterReferenceService _characterReferenceService;
         private static readonly Logger _logger = LogManager.GetCurrentClassLogger();
 
+        /// <summary>
+        /// Initializes a new instance of the PublicApplicationController class.
+        /// </summary>
+        /// <param name="applicantService">An instance of the applicant service.</param>
+        /// <param name="jobOpeningService">An instance of the job opening service.</param>
+        /// <param name="characterReferenceService">An instance of the character reference service.</param>
         public PublicApplicationController(IApplicantService applicantService, IJobOpeningService jobOpeningService, ICharacterReferenceService characterReferenceService)
         {
             _applicantService = applicantService;
@@ -22,6 +28,11 @@ namespace Basecode.WebApp.Controllers
             _jobOpeningService = jobOpeningService;
         }
 
+        /// <summary>
+        /// Displays the application form for a specific job opening.
+        /// </summary>
+        /// <param name="jobOpeningId">The ID of the job opening.</param>
+        /// <returns>Returns a view with the application form.</returns>
         [HttpGet("/PublicApplication/Index/{jobOpeningId}")]
         public IActionResult Index(int jobOpeningId)
         {
@@ -40,6 +51,25 @@ namespace Basecode.WebApp.Controllers
             }
         }
 
+        /// <summary>
+        /// Submits a reference form for a job application.
+        /// </summary>
+        /// <param name="firstname"></param>
+        /// <param name="middlename"></param>
+        /// <param name="lastname"></param>
+        /// <param name="age"></param>
+        /// <param name="birthdate"></param>
+        /// <param name="gender"></param>
+        /// <param name="nationality"></param>
+        /// <param name="street"></param>
+        /// <param name="city"></param>
+        /// <param name="province"></param>
+        /// <param name="zip"></param>
+        /// <param name="phone"></param>
+        /// <param name="email"></param>
+        /// <param name="jobId"></param>
+        /// <param name="fileUpload"></param>
+        /// <returns>Returns a view with the reference form.</returns>
         public IActionResult Reference(string firstname,
                                        string middlename,
                                        string lastname,
@@ -111,6 +141,27 @@ namespace Basecode.WebApp.Controllers
             }
         }
 
+        /// <summary>
+        /// Displays the confirmation page for the submitted application.
+        /// </summary>
+        /// <param name="firstname"></param>
+        /// <param name="middlename"></param>
+        /// <param name="lastname"></param>
+        /// <param name="age"></param>
+        /// <param name="birthdate"></param>
+        /// <param name="gender"></param>
+        /// <param name="nationality"></param>
+        /// <param name="street"></param>
+        /// <param name="city"></param>
+        /// <param name="province"></param>
+        /// <param name="zip"></param>
+        /// <param name="phone"></param>
+        /// <param name="email"></param>
+        /// <param name="fileName"></param>
+        /// <param name="fileData"></param>
+        /// <param name="jobId"></param>
+        /// <param name="characterReferences"></param>
+        /// <returns>Returns a view with the confirmation page.</returns>
         public IActionResult Confirmation(string firstname,
                                           string middlename,
                                           string lastname,
@@ -164,6 +215,27 @@ namespace Basecode.WebApp.Controllers
             }
         }
 
+        /// <summary>
+        /// Creates a new applicant for a job opening.
+        /// </summary>
+        /// <param name="firstname"></param>
+        /// <param name="middlename"></param>
+        /// <param name="lastname"></param>
+        /// <param name="age"></param>
+        /// <param name="birthdate"></param>
+        /// <param name="gender"></param>
+        /// <param name="nationality"></param>
+        /// <param name="street"></param>
+        /// <param name="city"></param>
+        /// <param name="province"></param>
+        /// <param name="zip"></param>
+        /// <param name="phone"></param>
+        /// <param name="email"></param>
+        /// <param name="fileName"></param>
+        /// <param name="fileData"></param>
+        /// <param name="jobId"></param>
+        /// <param name="characterReferences"></param>
+        /// <returns>Returns a view.</returns>
         [HttpPost]
         public IActionResult Create(string firstname,
                                     string middlename,
