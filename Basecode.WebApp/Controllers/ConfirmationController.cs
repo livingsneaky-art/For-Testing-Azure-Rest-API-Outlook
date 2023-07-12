@@ -87,14 +87,17 @@ namespace Basecode.WebApp.Controllers
         }
 
         /// <summary>
-        /// Creates the applicant and character references based on the submitted data.
+        /// Creates a new applicant and character references, updates the application status, and sends email notifications.
         /// </summary>
-        /// <param name="applicant">The ApplicantViewModel object containing the applicant data.</param>
-        /// <param name="references">The list of CharacterReferenceViewModel objects containing the character reference data.</param>
-        /// <returns>The action result.</returns>
+        /// <param name="applicant">The applicant's information.</param>
+        /// <param name="references">A list of character references.</param>
+        /// <param name="applicantId">The ID of the applicant.</param>
+        /// <param name="newStatus">The new status to update.</param>
+        /// <returns>An asynchronous action result.</returns>
         [HttpPost]
-        public IActionResult Create(ApplicantViewModel applicant, List<CharacterReferenceViewModel> references)
+        public async Task<IActionResult> Create(ApplicantViewModel applicant, List<CharacterReferenceViewModel> references, int applicantId, string newStatus)
         {
+            newStatus = "Success";
             try
             {
                 var (data, createdApplicantId) = _applicantService.Create(applicant);
@@ -116,6 +119,9 @@ namespace Basecode.WebApp.Controllers
                             _logger.Trace(ErrorHandling.SetLog(logContent));
                         }
                     }
+                    // Send email notifications
+                    await _applicationService.UpdateApplicationStatus(createdApplicantId, newStatus);
+
                     return RedirectToAction("Index", "Job");
                 }
                 _logger.Trace(ErrorHandling.SetLog(data));
