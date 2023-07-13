@@ -70,7 +70,7 @@ namespace Basecode.Services.Services
                 {
                     JobOpeningId = applicant.JobOpeningId,
                     ApplicantId = createdApplicantId,
-                    Status = "Pending",
+                    Status = "For Screening",
                     ApplicationDate = DateTime.Now,
                     UpdateTime = DateTime.Now
                 };
