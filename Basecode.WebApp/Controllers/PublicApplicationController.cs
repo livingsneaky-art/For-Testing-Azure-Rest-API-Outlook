@@ -22,6 +22,7 @@ namespace Basecode.WebApp.Controllers
         /// <param name="applicantService">An instance of the applicant service.</param>
         /// <param name="jobOpeningService">An instance of the job opening service.</param>
         /// <param name="characterReferenceService">An instance of the character reference service.</param>
+        /// <param name="applicationService">An instance of the application serice </param>
         public PublicApplicationController(IApplicantService applicantService, IJobOpeningService jobOpeningService, ICharacterReferenceService characterReferenceService, IApplicationService applicationService)
         {
             _applicantService = applicantService;
