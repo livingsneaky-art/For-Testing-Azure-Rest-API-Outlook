@@ -21,6 +21,7 @@ namespace Basecode.Tests.Services
         private readonly Mock<IJobOpeningService> _fakeJobOpeningService;
         private readonly Mock<IApplicantService> _fakeApplicantService;
         private readonly Mock<IMapper> _fakeMapper;
+        private readonly Mock<IEmailService> _fakeEmailService = new Mock<IEmailService>();
 
         public ApplicationServiceTests()
         {
@@ -28,7 +29,7 @@ namespace Basecode.Tests.Services
             _fakeJobOpeningService = new Mock<IJobOpeningService>();
             _fakeApplicantService = new Mock<IApplicantService>();
             _fakeMapper = new Mock<IMapper>();
-            _service = new ApplicationService(_fakeApplicationRepository.Object, _fakeMapper.Object, _fakeJobOpeningService.Object, _fakeApplicantService.Object);
+            _service = new ApplicationService(_fakeApplicationRepository.Object, _fakeMapper.Object, _fakeJobOpeningService.Object, _fakeApplicantService.Object, _fakeEmailService.Object);
         }
 
         [Fact]

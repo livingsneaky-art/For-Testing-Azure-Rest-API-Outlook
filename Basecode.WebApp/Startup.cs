@@ -1,4 +1,7 @@
-﻿namespace Basecode.WebApp
+﻿using Basecode.Services.Interfaces;
+using Basecode.Services.Services;
+
+namespace Basecode.WebApp
 {
     public partial class Startup
     {
@@ -21,6 +24,7 @@
 
             // Add services to the container.
             services.AddControllersWithViews();
+            services.AddScoped<IEmailService, EmailService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

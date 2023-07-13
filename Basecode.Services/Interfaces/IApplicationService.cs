@@ -32,5 +32,11 @@ namespace Basecode.Services.Interfaces
         /// </summary>
         /// <param name="application">The application.</param>
         LogContent Update(Application application);
+
+        /// <summary>
+        /// Updates the applicant application status
+        /// </summary>
+        /// <param name="application">The application.</param>
+        Task UpdateApplicationStatus(int applicantId, string newStatus);
     }
 }

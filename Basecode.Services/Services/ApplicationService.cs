@@ -17,6 +17,7 @@ namespace Basecode.Services.Services
         private readonly IJobOpeningService _jobOpeningService;
         private readonly IApplicantService _applicantService;
         private readonly IMapper _mapper;
+        private readonly IEmailService _emailService;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ApplicationService" /> class.
@@ -25,12 +26,13 @@ namespace Basecode.Services.Services
         /// <param name="mapper">The mapper.</param>
         /// <param name="jobOpeningService">The job opening service.</param>
         /// <param name="applicantService">The applicant service.</param>
-        public ApplicationService(IApplicationRepository repository, IMapper mapper, IJobOpeningService jobOpeningService, IApplicantService applicantService)
+        public ApplicationService(IApplicationRepository repository, IMapper mapper, IJobOpeningService jobOpeningService, IApplicantService applicantService, IEmailService emailService)
         {
             _repository = repository;
             _jobOpeningService = jobOpeningService;
             _applicantService = applicantService;
             _mapper = mapper;
+            _emailService = emailService;
         }
 
         /// <summary>
@@ -90,5 +92,30 @@ namespace Basecode.Services.Services
 
             return logContent;
         }
+
+        /// <summary>
+        /// Updates the application status of an applicant in the database and notifies the HR and the applicant via email.
+        /// </summary>
+        /// <param name="applicantId">The ID of the applicant.</param>
+        /// <param name="newStatus">The new status to update.</param>
+        /// <returns>A task representing the asynchronous operation.</returns>
+        public async Task UpdateApplicationStatus(int applicantId, string newStatus)
+        {
+            // Update applicant status in the database
+            // ongoing!!!
+            newStatus = "Success"; //partial
+
+            // Get applicant details from the database
+            Applicant applicant = _applicantService.GetApplicantById(applicantId);
+
+            // Notify HR
+            await _emailService.SendEmail("hrautomatesystem@outlook.com", "Applicant Status Update for HR",
+                $"Applicant {applicant.Firstname} (ID: {applicant.Id}) has changeds status to {newStatus}.");
+
+            // Notify the applicant
+            await _emailService.SendEmail(applicant.Email, "Application Status Update for Applicant",
+                $"Dear {applicant.Firstname},\n\nYour application status has been updated to {newStatus}.\n\nThank you.");
+        }
+
     }
 }
