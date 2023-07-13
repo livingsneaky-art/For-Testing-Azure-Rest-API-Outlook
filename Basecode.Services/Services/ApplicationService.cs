@@ -94,7 +94,12 @@ namespace Basecode.Services.Services
             return logContent;
         }
 
-
+        /// <summary>
+        /// Updates the application status of an applicant in the database and notifies the HR and the applicant via email.
+        /// </summary>
+        /// <param name="applicantId">The ID of the applicant.</param>
+        /// <param name="newStatus">The new status to update.</param>
+        /// <returns>A task representing the asynchronous operation.</returns>
         public async Task UpdateApplicationStatus(int applicantId, string newStatus)
         {
             // Update applicant status in the database
