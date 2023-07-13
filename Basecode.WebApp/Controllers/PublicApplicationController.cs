@@ -240,7 +240,7 @@ namespace Basecode.WebApp.Controllers
         /// <param name="characterReferences"></param>
         /// <returns>Returns a view.</returns>
         [HttpPost]
-        public IActionResult Create(string firstname,
+        public async Task<IActionResult> Create(string firstname,
                                     string middlename,
                                     string lastname,
                                     string age,
@@ -256,8 +256,9 @@ namespace Basecode.WebApp.Controllers
                                     string fileName,
                                     byte[] fileData,
                                     int jobId,
-                                    List<CharacterReferenceViewModel> characterReferences)
+                                    List<CharacterReferenceViewModel> characterReferences, int applicantId, string newStatus)
         {
+            newStatus = "Success";
             try
             {
                 _logger.Trace("jobId: " + jobId);
@@ -287,6 +288,10 @@ namespace Basecode.WebApp.Controllers
                     if (!logContent.Result)
                     {
                         _logger.Trace("Create Applicant successfully.");
+
+                        // Send email notifications
+                        await _applicationService.UpdateApplicationStatus(createdApplicantId, newStatus);
+
                         return RedirectToAction("Index", "Job");
                     }
                     _logger.Trace(ErrorHandling.SetLog(logContent));
