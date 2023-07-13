@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Basecode.Services.Interfaces
 {
-    internal class IEmailService
+    public interface IEmailService
     {
+        Task SendEmail(string recipient, string subject, string body);
     }
 }
