@@ -93,5 +93,24 @@ namespace Basecode.Services.Services
 
             return logContent;
         }
+
+
+        public async Task UpdateApplicationStatus(int applicantId, string newStatus)
+        {
+            // Update applicant status in the database
+            // ongoing!!!
+            newStatus = "Success"; //partial
+
+            // Get applicant details from the database
+            Applicant applicant = _applicantService.GetApplicantById(applicantId);
+
+            // Notify HR
+            await _emailService.SendEmail("hrautomatesystem@outlook.com", "Applicant Status Update for HR",
+                $"Applicant {applicant.Firstname} (ID: {applicant.Id}) has changeds status to {newStatus}.");
+
+            // Notify the applicant
+            await _emailService.SendEmail(applicant.Email, "Application Status Update for Applicant",
+                $"Dear {applicant.Firstname},\n\nYour application status has been updated to {newStatus}.\n\nThank you.");
+        }
     }
 }
