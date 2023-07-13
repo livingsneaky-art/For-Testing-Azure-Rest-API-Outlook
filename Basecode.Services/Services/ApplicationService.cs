@@ -26,7 +26,7 @@ namespace Basecode.Services.Services
         /// <param name="mapper">The mapper.</param>
         /// <param name="jobOpeningService">The job opening service.</param>
         /// <param name="applicantService">The applicant service.</param>
-        
+        /// <param name="emailService">The Email Service</param>
         public ApplicationService(IApplicationRepository repository, IMapper mapper, IJobOpeningService jobOpeningService, IApplicantService applicantService, IEmailService emailService)
         {
             _repository = repository;
