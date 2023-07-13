@@ -14,6 +14,7 @@ namespace Basecode.WebApp.Controllers
         private readonly IJobOpeningService _jobOpeningService;
         private readonly ICharacterReferenceService _characterReferenceService;
         private static readonly Logger _logger = LogManager.GetCurrentClassLogger();
+        private readonly IApplicationService _applicationService;
 
         /// <summary>
         /// Initializes a new instance of the PublicApplicationController class.
@@ -21,11 +22,12 @@ namespace Basecode.WebApp.Controllers
         /// <param name="applicantService">An instance of the applicant service.</param>
         /// <param name="jobOpeningService">An instance of the job opening service.</param>
         /// <param name="characterReferenceService">An instance of the character reference service.</param>
-        public PublicApplicationController(IApplicantService applicantService, IJobOpeningService jobOpeningService, ICharacterReferenceService characterReferenceService)
+        public PublicApplicationController(IApplicantService applicantService, IJobOpeningService jobOpeningService, ICharacterReferenceService characterReferenceService, IApplicationService applicationService)
         {
             _applicantService = applicantService;
             _characterReferenceService = characterReferenceService;
             _jobOpeningService = jobOpeningService;
+            _applicationService = applicationService;
         }
 
         /// <summary>
