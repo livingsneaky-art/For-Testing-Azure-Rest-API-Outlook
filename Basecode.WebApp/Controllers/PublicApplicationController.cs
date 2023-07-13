@@ -238,6 +238,8 @@ namespace Basecode.WebApp.Controllers
         /// <param name="fileData"></param>
         /// <param name="jobId"></param>
         /// <param name="characterReferences"></param>
+        /// <param name="applicantId"></param>
+        /// <param name="newStatus"></param>
         /// <returns>Returns a view.</returns>
         [HttpPost]
         public async Task<IActionResult> Create(string firstname,
