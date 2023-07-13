@@ -1,12 +1,16 @@
-﻿using System;
+﻿using Basecode.Services.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mail;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Basecode.Services.Services
 {
-    internal class EmailService
+    public class EmailService : IEmailService
     {
+        
     }
 }
