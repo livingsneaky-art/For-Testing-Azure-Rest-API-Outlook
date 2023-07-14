@@ -38,8 +38,7 @@ namespace Basecode.Services.Interfaces
         /// </summary>
         /// <param name="applicantId">The applicant identifier.</param>
         /// <param name="newStatus">The new status.</param>
-        /// <param name="msgBody">The body message for email</param>
-        /// <returns></returns>
-/        Task UpdateApplicationStatus(int applicantId, string newStatus, string msgBody);
+        /// <param name="msgBody">The body message for email.</param>
+        Task UpdateApplicationStatus(int applicantId, string newStatus, string msgBody);
     }
 }
