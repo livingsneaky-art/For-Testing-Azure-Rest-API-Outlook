@@ -43,5 +43,20 @@ namespace Basecode.Services.Services
 
             return logContent;
         }
+
+        public List<CharacterReference> GetReferencesByApplicantId(int applicantId) 
+        {
+            var data = _repository.GetAll()
+                .Where(m => m.ApplicantId == applicantId)
+                .Select(m => new CharacterReference
+                {
+                    Id = m.Id,
+                    Name = m.Name,
+                    Address = m.Address,
+                    Email = m.Email
+                }).ToList();
+
+            return data;
+        }
     }
 }

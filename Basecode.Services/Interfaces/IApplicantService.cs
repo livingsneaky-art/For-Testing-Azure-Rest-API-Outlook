@@ -23,10 +23,10 @@ namespace Basecode.Services.Interfaces
         Applicant GetApplicantById(int id);
 
         /// <summary>
-        /// Creates a new applicant.
+        /// Creates a new applicant based on the provided applicant data.
         /// </summary>
-        /// <param name="applicant">The ApplicantViewModel object containing the applicant data.</param>
-        /// <returns>A tuple containing a LogContent object and the ID of the created applicant.</returns>
+        /// <param name="applicant"></param>
+        /// <returns>Returns a tuple with the log content and the ID of the created applicant.</returns>
         (LogContent, int) Create(ApplicantViewModel applicant);
     }
 }

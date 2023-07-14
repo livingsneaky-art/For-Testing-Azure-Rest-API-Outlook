@@ -38,5 +38,6 @@ namespace Basecode.Data.ViewModels
         /// Gets or sets the update time of the application.
         /// </summary>
         public DateTime UpdateTime { get; set; }
+
     }
 }

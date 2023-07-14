@@ -21,5 +21,10 @@ namespace Basecode.Data.Repositories
             _context.CharacterReference.Add(characterReference);
             _context.SaveChanges();
         }
+
+        public IQueryable<CharacterReference> GetAll()
+        {
+            return this.GetDbSet<CharacterReference>();
+        }
     }
 }

@@ -2,6 +2,7 @@
 using Basecode.Services.Interfaces;
 using Basecode.Services.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using NLog;
 
 namespace Basecode.WebApp.Controllers
@@ -29,6 +30,12 @@ namespace Basecode.WebApp.Controllers
             try
             {
                 List<Applicant> applicants = _applicantService.GetApplicants();
+                if(applicants.IsNullOrEmpty())
+                {
+                    _logger.Trace("Applicant List is null or empty.");
+                    return View(applicants);
+                }
+                _logger.Trace("Applicants List is rendered successfully.");
                 return View(applicants);
             }
             catch (Exception e)
