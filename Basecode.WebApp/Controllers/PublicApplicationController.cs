@@ -16,13 +16,6 @@ namespace Basecode.WebApp.Controllers
         private static readonly Logger _logger = LogManager.GetCurrentClassLogger();
         private readonly IApplicationService _applicationService;
 
-        public PublicApplicationController(IApplicantService applicantService, IJobOpeningService jobOpeningService, ICharacterReferenceService characterReferenceService)
-        {
-            _applicantService = applicantService;
-            _characterReferenceService = characterReferenceService;
-            _jobOpeningService = jobOpeningService;
-        }
-
         /// <summary>
         /// Initializes a new instance of the PublicApplicationController class.
         /// </summary>
