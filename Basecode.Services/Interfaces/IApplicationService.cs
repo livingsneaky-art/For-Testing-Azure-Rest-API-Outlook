@@ -37,6 +37,6 @@ namespace Basecode.Services.Interfaces
         /// Updates the applicant application status
         /// </summary>
         /// <param name="application">The application.</param>
-        Task UpdateApplicationStatus(int applicantId, string newStatus);
+        Task UpdateApplicationStatus(int applicantId, string newStatus, string msgBody);
     }
 }

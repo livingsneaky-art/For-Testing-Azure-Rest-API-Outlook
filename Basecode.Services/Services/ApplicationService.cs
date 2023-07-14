@@ -100,7 +100,7 @@ namespace Basecode.Services.Services
         /// <param name="applicantId">The ID of the applicant.</param>
         /// <param name="newStatus">The new status to update.</param>
         /// <returns>A task representing the asynchronous operation.</returns>
-        public async Task UpdateApplicationStatus(int applicantId, string newStatus)
+        public async Task UpdateApplicationStatus(int applicantId, string newStatus, string msgBody)
         {
             // Update applicant status in the database
             // ongoing!!!
