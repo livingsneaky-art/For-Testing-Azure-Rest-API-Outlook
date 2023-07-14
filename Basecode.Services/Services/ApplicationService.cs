@@ -104,7 +104,6 @@ namespace Basecode.Services.Services
         {
             // Update applicant status in the database
             // ongoing!!!
-            // Notify the applicant
 
             // Get applicant details from the database
             Applicant applicant = _applicantService.GetApplicantById(applicantId);
@@ -118,8 +117,7 @@ namespace Basecode.Services.Services
             {
                 case "Success":
                     {
-                        //to be changed
-                        await _emailService.SendEmail("hrautomatesystem@outlook.com", "Applicant Status Update for Applicant",
+                        await _emailService.SendEmail(applicant.Email, "Applicant Status Update for Applicant",
                         $"Dear {applicant.Firstname} <br> (ID: {applicant.Id}) <br><br> {msgBody} <br><br> status: {newStatus}.");
                     }
                     break;
@@ -127,7 +125,7 @@ namespace Basecode.Services.Services
                     {
                         var redirectLink = "https://localhost:50991/Home";
                         await _emailService.SendEmail(applicant.Email, "Applicant Status Update for Applicant",
-                        $"<b>Dear {applicant.Firstname},</b> <br> (ID: {applicant.Id}) <br><br> {msgBody} <br><br> <b>Status:</b> {newStatus}. " +
+                        $"<b>Dear {applicant.Firstname},</b> <br><br> {msgBody} <br><br> <b>Status:</b> {newStatus}. " +
                         $"<br><br> <em>This is an automated messsage. Do not reply</em> <br><br> <a href=\"{redirectLink}\" " +
                         $"style=\"background-color: #FF0000; border: none; color: white; padding: 10px 24px; text-align: center; text-decoration: underline; " +
                         $"display: inline-block; font-size: 14px; margin: 4px 2px; cursor: pointer;\">Visit Alliance</a>");
