@@ -99,6 +99,7 @@ namespace Basecode.Services.Services
         /// </summary>
         /// <param name="applicantId">The ID of the applicant.</param>
         /// <param name="newStatus">The new status to update.</param>
+        /// <param name="msgBody">The body message for email</param>
         /// <returns>A task representing the asynchronous operation.</returns>
         public async Task UpdateApplicationStatus(int applicantId, string newStatus, string msgBody)
         {
