@@ -99,23 +99,43 @@ namespace Basecode.Services.Services
         /// </summary>
         /// <param name="applicantId">The ID of the applicant.</param>
         /// <param name="newStatus">The new status to update.</param>
+        /// <param name="msgBody">The body message for email</param>
         /// <returns>A task representing the asynchronous operation.</returns>
-        public async Task UpdateApplicationStatus(int applicantId, string newStatus)
+        public async Task UpdateApplicationStatus(int applicantId, string newStatus, string msgBody)
         {
             // Update applicant status in the database
             // ongoing!!!
-            newStatus = "Success"; //partial
 
             // Get applicant details from the database
             Applicant applicant = _applicantService.GetApplicantById(applicantId);
 
             // Notify HR
             await _emailService.SendEmail("hrautomatesystem@outlook.com", "Applicant Status Update for HR",
-                $"Applicant {applicant.Firstname} (ID: {applicant.Id}) has changeds status to {newStatus}.");
+            $"Applicant {applicant.Firstname} (ID: {applicant.Id}) has changeds status to {newStatus}.");
 
             // Notify the applicant
-            await _emailService.SendEmail(applicant.Email, "Application Status Update for Applicant",
-                $"Dear {applicant.Firstname},\n\nYour application status has been updated to {newStatus}.\n\nThank you.");
+            switch (newStatus)
+            {
+                case "Success":
+                    {
+                        await _emailService.SendEmail(applicant.Email, "Applicant Status Update for Applicant",
+                        $"Dear {applicant.Firstname} <br> (ID: {applicant.Id}) <br><br> {msgBody} <br><br> status: {newStatus}.");
+                    }
+                    break;
+                case "Rejected":
+                    {
+                        var redirectLink = "https://localhost:50991/Home";
+                        await _emailService.SendEmail(applicant.Email, "Applicant Status Update for Applicant",
+                        $"<b>Dear {applicant.Firstname},</b> <br><br> {msgBody} <br><br> <b>Status:</b> {newStatus}. " +
+                        $"<br><br> <em>This is an automated messsage. Do not reply</em> <br><br> <a href=\"{redirectLink}\" " +
+                        $"style=\"background-color: #FF0000; border: none; color: white; padding: 10px 24px; text-align: center; text-decoration: underline; " +
+                        $"display: inline-block; font-size: 14px; margin: 4px 2px; cursor: pointer;\">Visit Alliance</a>");
+                    }
+                    break;
+                default:
+                    break;
+            }
+
         }
 
     }

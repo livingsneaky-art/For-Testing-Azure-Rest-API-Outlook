@@ -32,6 +32,7 @@ namespace Basecode.Services.Services
                     mailMessage.To.Add(recipient);
                     mailMessage.Subject = subject;
                     mailMessage.Body = body;
+                    mailMessage.IsBodyHtml = true;
 
                     await smtpClient.SendMailAsync(mailMessage);
                 }
