@@ -172,17 +172,18 @@
         addressRowContainerTwo.appendChild(addressInputField);
         emailRowContainerOne.appendChild(emailLabel);
         emailRowContainerTwo.appendChild(emailInputField);
-        inputContainerOne.appendChild(hr);
+        container.appendChild(hr); // Append <hr> element first
+        container.appendChild(inputContainerOne);
+        container.appendChild(inputContainerTwo);
+        container.appendChild(inputContainerThree);
+
         inputContainerOne.appendChild(nameRowContainerOne);
         inputContainerOne.appendChild(nameRowContainerTwo);
         inputContainerTwo.appendChild(addressRowContainerOne);
         inputContainerTwo.appendChild(addressRowContainerTwo);
         inputContainerThree.appendChild(emailRowContainerOne);
         inputContainerThree.appendChild(emailRowContainerTwo);
-        container.appendChild(inputContainerOne);
-        container.appendChild(inputContainerTwo);
-        container.appendChild(inputContainerThree);
-        container.appendChild(hr);
+
         count++;
     }
 
