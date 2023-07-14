@@ -292,7 +292,11 @@ namespace Basecode.WebApp.Controllers
                         _logger.Trace("Create Applicant successfully.");
 
                         // Send email notifications
-                        await _applicationService.UpdateApplicationStatus(createdApplicantId, newStatus);
+                        await _applicationService.UpdateApplicationStatus(
+                            createdApplicantId, 
+                            newStatus, 
+                            "Thank you for submitting your application. We have received it successfully and " +
+                            "appreciate your interest in joining our team.");
 
                         return RedirectToAction("Index", "Job");
                     }
