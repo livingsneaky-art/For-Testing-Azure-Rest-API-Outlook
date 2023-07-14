@@ -118,8 +118,15 @@ namespace Basecode.Services.Services
             {
                 case "Success":
                     {
-                        await _emailService.SendEmail(applicant.Email, "Applicant Status Update for Applicant",
-                        $"Dear {applicant.Firstname} <br> (ID: {applicant.Id}) <br><br> {msgBody} <br><br> status: {newStatus}.");
+                        var templatePath = Path.Combine("wwwroot", "template", "mailtemplate.html");
+                        var templateContent = System.IO.File.ReadAllText(templatePath);
+                        var body = templateContent
+                            .Replace("{{HEADER_LINK}}", "https://zimmergren.net")
+                            .Replace("{{HEADER_LINK_TEXT}}", "HR Automation System")
+                            .Replace("{{HEADLINE}}", "Applicant Status")
+                            .Replace("{{BODY}}", $"Dear {applicant.Firstname},<br> Application [{applicant.Id}] has changed its status. <br> Current Status: {newStatus}");
+
+                        await _emailService.SendEmail(applicant.Email, "Alliance Software Inc. Applicant Status Update", body);
                     }
                     break;
                 case "Rejected":
