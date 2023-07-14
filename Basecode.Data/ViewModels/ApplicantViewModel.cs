@@ -46,11 +46,22 @@ namespace Basecode.Data.ViewModels
         public string Zip { get; set; }
 
         [Required(ErrorMessage = "Phone is required.")]
+        [StringLength(11, ErrorMessage = "Phone must be 11 numbers long.")]
         public string Phone { get; set; }
 
         [Required(ErrorMessage = "Email is required.")]
+        [EmailAddress(ErrorMessage = "Invalid email format.")]
         public string Email { get; set; }
 
-        public List<CharacterReference> CharacterReferences { get; set; }
+        [Required(ErrorMessage = "CV is required.")]
+        public byte[] CV { get; set; }
+
+        [Required(ErrorMessage = "At least one character reference is required.")]
+        public List<CharacterReferenceViewModel> CharacterReferences { get; set; }
+
+        public Application Application { get; set; }
+
+        public int JobOpeningId { get; set; }
+
     }
 }

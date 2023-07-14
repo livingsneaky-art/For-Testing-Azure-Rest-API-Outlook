@@ -6,19 +6,35 @@ on:
   pull_request:
     branches: ["master", "develop"]
 
+env:
+  env-file: env.yml
+
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
       - name: Setup .NET
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: 7.0.x
+
       - name: Restore dependencies
         run: dotnet restore ./Basecode.sln
+
       - name: Build
         run: dotnet build ./Basecode.sln --configuration Release --no-restore
+
       - name: Test
         run: dotnet test ./Basecode.sln --verbosity normal
+
+      - name: Configure DI container
+        run: echo "Environment file is loaded"
+
+      - name: Update ApplicationService DI configuration
+        run: |
+          sed -i 's/IEmailService emailService/IEmailService emailService = null/g' ./Basecode.Services/Services/ApplicationService.cs
+          sed -i 's/ emailService;/ /g' ./Basecode.Services/Services/ApplicationService.cs

@@ -16,15 +16,17 @@ namespace Basecode.Services.Services
     public class ApplicantService : IApplicantService
     {
         private readonly IApplicantRepository _repository;
+        private readonly IApplicationRepository _applicationRepository;
         private readonly IMapper _mapper;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ApplicantService"/> class.
         /// </summary>
         /// <param name="repository">The repository.</param>
-        public ApplicantService(IApplicantRepository repository, IMapper mapper)
+        public ApplicantService(IApplicantRepository repository, IApplicationRepository applicationRepository, IMapper mapper)
         {
             _repository = repository;
+            _applicationRepository = applicationRepository;
             _mapper = mapper;
         }
 
@@ -48,25 +50,35 @@ namespace Basecode.Services.Services
         }
 
         /// <summary>
-        /// Creates a new applicant.
+        /// Creates a new applicant based on the provided applicant data.
         /// </summary>
-        /// <param name="applicant">The ApplicantViewModel object containing the applicant data.</param>
-        /// <returns>A tuple containing a LogContent object and the ID of the created applicant.</returns>
+        /// <param name="applicant"></param>
+        /// <returns>Returns a tuple with the log content and the ID of the created applicant.</returns>
         public (LogContent, int) Create(ApplicantViewModel applicant)
         {
             LogContent logContent = new LogContent();
+            int createdApplicantId = 0;
 
             logContent = CheckApplicant(applicant);
             if (logContent.Result == false)
             {
                 var applicantModel = _mapper.Map<Applicant>(applicant);
 
-                int createdApplicantId = _repository.CreateApplicant(applicantModel);
+                createdApplicantId = _repository.CreateApplicant(applicantModel);
 
-                return (logContent, createdApplicantId);
+                var application = new Application
+                {
+                    JobOpeningId = applicant.JobOpeningId,
+                    ApplicantId = createdApplicantId,
+                    Status = "For Screening",
+                    ApplicationDate = DateTime.Now,
+                    UpdateTime = DateTime.Now
+                };
+
+                _applicationRepository.CreateApplication(application);
             }
 
-            return (logContent, -1);
+            return (logContent, createdApplicantId);
         }
     }
 }
