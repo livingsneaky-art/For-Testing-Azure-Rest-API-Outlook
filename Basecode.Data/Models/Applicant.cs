@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualBasic;
+﻿using Basecode.Data.ViewModels;
+using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,5 +38,7 @@ namespace Basecode.Data.Models
         public byte[] CV { get; set; }
 
         public List<CharacterReference> CharacterReferences { get; set; }
+
+        public Application Application { get; set; }
     }
 }
