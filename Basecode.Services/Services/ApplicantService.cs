@@ -38,6 +38,14 @@ namespace Basecode.Services.Services
         {
             return _repository.GetAll().ToList();
         }
+        public List<ApplicantViewModel> GetApplicant()
+        {
+            var data = _repository.GetAll()
+                .Select(m => _mapper.Map<ApplicantViewModel>(m))
+                .ToList();
+
+            return data;
+        }
 
         /// <summary>
         /// Retrieves an applicant by its ID.

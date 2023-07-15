@@ -1,4 +1,5 @@
 ﻿using Basecode.Data.Models;
+using Basecode.Data.ViewModels;
 using Basecode.Services.Interfaces;
 using Basecode.Services.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -29,13 +30,22 @@ namespace Basecode.WebApp.Controllers
         {
             try
             {
-                List<Applicant> applicants = _applicantService.GetApplicants();
+                var applicants = _applicantService.GetApplicant();
                 if(applicants.IsNullOrEmpty())
                 {
                     _logger.Trace("Applicant List is null or empty.");
                     return View(applicants);
                 }
                 _logger.Trace("Applicants List is rendered successfully.");
+
+                // Convert the Applicant model to ApplicantViewModel
+                //List<ApplicantViewModel> applicantViewModels = applicants.Select(applicant => new ApplicantViewModel
+                //{
+                //    Id = applicant.Id,
+                //    Firstname = applicant.Firstname,
+                //    // Map other properties as needed
+                //}).ToList();
+
                 return View(applicants);
             }
             catch (Exception e)

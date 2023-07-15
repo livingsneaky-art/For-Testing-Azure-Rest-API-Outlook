@@ -1,4 +1,6 @@
-﻿@{
+﻿@using Basecode.Data.ViewModels;
+@model List<ApplicantViewModel>
+@{
     Layout = "/Views/Shared/_Admin.cshtml";
 
     // Dummy data
@@ -81,15 +83,15 @@
                 </thead>
                 <tbody>
                     <!-- Add the table rows -->
-                    @foreach (var user in users)
+                    @foreach (var applicant in Model)
                     {
                         <tr>
-                            <td>@user.UserId</td>
-                            <td>@user.Name</td>
-                            <td>@user.Job</td>
-                            <td>@user.Position</td>
-                            <td>@user.Date</td>
-                            <td style="color: @GetStatusColor(user.Status);">@user.Status</td>
+                            <td>@applicant.Id</td>
+                            <td>@applicant.Firstname</td>
+                            <td>Job</td>
+                            <td>Position</td>
+                            <td>Date</td>
+                            <td>Status</td>
                         </tr>
                     }
                 </tbody>

@@ -15,6 +15,8 @@ namespace Basecode.Services.Interfaces
         /// <returns>A list of Applicant objects.</returns>
         List<Applicant> GetApplicants();
 
+        List<ApplicantViewModel> GetApplicant();
+
         /// <summary>
         /// Retrieves an applicant by its ID.
         /// </summary>
