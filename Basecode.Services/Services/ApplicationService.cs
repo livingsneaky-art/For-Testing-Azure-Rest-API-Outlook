@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
+using Basecode.Data;
 using Basecode.Data.Interfaces;
 using Basecode.Data.Models;
 using Basecode.Data.ViewModels;
 using Basecode.Services.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +20,7 @@ namespace Basecode.Services.Services
         private readonly IApplicantService _applicantService;
         private readonly IMapper _mapper;
         private readonly IEmailService _emailService;
+        private readonly BasecodeContext _context;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ApplicationService" /> class.
@@ -27,13 +30,14 @@ namespace Basecode.Services.Services
         /// <param name="jobOpeningService">The job opening service.</param>
         /// <param name="applicantService">The applicant service.</param>
         /// <param name="emailService">The Email Service</param>
-        public ApplicationService(IApplicationRepository repository, IMapper mapper, IJobOpeningService jobOpeningService, IApplicantService applicantService, IEmailService emailService)
+        public ApplicationService(IApplicationRepository repository, IMapper mapper, IJobOpeningService jobOpeningService, IApplicantService applicantService, IEmailService emailService, BasecodeContext context)
         {
             _repository = repository;
             _jobOpeningService = jobOpeningService;
             _applicantService = applicantService;
             _mapper = mapper;
             _emailService = emailService;
+            _context = context;
         }
 
         /// <summary>
@@ -43,6 +47,17 @@ namespace Basecode.Services.Services
         public void Create(Application application)
         {
             _repository.CreateApplication(application);
+        }
+
+        public Application GetApplicationsById(int applicantId)
+        {
+            return _context.Application.FirstOrDefault(app => app.ApplicantId == applicantId);
+        }
+
+        public void UpdateApplication(Application application)
+        {
+            _context.Update(application);
+            _context.SaveChanges();
         }
 
         /// <summary>

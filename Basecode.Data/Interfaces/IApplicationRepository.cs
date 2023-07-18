@@ -19,6 +19,8 @@ namespace Basecode.Data.Interfaces
         /// <returns>The application with the specified ID, or null if not found.</returns>
         Application GetById(Guid id);
 
+        Application GetApplicationById(int id);
+
         /// <summary>
         /// Creates a new application entry.
         /// </summary>

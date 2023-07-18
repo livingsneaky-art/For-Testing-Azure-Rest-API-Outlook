@@ -29,6 +29,11 @@ namespace Basecode.Data.Repositories
             return _context.Application.Find(id);
         }
 
+        public Application GetApplicationById(int id)
+        {
+            return _context.Application.Find(id);
+        }
+
         public void UpdateApplication(Application application)
         {
             _context.Application.Update(application);

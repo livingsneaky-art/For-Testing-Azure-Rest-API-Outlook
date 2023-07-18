@@ -1,5 +1,6 @@
 ﻿using Basecode.Data.Interfaces;
 using Basecode.Data.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +20,10 @@ namespace Basecode.Data.Repositories
 
         public IQueryable<Applicant> GetAll()
         {
-            return this.GetDbSet<Applicant>();
+            var applicants = this.GetDbSet<Applicant>()
+                .Include(c => c.Applications);
+            return applicants;
+            //return this.GetDbSet<Applicant>();
         }
 
         public Applicant GetById(int id)

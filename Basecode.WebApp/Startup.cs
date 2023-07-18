@@ -1,5 +1,7 @@
 ﻿using Basecode.Services.Interfaces;
 using Basecode.Services.Services;
+using Hangfire;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Basecode.WebApp
 {
@@ -25,6 +27,15 @@ namespace Basecode.WebApp
             // Add services to the container.
             services.AddControllersWithViews();
             services.AddScoped<IEmailService, EmailService>();
+            services.AddScoped<IHrScheduler, HRScheduler>();
+            // Use the correct SQL Server connection string here
+            string connectionString = "Server=(localdb)\\MSSQLLocalDB;Database=BaseCodeDB;Trusted_Connection=True;MultipleActiveResultSets=true";
+
+            // Add Hangfire services with SQL Server storage
+            services.AddHangfire(configuration => configuration.UseSqlServerStorage(connectionString));
+
+            // Add Hangfire server to process background jobs
+            services.AddHangfireServer();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -50,6 +61,10 @@ namespace Basecode.WebApp
 
             app.UseAuthorization();
             this.ConfigureAuth(app);        // Configuration for Token Authentication
+
+            // Use Hangfire dashboard
+            app.UseHangfireDashboard();
+
         }
     }
 }
