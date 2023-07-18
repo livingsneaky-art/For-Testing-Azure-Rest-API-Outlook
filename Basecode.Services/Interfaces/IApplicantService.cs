@@ -30,5 +30,6 @@ namespace Basecode.Services.Interfaces
         /// <param name="applicant"></param>
         /// <returns>Returns a tuple with the log content and the ID of the created applicant.</returns>
         (LogContent, int) Create(ApplicantViewModel applicant);
+      
     }
 }

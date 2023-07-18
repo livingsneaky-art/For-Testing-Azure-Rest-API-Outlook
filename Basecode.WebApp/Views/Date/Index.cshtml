@@ -77,10 +77,8 @@
                         <th>Name</th>
                         <th>Job</th>
                         <th>Position</th>
-                        <th>Application Date</th>
+                        <th>Date</th>
                         <th>Status</th>
-                        <th>Next Process</th>
-                        <th>Date Picker</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -94,36 +92,33 @@
                             <td>Position</td>
                             <td>@applicant.Applications[0].ApplicationDate</td>
                             <td>@applicant.Applications[0].Status</td>
-                            <td>@applicant.Applications[0].UpdateTime</td>
                             <!-- Calendar button -->
-                            <td><button class="calendar-btn" data-applicant-id="@applicant.Id">Pick Date</button></td>
+                            <td><button class="calendar-btn">Pick Date</button></td>
                         </tr>
                     }
-
-
                 </tbody>
             </table>
         </div>
     </div>
-</div>
-
-<!-- Calendar Modal -->
-<div class="modal" id="calendarModal">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Pick a Date</h5>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-            <div class="modal-body">
-                <!-- Calendar input -->
-                <input type="text" class="datepicker form-control">
-            </div>
-            <div class="modal-footer">
-                <!-- Add an ID to the Save button -->
-                <button type="button" class="btn btn-primary" id="saveDateBtn">Save</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+    <!-- Calendar Modal -->
+    <div class="modal" id="calendarModal" style="z-index: 1050;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Pick a Date</h5>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <!-- Calendar input -->
+                    <input type="text" class="datepicker">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Save</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                </div>
             </div>
         </div>
     </div>
+    
 </div>
+

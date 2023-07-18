@@ -2,6 +2,7 @@
 using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,6 +10,7 @@ using System.Xml;
 
 namespace Basecode.Data.Models
 {
+    [Table("Applicant")]
     public class Applicant
     {
         public int Id { get; set; }
@@ -39,6 +41,6 @@ namespace Basecode.Data.Models
 
         public List<CharacterReference> CharacterReferences { get; set; }
 
-        public Application Application { get; set; }
+        public ICollection<Application> Applications { get; set; }
     }
 }

@@ -59,7 +59,7 @@ namespace Basecode.Data.ViewModels
         [Required(ErrorMessage = "At least one character reference is required.")]
         public List<CharacterReferenceViewModel> CharacterReferences { get; set; }
 
-        public Application Application { get; set; }
+        public List<Application> Applications { get; set; }
 
         public int JobOpeningId { get; set; }
 

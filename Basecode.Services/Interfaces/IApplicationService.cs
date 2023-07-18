@@ -27,6 +27,9 @@ namespace Basecode.Services.Interfaces
         /// <param name="application">The application.</param>
         void Create(Application application);
 
+
+        Application GetApplicationsById(int id);
+        void UpdateApplication(Application application);
         /// <summary>
         /// Updates the specified application.
         /// </summary>
@@ -40,5 +43,7 @@ namespace Basecode.Services.Interfaces
         /// <param name="newStatus">The new status.</param>
         /// <param name="msgBody">The body message for email.</param>
         Task UpdateApplicationStatus(int applicantId, string newStatus, string msgBody);
+
+        
     }
 }
