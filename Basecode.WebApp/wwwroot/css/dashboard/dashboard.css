@@ -181,3 +181,6 @@
     }
 }
 
+.highlighted {
+    background-color: yellow !important;
+}

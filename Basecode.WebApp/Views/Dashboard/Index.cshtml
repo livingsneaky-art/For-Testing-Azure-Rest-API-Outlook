@@ -87,14 +87,14 @@
                     <!-- Add the table rows -->
                     @foreach (var applicant in Model)
                     {
-                        <tr>
+                        <tr data-application-id="@applicant.Id">
                             <td>@applicant.Id</td>
                             <td>@applicant.Firstname</td>
                             <td>Job</td>
                             <td>Position</td>
                             <td>@applicant.Applications[0].ApplicationDate</td>
                             <td>@applicant.Applications[0].Status</td>
-                            <td>@applicant.Applications[0].UpdateTime</td>
+                            <td class="next-process">@applicant.Applications[0].UpdateTime</td>
                             <!-- Calendar button -->
                             <td><button class="calendar-btn" data-applicant-id="@applicant.Id">Pick Date</button></td>
                         </tr>
@@ -122,7 +122,7 @@
             <div class="modal-footer">
                 <!-- Add an ID to the Save button -->
                 <button type="button" class="btn btn-primary" id="saveDateBtn">Save</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-secondary" id="cancelBtn" data-dismiss="modal">Cancel</button>
             </div>
         </div>
     </div>
