@@ -81,6 +81,8 @@ namespace Basecode.WebApp.Controllers
             {
                 // Fetch the applicant from the database based on the applicantId
                 var application = _applicationService.GetApplicationsById(applicantId);
+                var applicant = _applicantService.GetApplicantById(applicantId);
+                
 
                 if (application != null)
                 {
@@ -89,6 +91,9 @@ namespace Basecode.WebApp.Controllers
 
                     // Save the changes to the database
                     _applicationService.UpdateApplication(application);
+
+                    _hrScheduler.ScheduleInterview("N to fetch assigned Interviewer", "hrautomatesystem@outlook.com", applicant.Firstname,
+                                           applicant.Email, application.UpdateTime, "N to fetch JobOpening location");
 
                     // If the update is successful, return a JSON response indicating success
                     return Json(new { success = true });

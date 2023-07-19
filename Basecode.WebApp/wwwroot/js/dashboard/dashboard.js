@@ -6,8 +6,8 @@ $(".calendar-btn").click(function () {
     // Set the applicant ID in the modal's Save button data attribute
     $("#saveDateBtn").data("applicant-id", applicantId);
 
-    // Clear any previous date selection from the datepicker
-    $(".datepicker").val("");
+    // Set the minimum date for the datepicker to today
+    $(".datepicker").datepicker("setStartDate", new Date());
 
     // Open the modal
     $("#calendarModal").modal("show");
@@ -36,7 +36,7 @@ $("#saveDateBtn").click(function () {
                 console.log("Update successful!");
                 // For example, you can update the table row to display the new UpdateTime value:
                 var row = $("tr[data-application-id='" + applicantId + "']");
-                row.find("td:nth-child(7)").text(selectedDate);
+                row.find(".next-process").text(selectedDate); // Update the "Next Process" column (assuming it's the 7th column in the table)
             } else {
                 console.log("Update failed!");
             }
@@ -50,15 +50,25 @@ $("#saveDateBtn").click(function () {
     $("#calendarModal").modal("hide");
 });
 
-// Function to handle the "Close" icon click and "Cancel" button click in the modal
-$("#calendarModal").on("hidden.bs.modal", function () {
-    // Clear the datepicker value when the modal is closed
-    $(".datepicker").val("");
+// Function to handle the "Cancel" button click in the modal
+$("#cancelBtn").click(function () {
+    // Close the modal
+    $("#calendarModal").modal("hide");
+});
+
+// Function to handle the "Close" icon click
+$(".close").click(function () {
+    // Close the modal
+    $("#calendarModal").modal("hide");
 });
 
 // Initialize the datepicker
 $(".datepicker").datepicker({
-    format: "yyyy-mm-dd",
+    format: "mm-dd-yyyy", // Change the date format to mm-dd-yyyy
     autoclose: true,
-    todayHighlight: true
+    beforeShowDay: function (date) {
+        var selectedDate = $(".datepicker").val();
+        var currentDate = new Date(date.getFullYear(), date.getMonth(), date.getDate()).toISOString().slice(0, 10);
+        return currentDate == selectedDate ? 'highlighted' : '';
+    }
 });

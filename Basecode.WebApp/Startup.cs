@@ -63,7 +63,7 @@ namespace Basecode.WebApp
             this.ConfigureAuth(app);        // Configuration for Token Authentication
 
             // Use Hangfire dashboard
-            app.UseHangfireDashboard();
+            app.UseHangfireDashboard("/hangfire");
 
         }
     }
