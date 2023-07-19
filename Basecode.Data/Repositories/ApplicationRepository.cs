@@ -34,6 +34,11 @@ namespace Basecode.Data.Repositories
             return _context.Application.Find(id);
         }
 
+        public Application GetApplicationsById(int applicantId)
+        {
+            return _context.Application.FirstOrDefault(app => app.ApplicantId == applicantId);
+        }
+
         public void UpdateApplication(Application application)
         {
             _context.Application.Update(application);

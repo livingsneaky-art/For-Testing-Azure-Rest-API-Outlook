@@ -51,7 +51,7 @@ namespace Basecode.Services.Services
 
         public Application GetApplicationsById(int applicantId)
         {
-            return _context.Application.FirstOrDefault(app => app.ApplicantId == applicantId);
+            return _repository.GetApplicationsById(applicantId);
         }
 
         public void UpdateApplication(Application application)

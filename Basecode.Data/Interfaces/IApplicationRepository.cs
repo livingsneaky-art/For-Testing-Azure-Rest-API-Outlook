@@ -21,6 +21,8 @@ namespace Basecode.Data.Interfaces
 
         Application GetApplicationById(int id);
 
+        Application GetApplicationsById(int applicantId);
+
         /// <summary>
         /// Creates a new application entry.
         /// </summary>

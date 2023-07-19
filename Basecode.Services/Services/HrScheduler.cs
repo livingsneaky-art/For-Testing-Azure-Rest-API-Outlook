@@ -29,7 +29,7 @@ namespace Basecode.Services.Services
             // Schedule the email notification using Hangfire
             BackgroundJob.Schedule(() => SendInterviewNotification(interviewerName, interviewerEmail, applicantName,
                                                                    applicantEmail, interviewDate, interviewLocation),
-                                                                   TimeSpan.FromMinutes(1)); // Delay of 5 seconds
+                                                                   TimeSpan.FromSeconds(5)); // Delay of 5 seconds
         }
 
         public async Task SendInterviewNotification(string interviewerName, string interviewerEmail, string applicantName,
